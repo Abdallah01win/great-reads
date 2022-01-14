@@ -1,0 +1,14 @@
+@import 'variables';
+body{
+    //background: $mainBlack;
+    //color: $mainGray;
+
+    background: $mainGray;
+    color: $mainBlack;
+    
+font-family: 'Nunito', sans-serif;
+    h1{
+        font-family: 'Lusitana', serif;
+        text-transform: uppercase;
+    }
+}
