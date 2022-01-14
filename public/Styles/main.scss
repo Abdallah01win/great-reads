@@ -1,14 +1,26 @@
 @import 'variables';
-body{
-    //background: $mainBlack;
-    //color: $mainGray;
 
-    background: $mainGray;
-    color: $mainBlack;
-    
-font-family: 'Nunito', sans-serif;
+body{
+    background: var(--background);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+
     h1{
         font-family: 'Lusitana', serif;
         text-transform: uppercase;
     }
 }
+@media(prefers-color-scheme: dark){
+    :root{
+        --text: {var(--mainGray)};
+        --background: {var(--mainBlack)};
+        
+    }
+} 
+@media(prefers-color-scheme: light){
+    :root{
+        --text: {var(--mainBlack)};
+        --background: {var(--mainGray)};
+        
+    }
+} 

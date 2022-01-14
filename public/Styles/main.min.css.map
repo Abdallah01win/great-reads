@@ -1,10 +1,1 @@
-{
-    "version": 3,
-    "mappings": "AACA,AAAA,IAAI,AAAA,CAIA,UAAU,CCHH,OAAO,CDId,KAAK,CCLG,OAAO,CDOnB,WAAW,CAAE,oBAAoB,CAKhC,AAZD,AAQI,IARA,CAQA,EAAE,AAAA,CACE,WAAW,CAAE,iBAAiB,CAC9B,cAAc,CAAE,SAAS,CAC5B",
-    "sources": [
-        "main.scss",
-        "_variables.scss"
-    ],
-    "names": [],
-    "file": "main.min.css"
-}
+{"version":3,"sources":["_variables.scss","main.scss"],"names":[],"mappings":"AAAA,MACI,kBAAA,CACA,kBAAA,CACA,gBAAA,CAEA,wBAAA,CACA,oBAAA,CACA,mBAAA,CAEA,cAAA,CACA,kBAAA,CACA,iBAAA,CAEA,0BAAA,CACA,+BAAA,CCZJ,KACI,4BAAA,CACA,iBAAA,CACA,+BAAA,CAEA,QACI,4BAAA,CACA,wBAAA,CAGR,mCACI,MACI,yBAAA,CACA,gCAAA,CAAA,CAIR,oCACI,MACI,0BAAA,CACA,+BAAA,CAAA","file":"main.min.css"}
