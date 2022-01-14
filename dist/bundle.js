@@ -26,7 +26,7 @@ eval("const cons = 'hello world from firebase module';\r\nmodule.exports = {cons
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _app_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app/firebase */ \"./src/app/firebase.js\");\n/* harmony import */ var _app_firebase__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_app_firebase__WEBPACK_IMPORTED_MODULE_0__);\n\r\nconsole.log('from bindel.js');\r\nconsole.log('from compiled with live reloding devserver');\n\n//# sourceURL=webpack://book-store/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _app_firebase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./app/firebase */ \"./src/app/firebase.js\");\n/* harmony import */ var _app_firebase__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_app_firebase__WEBPACK_IMPORTED_MODULE_0__);\n\r\n//import { button } from \"./app/getbooks\" \r\nconsole.log('from bindel.js');\r\nconsole.log('from compiled with live reloding devserver');\n\n//# sourceURL=webpack://book-store/./src/index.js?");
 
 /***/ })
 

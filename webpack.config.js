@@ -9,6 +9,5 @@ module.exports = {
     },
     devServer: {
         writeToDisk: true
-    },
-    watch: true,
+    }
 }
