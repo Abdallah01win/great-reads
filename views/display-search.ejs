@@ -1,0 +1,24 @@
+<main>
+    <h1>Express serving ejs on port 2000</h1>
+    <div>
+        <% for( let i=0; i < books.length; i++ ) { %>
+            <% if (books[i].volumeInfo.imageLinks) { %>
+                <img src=<%=books[i].volumeInfo.imageLinks.thumbnail %> alt="">
+                <% } %>
+                    <h3>
+                        <%= books[i].volumeInfo.title %>
+                    </h3>
+                    <h5>
+                        <%= books[i].volumeInfo.authors %>
+                    </h5>
+                    <div>
+                        <span>
+                            <%= books[i].volumeInfo.pageCount %>
+                                <%= books[i].volumeInfo.categories %>
+                                    <%= books[i].id %>
+                        </span>
+                    </div>
+                    <% } %>
+
+    </div>
+    </main>

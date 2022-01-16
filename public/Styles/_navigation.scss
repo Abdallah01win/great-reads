@@ -1,0 +1,83 @@
+.navBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.4rem 6.4rem;
+    font-size: 2rem;
+    //background: var(--lightBlack);
+    //border-bottom: solid 1px black;
+    .btn {
+        padding: 0.8rem 1.6rem;
+        cursor: pointer;
+        font-size: inherit;
+        background: none;
+        border: solid 1px var(--text);
+        color: var(--text);
+        display: grid;
+        place-content: center;
+        transition: all 200ms ease-out;
+        &:hover {
+            background: var(--hover2);
+        }
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+    .navBar__item {
+        &--logo {
+            font-family: "Lusitana", serif;
+            font-size: 3rem;
+            span {
+                font-weight: 700;
+                &:first-of-type {
+                    font-weight: 400;
+                }
+            }
+        }
+        &--search {
+            width: 35%;
+            display: flex;
+            justify-content: center;
+            input {
+                padding: 0.8rem 1.6rem;
+                font-size: 1.8rem;
+                color: var(--text);
+                width: 88%;
+                border: solid 1px var(--text);
+                border-right: none;
+                outline: none;
+                font-family: "Nunito", sans-serif;
+                &::-webkit-input-placeholder {
+                    font-family: "Nunito", sans-serif;
+                }
+            }
+        }
+        &--profile {
+            display: flex;
+            column-gap: 2rem;
+            button {
+                @extend .btn;
+                border-radius: 5000px;
+                padding: 1.2rem;
+            }
+            .profile__image {
+                cursor: pointer;
+                border-radius: 5000px;
+                background: var(--text);
+                color: var(--background);
+                transition: all 200ms ease-out;
+                &:hover {
+                    background: var(--hover1);
+                }
+                &:active {
+                    transform: scale(0.9);
+                }
+                .icon {
+                    padding: 1.2rem;
+                    display: grid;
+                    place-content: center;
+                }
+            }
+        }
+    }
+}

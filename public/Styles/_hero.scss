@@ -1,0 +1,57 @@
+.hero {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 4rem;
+    height: calc(100vh - 9.4rem);
+    padding: 6.4rem 9.6rem;
+    .sqr-btn {
+        font-family: "Lusitana", serif;
+        font-size: 2rem;
+        padding: 1.6rem 3.2rem;
+        border: solid 1px var(--text);
+        display: inline-block;
+        text-transform: uppercase;
+        font-weight: 500;
+        transition: all 200ms ease-out;
+        &:hover {
+            background: var(--hover2);
+        }
+        &:active {
+            transform: scale(0.9);
+        }
+    }
+    &__text {
+        //align-self: center;
+        h1 {
+            font-family: "Lusitana", serif;
+            text-transform: uppercase;
+            font-size: 5.2rem;
+            font-weight: 700;
+            margin-bottom: 3.2rem;
+        }
+        p {
+            font-size: 2rem;
+            margin-bottom: 2.4rem;
+            line-height: 1.6;
+            //letter-spacing: 0.15rem;
+        }
+        a {
+            @extend .sqr-btn;
+            &:first-of-type {
+                background: var(--text);
+                color: var(--background);
+                border: none;
+                margin-right: 1.6rem;
+                &:hover {
+                    background: var(--hover1);
+                }
+            }
+        }
+    }
+    &__image {
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
