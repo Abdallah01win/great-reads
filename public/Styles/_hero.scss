@@ -3,7 +3,8 @@
     grid-template-columns: repeat(2, 1fr);
     column-gap: 4rem;
     height: calc(100vh - 9.4rem);
-    padding: 6.4rem 9.6rem;
+    padding: 8rem 9.6rem;
+    height: fit-content;
     .sqr-btn {
         font-family: "Lusitana", serif;
         font-size: 2rem;
@@ -21,7 +22,6 @@
         }
     }
     &__text {
-        //align-self: center;
         h1 {
             font-family: "Lusitana", serif;
             text-transform: uppercase;
@@ -33,7 +33,6 @@
             font-size: 2rem;
             margin-bottom: 2.4rem;
             line-height: 1.6;
-            //letter-spacing: 0.15rem;
         }
         a {
             @extend .sqr-btn;
@@ -51,7 +50,6 @@
     &__image {
         img {
             width: 100%;
-            height: 100%;
         }
     }
 }

@@ -6,6 +6,9 @@
         text-decoration: none;
         color: inherit;
     }
+    ul, ol{
+        list-style: none;
+    }
 }
 html {
     font-size: 62.5%;
@@ -26,7 +29,6 @@ body {
     background-color: var(--background);
     color: var(--text);
     font-family: "Nunito", sans-serif;
-    
 }
 
 

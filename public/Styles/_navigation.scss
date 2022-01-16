@@ -4,8 +4,6 @@
     align-items: center;
     padding: 2.4rem 6.4rem;
     font-size: 2rem;
-    //background: var(--lightBlack);
-    //border-bottom: solid 1px black;
     .btn {
         padding: 0.8rem 1.6rem;
         cursor: pointer;
@@ -42,6 +40,7 @@
                 padding: 0.8rem 1.6rem;
                 font-size: 1.8rem;
                 color: var(--text);
+                background: var(--background);
                 width: 88%;
                 border: solid 1px var(--text);
                 border-right: none;
@@ -60,24 +59,24 @@
                 border-radius: 5000px;
                 padding: 1.2rem;
             }
-            .profile__image {
-                cursor: pointer;
-                border-radius: 5000px;
-                background: var(--text);
-                color: var(--background);
-                transition: all 200ms ease-out;
-                &:hover {
-                    background: var(--hover1);
-                }
-                &:active {
-                    transform: scale(0.9);
-                }
-                .icon {
-                    padding: 1.2rem;
-                    display: grid;
-                    place-content: center;
-                }
-            }
+        }
+    }
+    .profile__image {
+        cursor: pointer;
+        border-radius: 5000px;
+        background: var(--text);
+        color: var(--background);
+        transition: all 200ms ease-out;
+        &:hover {
+            background: var(--hover1);
+        }
+        &:active {
+            transform: scale(0.9);
+        }
+        .icon {
+            padding: 1.2rem;
+            display: grid;
+            place-content: center;
         }
     }
 }
