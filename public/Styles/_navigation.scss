@@ -1,29 +1,13 @@
+
 .navBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 2.4rem 6.4rem;
     font-size: 2rem;
-    .btn {
-        padding: 0.8rem 1.6rem;
-        cursor: pointer;
-        font-size: inherit;
-        background: none;
-        border: solid 1px var(--text);
-        color: var(--text);
-        display: grid;
-        place-content: center;
-        transition: all 200ms ease-out;
-        &:hover {
-            background: var(--hover2);
-        }
-        &:active {
-            transform: scale(0.9);
-        }
-    }
     .navBar__item {
         &--logo {
-            font-family: "Lusitana", serif;
+            font-family: $pri-font;
             font-size: 3rem;
             span {
                 font-weight: 700;
@@ -36,20 +20,9 @@
             width: 35%;
             display: flex;
             justify-content: center;
-            input {
-                padding: 0.8rem 1.6rem;
-                font-size: 1.8rem;
-                color: var(--text);
-                background: var(--background);
-                width: 88%;
-                border: solid 1px var(--text);
-                border-right: none;
-                outline: none;
-                font-family: "Nunito", sans-serif;
-                &::-webkit-input-placeholder {
-                    font-family: "Nunito", sans-serif;
-                }
-            }
+            /*input {
+            
+            }*/
         }
         &--profile {
             display: flex;

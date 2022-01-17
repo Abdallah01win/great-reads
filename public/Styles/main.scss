@@ -13,9 +13,12 @@
 html {
     font-size: 62.5%;
 }
+
 @import "variables";
+@import "uttiles";
 @import "navigation";
 @import "hero";
+@import "signup-form";
 .darkTheme {
     --text: #f1f2f6;
     --background: #1b1c1e;
@@ -28,7 +31,7 @@ html {
 body {
     background-color: var(--background);
     color: var(--text);
-    font-family: "Nunito", sans-serif;
+    font-family: $sec-font;
 }
 
 

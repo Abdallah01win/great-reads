@@ -1,0 +1,56 @@
+.btn {
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    font-size: inherit;
+    background: none;
+    border: solid 1px var(--text);
+    color: var(--text);
+    display: grid;
+    place-content: center;
+    transition: all 200ms ease-out;
+    &:hover {
+        background: var(--hover2);
+    }
+    &:active {
+        transform: scale(0.9);
+    }
+}
+.sqr-btn {
+    font-family: $pri-font;
+    font-size: 2rem;
+    padding: 1.6rem 3.2rem;
+    border: solid 1px var(--text);
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: all 200ms ease-out;
+    &:hover {
+        background: var(--hover2);
+    }
+    &:active {
+        transform: scale(0.9);
+    }
+    &:first-of-type {
+        background: var(--text);
+        color: var(--background);
+        border: none;
+        margin-right: 1.6rem;
+        &:hover {
+            background: var(--hover1);
+        }
+    }
+}
+.text-input {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.8rem;
+    color: var(--text);
+    background: var(--background);
+    width: 88%;
+    border: solid 1px var(--text);
+    border-right: none;
+    outline: none;
+    font-family: $sec-font;
+    &::-webkit-input-placeholder {
+        font-family: $sec-font;
+    }
+}

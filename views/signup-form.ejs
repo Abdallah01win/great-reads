@@ -1,20 +1,40 @@
-<form action="" class="form" id="signUp">
-    <!-- add a wellcomin msg -->
-    <h3 class="form__title">Sign Up</h3>
-    <div class="form__input">
-        <label for="email" >Email</label>
-        <input type="email" name="email" id="email" placeholder="Email">
+<form action="" method="post" class="form" id="signUp">
+    <h3 class="form__title">Wellcome to Great Reads</h3>
+    <p class="form__discription">Sign Up Using one of the follwing options:</p>
+    <div class="form__options">
+        <button class="form__options--goole btn">
+            <ion-icon name="logo-google"></ion-icon>
+        </button>
+        <button class="form__options--facebook btn">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </button>
+        <button class="form__options--Apple btn">
+            <ion-icon name="logo-apple"></ion-icon>
+        </button>
+    </div>
+    <div class="break">
+        <span>
+            <hr width=>
+        </span> <span class="text">OR</span> <span>
+            <hr width=>
+        </span>
     </div>
     <div class="form__input">
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" placeholder="Password">
+        <div class="form__input--feild">
+            <label for="email">Email</label>
+            <input class="text-input" type="email" name="email" id="email" placeholder="Email">
+        </div>
+        <div class="form__input--feild">
+            <label for="password">Password</label>
+            <input class="text-input" type="password" name="password" id="password" placeholder="Password">
+        </div>
+        <div class="form__input--feild">
+            <label for="c-password">Comfirm Password</label>
+            <input class="text-input" type="password" name="c-password" id="cPassword" placeholder="Comfirm Password">
+        </div>
     </div>
-    <div class="form__input">
-        <label for="c-password">Comfirm Password</label>
-        <input type="c-password" name="c-password" id="cPassword" placeholder="Comfirm Password">
+    <div class="form__buttons">
+        <button class="form__buttons--submit" type="submit">Signup Now</button>
+        <a class="form__buttons--login" href="">Already have an account?</a>
     </div>
-   <!-- make a chekbox for terms and conditions-->
-   <!-- make a chekbox for staying logged in-->
-    <button class=".sqr-btn">Signup Now</button>
-    <a href="">Already have an account?</a>
 </form>

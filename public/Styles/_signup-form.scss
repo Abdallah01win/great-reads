@@ -1,0 +1,75 @@
+//@import "uttiles";
+.form {
+    padding: 8rem 9.6rem;
+    font-size: 2rem;
+    width: 70%;
+    margin: 0 auto;
+    &__title {
+        font-size: 4.4rem;
+        text-align: center;
+        font-family: $pri-font;
+        margin-bottom: 1.2rem;
+    }
+    &__discription {
+        text-align: center;
+        font-size: 2.4rem;
+        margin-bottom: 3.2rem;
+    }
+    &__options {
+        display: flex;
+        column-gap: 4rem;
+        justify-content: center;
+        button {
+            font-size: 3rem;
+            border-radius: 5000px;
+            padding: 1.6rem;
+        }
+    }
+    .break{
+        display: flex;
+        align-items: center;
+        margin: 1.6rem auto 0 auto;
+        width: fit-content;
+        hr{
+            width: 10rem;
+        }
+        .text{
+            margin: 1.2rem;
+        }
+    }
+    &__input {
+        display: flex;
+        flex-direction: column;
+        row-gap: 2.4rem;
+        width: 100%;
+        
+        &--feild {
+            display: flex;
+            flex-direction: column;
+            row-gap: 1.2rem;
+            &:last-of-type{
+                margin-bottom: 3.2rem;
+            }
+        }
+        input {
+            border-right: solid 1px var(--text);
+            width: 100%;
+        }
+        
+    }
+    &__buttons{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        &--submit{
+            @extend .sqr-btn;
+            margin-right: 0;
+        }
+        &--login{
+            &:hover{
+                border-bottom: 1px solid var(--text);
+                transition: all 200ms ease-out;
+            }
+        }
+    }
+}
