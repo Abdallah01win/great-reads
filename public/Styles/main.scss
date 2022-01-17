@@ -32,8 +32,25 @@ body {
     background-color: var(--background);
     color: var(--text);
     font-family: $sec-font;
+    position: relative;
 }
-
+.hide-form{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: -150%;
+    left: -50%;
+    transform: translate(50%, 50%);
+}
+.show-form{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    //transform: translateX(50%);
+    
+    opacity: 1;
+    visibility: visible;
+}
 
 .nav {
     display: flex;

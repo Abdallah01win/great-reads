@@ -1,3 +1,4 @@
+import e from "express";
 import { cons } from "./app/firebase";
 //import { button } from "./app/getbooks" 
 console.log('from bindel.js');
@@ -32,4 +33,22 @@ themeSwitch.addEventListener('click', ()=>{
         disableDarkTheme();
         themeSwitch.innerHTML = "<ion-icon name='moon-outline'></ion-icon>"
     }
+})
+
+
+const signUpBtn = document.getElementById('signUp');
+const logInBtn = document.getElementById('logIn');
+const signUpForm = document.getElementById('si-form-section');
+const logInForm = document.getElementById('lo-form-section');
+
+signUpBtn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    signUpForm.classList.remove('hide-form');
+    signUpForm.classList.add('show-form');
+})
+
+logInBtn.addEventListener('click', ()=>{
+    e.preventDefault();
+    logInForm.classList.remove('hide-form');
+    logInForm.classList.add('show-form');
 })
