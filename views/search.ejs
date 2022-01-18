@@ -3,29 +3,34 @@
 <%- include('head') %> 
 <body>
     <%- include('navigation') %> 
-
-    <div>
+<div class="shelv">
+    
         <% for( let i=0; i < newArray.length; i++ ) { %>
+            <!-- href will take an ejs predefined func that also takes newArray[i].id as an argument ad passes makes an api request to google -->
+            <a href class="shelv__book">
             <% if (newArray[i].volumeInfo.imageLinks) { %>
-                <img src=<%=newArray[i].volumeInfo.imageLinks.thumbnail %> alt="">
+                <img class="shelv__book--cover" src=<%=newArray[i].volumeInfo.imageLinks.thumbnail %> alt="">
                 <% } %>
-                    <h3>
-                        <%= newArray[i].volumeInfo.title %>
+                    <h3 class="shelv__book--title">
+                        <% if (newArray[i].volumeInfo.title.length >= 28) { %>
+                        <%= newArray[i].volumeInfo.title.substring(0,28) + "..." %> 
+                        <% } else { %>
+                            <%= newArray[i].volumeInfo.title %>
+                        <% } %>
+                         
                     </h3>
-                    <h5>
-                        <%= newArray[i].volumeInfo.authors %>
+                    <h5 class="shelv__book--author">
+                        <% if (newArray[i].volumeInfo.authors) { %>
+                            <%= newArray[i].volumeInfo.authors %>
+                            <% } %>
+                            
+                            
                     </h5>
-                    <div>
-                        <span>
-                            <%= newArray[i].volumeInfo.pageCount %>
-                                <%= newArray[i].volumeInfo.categories %>
-                                    <%= newArray[i].id %>
-                        </span>
-                    </div>
+                </a>
                     <% } %>
-
+            
     </div>
-
+</div>
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

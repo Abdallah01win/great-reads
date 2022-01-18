@@ -1,0 +1,23 @@
+.shelv{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 3.2rem;
+    row-gap: 4rem;
+    margin: 8rem;
+    &__book{
+        text-align: center;
+        border: solid 1px var(--text);
+        &--cover{
+            width: 100%;
+            height: 26.5rem;
+        }
+        &--title{
+            font-family: $pri-font;
+            font-size: 2rem;
+            margin: 1.6rem 0rem;
+        }
+        &--author{
+            font-size: 1.6rem;
+        }
+    }
+}

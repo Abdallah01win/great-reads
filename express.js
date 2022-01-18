@@ -29,9 +29,8 @@ app.post('/search', urlencodedParser, async (req, res) => {
     const dataa = await wait(req.body.search);
     const books = dataa.data.items
     const newArray = books.filter(book =>{
-        if(book.volumeInfo.publishedDate){
-            console.log(book.volumeInfo.publishedDate.substring(0, 4))
-            /*return book.volumeInfo.categories === "fiction" &&*/ return parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1970;
+        if(book.volumeInfo.publishedDate && book.volumeInfo.imageLinks){
+            return book.volumeInfo.imageLinks.thumbnail &&  parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
         }
     })
     //console.log(newArray);
