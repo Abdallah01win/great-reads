@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { cons } = require('./src/app/firebase');
-const {wait} = require('./src/app/getbooks')
+//const {wait} = require('./src/app/getbooks')
 const app = express();
 
 
@@ -19,10 +19,10 @@ app.use(express.static(path.join(__dirname, ('dist'))));
 
 //Routs
 app.get('/', async (req, res) => {
-const dataa = await wait();
+/*const dataa = await wait();
 const books = dataa.data.items
-console.log(dataa)
-res.render('index', {cons, books})
+console.log(dataa)*/
+res.render('index', {cons, /*books*/})
 })
 
 
