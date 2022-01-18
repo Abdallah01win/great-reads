@@ -1,7 +1,8 @@
 const express = require('express');
 const path = require('path');
 const { cons } = require('./src/app/firebase');
-//const {wait} = require('./src/app/getbooks')
+const {wait} = require('./src/app/getbooks')
+const bodyParser = require('body-parser');
 const app = express();
 
 
@@ -16,13 +17,25 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, ('public'))));
 app.use(express.static(path.join(__dirname, ('dist'))));
 
+//Body Parser
+const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 //Routs
 app.get('/', async (req, res) => {
-/*const dataa = await wait();
-const books = dataa.data.items
-console.log(dataa)*/
-res.render('index', {cons, /*books*/})
+    res.render('index', { cons })
+})
+app.post('/search', urlencodedParser, async (req, res) => {
+    //console.log(req.body.search);
+    const dataa = await wait(req.body.search);
+    const books = dataa.data.items
+    const newArray = books.filter(book =>{
+        if(book.volumeInfo.publishedDate){
+            console.log(book.volumeInfo.publishedDate.substring(0, 4))
+            /*return book.volumeInfo.categories === "fiction" &&*/ return parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1970;
+        }
+    })
+    //console.log(newArray);
+    res.render('search', {newArray})
 })
 
 

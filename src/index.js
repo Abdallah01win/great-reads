@@ -41,23 +41,26 @@ const signUpForm = document.getElementById('si-form-section');
 const logInForm = document.getElementById('lo-form-section');
 const closeBtn = document.getElementsByClassName('form__close');
 
-signUpBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    signUpForm.classList.remove('hide-form');
-    signUpForm.classList.add('show-form');
-})
 
-logInBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    logInForm.classList.remove('hide-form');
-    logInForm.classList.add('show-form');
-})
-
-for (let i = 0; i < closeBtn.length; i++) {
-    closeBtn[i].addEventListener('click', () => {
-        logInForm.classList.remove('show-form');
-        logInForm.classList.add('hide-form');
-        signUpForm.classList.remove('show-form');
-        signUpForm.classList.add('hide-form');
+if (signUpBtn) {
+    signUpBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        signUpForm.classList.remove('hide-form');
+        signUpForm.classList.add('show-form');
     })
+
+    logInBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        logInForm.classList.remove('hide-form');
+        logInForm.classList.add('show-form');
+    })
+
+    for (let i = 0; i < closeBtn.length; i++) {
+        closeBtn[i].addEventListener('click', () => {
+            logInForm.classList.remove('show-form');
+            logInForm.classList.add('hide-form');
+            signUpForm.classList.remove('show-form');
+            signUpForm.classList.add('hide-form');
+        })
+    }
 }
