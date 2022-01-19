@@ -37,6 +37,8 @@ themeSwitch.addEventListener('click', () => {
 
 const signUpBtn = document.getElementById('signUp');
 const logInBtn = document.getElementById('logIn');
+const signUpSwitchBtn = document.getElementById('form-swich-signup');
+const logInSwitchBtn = document.getElementById('form-swich-login');
 const signUpForm = document.getElementById('si-form-section');
 const logInForm = document.getElementById('lo-form-section');
 const closeBtn = document.getElementsByClassName('form__close');
@@ -63,4 +65,31 @@ if (signUpBtn) {
             signUpForm.classList.add('hide-form');
         })
     }
+    signUpSwitchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        signUpForm.classList.remove('show-form');
+        signUpForm.classList.add('hide-form');
+        logInForm.classList.remove('hide-form');
+        logInForm.classList.add('show-form');
+    })
+    logInSwitchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        logInForm.classList.add('hide-form');
+        logInForm.classList.remove('show-form');
+        signUpForm.classList.add('show-form');
+        signUpForm.classList.remove('hide-form');
+    })
 }
+
+/// which book was clicked
+
+//const books = document.querySelectorAll('.shelv');
+
+/*if (books) {
+    for (let i = 0; i < books.length; i++) {
+        books[i].addEventListener('click', function(){
+             
+        })
+        
+    }
+}*/

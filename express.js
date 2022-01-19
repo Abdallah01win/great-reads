@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { cons } = require('./src/app/firebase');
-const {wait} = require('./src/app/getbooks')
+const { wait } = require('./src/app/getbooks')
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -28,13 +28,20 @@ app.post('/search', urlencodedParser, async (req, res) => {
     //console.log(req.body.search);
     const dataa = await wait(req.body.search);
     const books = dataa.data.items
-    const newArray = books.filter(book =>{
-        if(book.volumeInfo.publishedDate && book.volumeInfo.imageLinks){
-            return book.volumeInfo.imageLinks.thumbnail &&  parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
+    const newArray = books.filter(book => {
+        if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
+            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
         }
     })
-    //console.log(newArray);
-    res.render('search', {newArray})
+    const getId = (bookArray) => {
+        bookArray.forEach(book => {
+            book.addEventListener('click', ()=>{
+                console.log(book.id);
+            })
+        });
+
+    }
+    res.render('search', { newArray, getId })
 })
 
 
