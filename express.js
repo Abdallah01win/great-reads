@@ -1,10 +1,9 @@
 const express = require('express');
 const path = require('path');
-const { cons } = require('./src/app/firebase');
+//const cons = require('./src/app/firebase')
 const { wait } = require('./src/app/getbooks')
 const bodyParser = require('body-parser');
 const app = express();
-
 
 //webpack set up
 const webpack = require('webpack');
@@ -20,12 +19,13 @@ app.use(express.static(path.join(__dirname, ('dist'))));
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+
 //Routs
 app.get('/', async (req, res) => {
-    res.render('index', { cons })
+    res.render('index')
 })
+// Search Rout
 app.post('/search', urlencodedParser, async (req, res) => {
-    //console.log(req.body.search);
     const dataa = await wait(req.body.search);
     const books = dataa.data.items
     const newArray = books.filter(book => {
@@ -43,7 +43,13 @@ app.post('/search', urlencodedParser, async (req, res) => {
     }
     res.render('search', { newArray, getId })
 })
+const jsonParcer = bodyParser.json()
 
+app.post('/users',jsonParcer, (req, res)=>{
+    let activeUser = JSON.stringify(req.body);
+    res.status(201).end();
+    console.log(activeUser)
+})
 
 app.listen(process.env.PORT || 6700, () => {
     console.log('listening on env port or 6600')

@@ -1,9 +1,10 @@
-//import e from "express";
-import { cons } from "./app/firebase";
+//import { cons, user } from "./app/firebase.js";
+const {cons} = require('./app/firebase.js')
+//import { cons } from './app/firebase';
 //import { button } from "./app/getbooks" 
 console.log('from bindel.js');
 console.log('from compiled with live reloding devserver');
-
+console.log(cons)
 const themeSwitch = document.getElementById('darkThemeToggle');
 const root = document.querySelector(':root');
 let darkTheme = localStorage.getItem("darkTheme")
