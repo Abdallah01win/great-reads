@@ -33,13 +33,14 @@ if (signupForm) {
         const password = signupForm.password.value;
         createUserWithEmailAndPassword(auth, email, password)
             .then((cred) => {
-                function sendUser(){
+                function sendUser() {
                     let user = axios.post('/users', cred.user)
                     return user
                 }
                 sendUser()
+                window.location.href = "/profile"
             })
-            signupForm.reset();
+        signupForm.reset();
     })
 }
 

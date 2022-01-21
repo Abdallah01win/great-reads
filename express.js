@@ -18,6 +18,7 @@ app.use(express.static(path.join(__dirname, ('dist'))));
 
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
+const jsonParser = bodyParser.json()
 
 
 //Routs
@@ -35,7 +36,7 @@ app.post('/search', urlencodedParser, async (req, res) => {
     })
     const getId = (bookArray) => {
         bookArray.forEach(book => {
-            book.addEventListener('click', ()=>{
+            book.addEventListener('click', () => {
                 console.log(book.id);
             })
         });
@@ -43,12 +44,14 @@ app.post('/search', urlencodedParser, async (req, res) => {
     }
     res.render('search', { newArray, getId })
 })
-const jsonParcer = bodyParser.json()
 
-app.post('/users',jsonParcer, (req, res)=>{
-    let activeUser = JSON.stringify(req.body);
-    res.status(201).end();
+
+app.post('/users', jsonParser, async (req, res) => {
+    activeUser = await req.body;
     console.log(activeUser)
+})
+app.get('/profile', (req, res, next) => {
+    res.render('profile', { activeUser });
 })
 
 app.listen(process.env.PORT || 6700, () => {

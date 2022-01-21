@@ -83,6 +83,9 @@ if (signUpBtn) {
 }
 
 /// which book was clicked
+// 1. loop over the books and atach click event listeners
+// 2. get Id of book 
+// 3. send a post request to the rout
 
 //const books = document.querySelectorAll('.shelv');
 
