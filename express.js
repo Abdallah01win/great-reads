@@ -34,13 +34,16 @@ app.post('/search', urlencodedParser, async (req, res) => {
             return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
         }
     })
+    // we can map the results from the api by their IDs and return an array of just IDs 
+    // then we can get the index of the the element that was clicked and match it with the index in the IDs array
+
+    // or add an eventlistener to each book and send a post request with the book ID when it's fired.
     const getId = (bookArray) => {
         bookArray.forEach(book => {
             book.addEventListener('click', () => {
                 console.log(book.id);
             })
         });
-
     }
     res.render('search', { newArray, getId })
 })
@@ -48,9 +51,11 @@ app.post('/search', urlencodedParser, async (req, res) => {
 
 app.post('/users', jsonParser, async (req, res) => {
     activeUser = await req.body;
-    console.log(activeUser)
+    res.status(200).end()
+    console.log(activeUser[1])
 })
-app.get('/profile', (req, res, next) => {
+app.get('/profile', (req, res) => {
+    //fetch the data of the user using Document ID
     res.render('profile', { activeUser });
 })
 
