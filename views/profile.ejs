@@ -1,16 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('head') %> 
+<%- include('head') %>
 
-<body>
-    <%- include('navigation') %>
+    <body>
+        <%- include('navigation') %>
+            <main class="profile">
+                <%- include('sideNav') %>
+                    <div class="profile__info">
+                        <div class="profile__img">
+                                <div class="profile__uploadImg ">
+                                    <ion-icon class="icon" name="person-outline" ></ion-icon>
+                                </div>
+                            <button class="sqr-btn">Upload Image</button>
+                        </div>
+                        <form action="" class="profile__form">
 
-    <h1><%= activeUser.uid %> </h1>
-    <h1><%= activeUser.email %> </h1>
-    
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                            <div class="form__input--feild">
+                                <label for="fName">First Name</label>
+                                <input class="text-input" type="text" name="fName" placeholder="First Name">
+                            </div>
+                            <div class="form__input--feild">
+                                <label for="lName">Password</label>
+                                <input class="text-input" type="text" name="lName" placeholder="Last Name">
+                            </div>
+                            <button class="sqr-btn" type="submit">Save</button>
+                        </form>
+                    </div>
+            </main>
+            <!-- fIRST name -->
+            <!-- LAST NAME -->
+            <!-- profile image -->
+            <h1>
+                <%= userInfo.uid %>
+            </h1>
+            <h1>
+                <%= userInfo.email %>
+            </h1>
+            </form>
+            <div>
+                <% for(const property in collectionInfo){ %>
+                    <ul>
+                        <% for( let i=0; i < collectionInfo[property].length; i++ ) { %>
+                            <li>
+                                <%= collectionInfo[property][i]%>
+                            </li>
+
+                            <% } %>
+                    </ul>
+                    <% } %>
+            </div>
+
+
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
             <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
             <script src="bundle.js"></script>
-</body>
+    </body>
+
 </html>

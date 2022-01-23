@@ -20,6 +20,9 @@
             width: 35%;
             display: flex;
             justify-content: center;
+            .text-input{
+                border-right: none;
+            }
             /*input {
             
             }*/

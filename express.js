@@ -41,7 +41,7 @@ app.post('/search', urlencodedParser, async (req, res) => {
     const getId = (bookArray) => {
         bookArray.forEach(book => {
             book.addEventListener('click', () => {
-                console.log(book.id);
+                //console.log(book.id);
             })
         });
     }
@@ -50,13 +50,16 @@ app.post('/search', urlencodedParser, async (req, res) => {
 
 
 app.post('/users', jsonParser, async (req, res) => {
-    activeUser = await req.body;
+    const activeUser = await req.body;
     res.status(200).end()
-    console.log(activeUser[1])
+    userInfo = activeUser[0]
+    collectionInfo = activeUser[1]
+    //console.log(userInfo)
+    console.log(collectionInfo)
 })
 app.get('/profile', (req, res) => {
     //fetch the data of the user using Document ID
-    res.render('profile', { activeUser });
+    res.render('profile', {userInfo, collectionInfo});
 })
 
 app.listen(process.env.PORT || 6700, () => {

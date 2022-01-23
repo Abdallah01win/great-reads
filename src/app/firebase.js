@@ -11,7 +11,7 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc} = require('firebase/firestore')
+    doc } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
@@ -54,24 +54,23 @@ if (signupForm) {
                         "The Gambler"
                     ],
                     favorits: []
-                }).then( async()=>{
+                }).then(async () => {
 
                     const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
                     const docSnap = await getDoc(docRef);
-                    
-                    if (docSnap.exists()) {
-                       return userData = docSnap.data();
-                      } else {
-                        console.log("No such document!");
-                      }
 
+                    if (docSnap.exists()) {
+                        userData = docSnap.data();
+                        console.log(userData)
+                    } else {
+                        console.log("No such document!");
+                    }
                 })
-                
-                
+
                 function sendUser() {
-                    let user = axios.post('/users', cred.user)
-                    let userD = axios.post('/users', userData)
-                    return user && userD
+                    active = [cred.user, userData]
+                    let user = axios.post('/users', active)
+                    return active
                 }
                 sendUser()
                 window.location.href = "/profile"
