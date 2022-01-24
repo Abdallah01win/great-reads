@@ -54,7 +54,7 @@ app.post('/users', jsonParser, async (req, res) => {
     res.status(200).end()
     userInfo = activeUser[0]
     collectionInfo = activeUser[1]
-    //console.log(userInfo)
+    console.log(userInfo)
     console.log(collectionInfo)
 })
 app.get('/profile', (req, res) => {

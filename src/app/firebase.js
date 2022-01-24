@@ -2,7 +2,15 @@
 import { getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
-signOut} from "firebase/auth";*/
+signOut} from "firebase/auth";
+import {getFirestore,
+    collection,
+    addDoc,
+    setDoc,
+    getDocs,
+    getDoc,
+    doc} from "firebase/firestore"*/
+
 const { default: axios } = require('axios');
 const { initializeApp } = require('firebase/app');
 const { getFirestore,
@@ -35,6 +43,7 @@ const auth = getAuth();
 
 const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUp');
+
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -65,7 +74,47 @@ if (signupForm) {
                     } else {
                         console.log("No such document!");
                     }
+                    function sendUser() {
+                        active = [cred.user, userData]
+                        let user = axios.post('/users', active)
+                        return active
+                    }
+                    sendUser()
                 })
+                window.location.href = "/profile"
+            })
+        signupForm.reset();
+    })
+}
+
+const logOutBtn = document.getElementById('logOutBtn');
+if (logOutBtn) {
+    logOutBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        console.log('clicked')
+        signOut(auth)
+            .then(() => {
+                console.log('user sined out')
+            })
+    })
+}
+
+const logInForm = document.getElementById('login');
+if (logInForm) {
+    logInForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = logInForm.email.value
+        const password = logInForm.password.value
+        signInWithEmailAndPassword(auth, email, password)
+            .then(async (cred) => {
+                const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData = docSnap.data();
+                    console.log(userData)
+                } else {
+                    console.log("No such document!");
+                }
 
                 function sendUser() {
                     active = [cred.user, userData]
@@ -78,5 +127,3 @@ if (signupForm) {
         signupForm.reset();
     })
 }
-
-
