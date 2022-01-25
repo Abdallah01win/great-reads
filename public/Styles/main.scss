@@ -19,7 +19,10 @@ html {
 @import "navigation";
 @import "hero";
 @import "signup-form";
+@import "profile";
+@import "sideNav";
 @import "search";
+
 .darkTheme {
     --text: #f1f2f6;
     --background: #1b1c1e;
@@ -52,54 +55,4 @@ body {
     opacity: 1;
     visibility: visible;
 }
-.profile{
-    display: grid;
-    grid-template-columns: 20rem 1fr;
-    &__info{
-        display: grid;
-        grid-template-columns: 0.7fr 1fr;
-    }
-    &__form{
-        padding: 3.2rem;
-        grid-column: 2/3;
-    }
-    &__uploadImg{
-        .icon{
-            
-        }
-        color: var(--background);
-        padding: 4.8rem;
-        font-size: 3.6rem;
-        //width: fit-content;
-        display: grid;
-        place-content: center;
-        width: fit-content;
-        height: fit-content;
-        background: var(--text);
-        border-radius: 5000px;
-    }
-}
-.nav {
-    display: inline-flex;
-    flex-direction: column;
-    row-gap: 1.6rem;
-    height: calc(100vh - 9.4rem);
-    width: 200px;
-    padding: 1.8rem 2rem 2.4rem;
-    &__item {
-        display: inline-block;
-        display: flex;
-        align-items: center;
-        
-        &--settings {
-            @extend .nav__item;
-            margin-top: auto;
-        }
-        &--icon{
-            padding-right: 0.8rem;
-        }
-    }
-}
-.nav__item :hover{
-    background: --lightGray;
-}
+

@@ -58,10 +58,9 @@ app.post('/users', jsonParser, async (req, res) => {
     console.log(collectionInfo)
 })
 app.get('/profile', (req, res) => {
-    //fetch the data of the user using Document ID
     res.render('profile', {userInfo, collectionInfo});
 })
 
 app.listen(process.env.PORT || 6700, () => {
-    console.log('listening on env port or 6600')
+    console.log('listening on env port or 6700')
 })

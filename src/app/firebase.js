@@ -49,7 +49,8 @@ if (signupForm) {
         e.preventDefault();
         const email = signupForm.email.value;
         const password = signupForm.password.value;
-        createUserWithEmailAndPassword(auth, email, password)
+        const displayName = signupForm.name.value;
+        createUserWithEmailAndPassword(auth, email, password, displayName)
             .then(async (cred) => {
                 await setDoc(doc(dataBase, "users", (cred.user.uid)), {
                     wantToRead: [
@@ -64,22 +65,16 @@ if (signupForm) {
                     ],
                     favorits: []
                 }).then(async () => {
-
                     const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
                     const docSnap = await getDoc(docRef);
-
                     if (docSnap.exists()) {
                         userData = docSnap.data();
+                        active = [cred.user, userData]
+                        let user = axios.post('/users', active)
                         console.log(userData)
                     } else {
                         console.log("No such document!");
                     }
-                    function sendUser() {
-                        active = [cred.user, userData]
-                        let user = axios.post('/users', active)
-                        return active
-                    }
-                    sendUser()
                 })
                 window.location.href = "/profile"
             })
@@ -95,6 +90,7 @@ if (logOutBtn) {
         signOut(auth)
             .then(() => {
                 console.log('user sined out')
+                window.location.href = "/"
             })
     })
 }
@@ -111,17 +107,11 @@ if (logInForm) {
                 const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     userData = docSnap.data();
-                    console.log(userData)
+                    active = [cred.user, userData]
+                    let user = axios.post('/users', active)
                 } else {
                     console.log("No such document!");
                 }
-
-                function sendUser() {
-                    active = [cred.user, userData]
-                    let user = axios.post('/users', active)
-                    return active
-                }
-                sendUser()
                 window.location.href = "/profile"
             })
         signupForm.reset();

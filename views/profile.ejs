@@ -6,30 +6,43 @@
         <%- include('navigation') %>
             <main class="profile">
                 <%- include('sideNav') %>
-                    <div class="profile__info">
-                        <div class="profile__img">
-                                <div class="profile__uploadImg ">
-                                    <ion-icon class="icon" name="person-outline" ></ion-icon>
-                                </div>
-                            <button class="sqr-btn">Upload Image</button>
-                        </div>
-                        <form action="" class="profile__form">
 
-                            <div class="form__input--feild">
-                                <label for="fName">First Name</label>
-                                <input class="text-input" type="text" name="fName" placeholder="First Name">
+                    <div class="profile__info">
+                        <div class="profile__info--img ">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <ion-icon name="arrow-up-circle-outline" class="upload"></ion-icon>
+                        </div>
+
+                        <form class="profile__info--form">
+                            <div class="form__group">
+                                <div class="form__group--input">
+                                    <label for="first-name">First Name</label>
+                                    <input type="text" name="first-name" placeholder="First Name">
+                                </div>
+                                <div class="form__group--input">
+                                    <label for="last-name">Last Name</label>
+                                    <input type="text" name="last-name" placeholder="Last Name">
+                                </div>
+                                <div class="form__group--input">
+                                    <label for="phone-num">Phone Number</label>
+                                    <input type="text" name="phone-num" placeholder="Phone Number">
+                                </div>
                             </div>
-                            <div class="form__input--feild">
-                                <label for="lName">Password</label>
-                                <input class="text-input" type="text" name="lName" placeholder="Last Name">
+                            <div class="form__group--two">
+                                <div class="form__group--input">
+                                    <label for="email">Email</label>
+                                    <input type="email" name="email" placeholder="Email">
+                                </div>
+                                <div class="form__group--input">
+                                    <label for="password">Password</label>
+                                    <input type="password" name="password" placeholder="Password">
+                                </div>
                             </div>
-                            <button class="sqr-btn" type="submit">Save</button>
+                            <button type="submit" class="sqr-btn">Save</button>
                         </form>
                     </div>
+
             </main>
-            <!-- fIRST name -->
-            <!-- LAST NAME -->
-            <!-- profile image -->
             <h1>
                 <%= userInfo.uid %>
             </h1>
@@ -44,7 +57,6 @@
                             <li>
                                 <%= collectionInfo[property][i]%>
                             </li>
-
                             <% } %>
                     </ul>
                     <% } %>
