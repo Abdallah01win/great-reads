@@ -1,10 +1,11 @@
 //@import "uttiles";
-#si-form-section, #lo-form-section{
+#si-form-section,
+#lo-form-section {
     background: var(--background);
     width: 100%;
     height: 100vh;
 }
-.form__close{
+.form__close {
     font-size: 3rem;
     padding: 0.8rem;
     border-radius: 5000px;
@@ -40,16 +41,25 @@
             padding: 1.6rem;
         }
     }
-    .break{
+    .break {
         display: flex;
         align-items: center;
         margin: 1.6rem auto 0 auto;
         width: fit-content;
-        hr{
+        hr {
             width: 10rem;
         }
-        .text{
+        .text {
             margin: 1.2rem;
+        }
+    }
+    .first-form {
+        display: flex;
+        column-gap: 2.4rem;
+        .form__input--feild {
+            width: 100%;
+            height: fit-content;
+            margin-bottom: 0rem;
         }
     }
     &__input {
@@ -57,30 +67,29 @@
         flex-direction: column;
         row-gap: 2.4rem;
         width: 100%;
-        
+
         &--feild {
             display: flex;
             flex-direction: column;
-            row-gap: 1.2rem;
-            &:last-of-type{
+            &:last-of-type {
                 margin-bottom: 3.2rem;
             }
         }
         input {
+            margin-top: 1.2rem;
             width: 100%;
         }
-        
     }
-    &__buttons{
+    &__buttons {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        &--submit{
+        &--submit {
             @extend .sqr-btn;
             margin-right: 0;
         }
-        &--login{
-            &:hover{
+        &--login {
+            &:hover {
                 border-bottom: 1px solid var(--text);
                 transition: all 200ms ease-out;
             }

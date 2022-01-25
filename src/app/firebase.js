@@ -49,10 +49,16 @@ if (signupForm) {
         e.preventDefault();
         const email = signupForm.email.value;
         const password = signupForm.password.value;
-        const displayName = signupForm.name.value;
-        createUserWithEmailAndPassword(auth, email, password, displayName)
+        const fname = signupForm.fname.value;
+        const lname = signupForm.lname.value;
+        createUserWithEmailAndPassword(auth, email, password)
             .then(async (cred) => {
                 await setDoc(doc(dataBase, "users", (cred.user.uid)), {
+                    userInfo:{
+                        fName: fname,
+                        lName: lname,
+                        phoneNum: ""
+                    },
                     wantToRead: [
                         "fahrenhite 451",
                         "The Lord Of the Flies",
@@ -115,5 +121,16 @@ if (logInForm) {
                 window.location.href = "/profile"
             })
         signupForm.reset();
+    })
+}
+
+const profileForm = document.getElementById('profile-form');
+if(profileForm){
+    profileForm.addEventListener('submit', async(e)=>{
+        e.preventDefault()
+        const firstName = profileForm.firstname.value
+        const lastName = profileForm.lastname.value
+        const phonenum = profileForm.phonenum.value
+
     })
 }

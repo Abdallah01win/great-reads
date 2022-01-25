@@ -23,38 +23,24 @@
     </div>
     </main>
 
-    <div class="profile__info">
-        <div class="profile__img">
-            <div class="profile__uploadImg">
-                <ion-icon class="icon" name="person-outline"></ion-icon>
-            </div>
-            <button class="sqr-btn profile__uploadImg--btn">Upload Image</button>
-        </div>
-        <form action="" class="profile__form">
-            <div class="form__input--group1">
-                <div class="form__input--feild">
-                    <label for="fName">First Name</label>
-                    <input class="text-input" type="text" name="fName" placeholder="First Name">
-                </div>
-                <div class="form__input--feild">
-                    <label for="lName">Last Name</label>
-                    <input class="text-input" type="text" name="lName" placeholder="Last Name">
-                </div>
-                <div class="form__input--feild">
-                    <label for="lName">Phone Number</label>
-                    <input class="text-input" type="text" name="lName" placeholder="Phone Number">
-                </div>
-            </div>
-            <div class="form__input--group2">
-            <div class="form__input--feild">
-                <label for="email">Email</label>
-                <input class="text-input" type="email" name="email" placeholder="Email">
-            </div>
-            <div class="form__input--feild">
-                <label for="password">Password</label>
-                <input class="text-input" type="password" name="password" placeholder="Password">
-            </div>
-        </div>
-            <button class="sqr-btn" type="submit">Save</button>
-        </form>
+
+
+    
+    <h1>
+        <%= userInfo.uid %>
+    </h1>
+    <h1>
+        <%= userInfo.email %>
+    </h1>
+    </form>
+    <div>
+        <% for(const property in collectionInfo){ %>
+            <ul>
+                <% for( let i=0; i < collectionInfo[property].length; i++ ) { %>
+                    <li>
+                        <%= collectionInfo[property][i]%>
+                    </li>
+                    <% } %>
+            </ul>
+            <% } %>
     </div>
