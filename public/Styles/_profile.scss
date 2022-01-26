@@ -1,6 +1,5 @@
 .profile {
-    display: grid;
-    grid-template-columns: 20rem 1fr;
+    @extend .layout;
     &__info {
         max-width: 80rem;
         margin: 0 auto;

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('head') %>
+
+    <body>
+        <%- include('navigation') %>
+        <main class="main">
+                    <%- include('sideNav') %>
+                    <div class="cols">
+                    <% for( let i=0; i < colKeys.length-1; i++ ) { %>
+                        <% if (colKeys[i] !== "userInfo") { %>
+                            <div class="cols__col">
+                                <h4 class="cols__col--title">
+                                    <%= colKeys[i] %>
+                                </h4>
+                                <p class="col__discription">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                                <p class="col__books">0 Books</p>
+                            </div>
+                            <% } else { %>
+                            <% continue %>
+                            <% } %>
+                        <% } %>
+                        <div class="addNew">
+                            <div class="addNew__Icon">
+                                <ion-icon class="icon" name="add-outline"></ion-icon>
+                            </div>
+                            <h4 class="addNew__title">New Collection</h4>
+                        </div>
+                    </div>
+        </main>
+                
+                <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+                <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+                <script src="bundle.js"></script>            
+    </body>
+
+</html>

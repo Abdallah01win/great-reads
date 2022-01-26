@@ -82,6 +82,8 @@ if (signUpBtn) {
     })
 }
 
+//make dark theme the default on page load so it doesn't flash 
+
 /// which book was clicked
 // 1. loop over the books and atach click event listeners
 // 2. get Id of book 

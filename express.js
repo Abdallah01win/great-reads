@@ -61,6 +61,11 @@ app.post('/users', jsonParser, async (req, res) => {
 app.get('/profile', (req, res) => {
     res.render('profile', {userInfo, collectionInfo});
 })
+app.get('/collections', (req, res) => {
+    const colKeys = Object.keys(collectionInfo)
+    console.log(colKeys)
+    res.render('collections', {userInfo, collectionInfo, colKeys});
+})
 
 app.listen(process.env.PORT || 6700, () => {
     console.log('listening on env port or 6700')
