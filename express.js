@@ -50,8 +50,9 @@ app.post('/search', urlencodedParser, async (req, res) => {
 
 
 app.post('/users', jsonParser, async (req, res) => {
-    const activeUser = await req.body;
+    activeUser = await req.body;
     res.status(200).end()
+    console.log(activeUser)
     userInfo = activeUser[0]
     collectionInfo = activeUser[1]
     console.log(userInfo)

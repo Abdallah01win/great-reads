@@ -24,7 +24,8 @@ const {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut
+    signOut,
+    onAuthStateChanged
 } = require("firebase/auth");
 
 const firebaseConfig = {
@@ -43,6 +44,16 @@ const auth = getAuth();
 
 const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUp');
+const userStatus = document.getElementById('userStatus');
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        userStatus.classList.toggle('activeStatus');
+      // ...
+    } else {
+      // User is signed out
+      // ...
+    }
+  });
 
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
@@ -54,7 +65,7 @@ if (signupForm) {
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (cred) => {
                 await setDoc(doc(dataBase, "users", (cred.user.uid)), {
-                    userInfo:{
+                    userInfo: {
                         fName: fname,
                         lName: lname,
                         phoneNum: ""
@@ -70,17 +81,19 @@ if (signupForm) {
                         "The Gambler"
                     ],
                     favorits: []
-                }).then(async () => {
-                    const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
+                }).then(async() => {
+                    const user = auth.currentUser
+                    const docRef = doc(dataBase, 'users', `${user.uid}`)
                     const docSnap = await getDoc(docRef);
                     if (docSnap.exists()) {
                         userData = docSnap.data();
-                        active = [cred.user, userData]
-                        let user = axios.post('/users', active)
+                        active = [user, userData]
+                        let users = axios.post('/users', active)
                         console.log(userData)
                     } else {
                         console.log("No such document!");
                     }
+                    
                 })
                 window.location.href = "/profile"
             })
@@ -125,12 +138,21 @@ if (logInForm) {
 }
 
 const profileForm = document.getElementById('profile-form');
-if(profileForm){
-    profileForm.addEventListener('submit', async(e)=>{
+if (profileForm) {
+    profileForm.addEventListener('submit', async (e) => {
         e.preventDefault()
+        const user = auth.currentUser
         const firstName = profileForm.firstname.value
         const lastName = profileForm.lastname.value
         const phonenum = profileForm.phonenum.value
+
+        await setDoc(doc(dataBase, "users", (user.uid)), {
+            userInfo: {
+                fName: firstName,
+                lName: lastName,
+                phoneNum: phonenum
+            },
+        })
 
     })
 }
