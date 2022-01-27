@@ -7,7 +7,7 @@
         <main class="main">
                     <%- include('sideNav') %>
                     <div class="cols">
-                    <% for( let i=0; i < colKeys.length-1; i++ ) { %>
+                    <% for( let i=0; i < colKeys.length; i++ ) { %>
                         <% if (colKeys[i] !== "userInfo") { %>
                             <div class="cols__col">
                                 <h4 class="cols__col--title">
@@ -20,7 +20,7 @@
                             <% continue %>
                             <% } %>
                         <% } %>
-                        <div class="addNew">
+                        <div class="addNew" id="newCol">
                             <div class="addNew__Icon">
                                 <ion-icon class="icon" name="add-outline"></ion-icon>
                             </div>
@@ -28,7 +28,27 @@
                         </div>
                     </div>
         </main>
-                
+
+        <section id="creatCol" class="section hideColForm">
+            <button class="form__close btn" id="closeColBtn">
+                <ion-icon name="close-outline"></ion-icon>
+            </button>
+        <form action="" class="col__form" >
+            <h3 class="col__form--title">Creat New Collection</h3>
+            <div class="form__input--feild">
+                <label for="newColName">New Collection Name</label>
+                <input class="text-input" type="email" name="newColName"  placeholder="New Collection Name">
+            </div>
+            <div class="form__input--feild">
+                <label for="newColDisc">Discription</label>
+                <input class="text-input" type="text" maxlength="50"  name="newColDisc" placeholder="Discription">
+            </div>
+            <div class="buttons">
+                <button id="creatColBtn" type="submit">Creat Collection</button>
+                <button id="cancelCol">Cancel</button>
+            </div>
+        </form>
+        </section>       
                 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
                 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 

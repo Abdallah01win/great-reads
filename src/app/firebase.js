@@ -45,6 +45,7 @@ const auth = getAuth();
 const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUp');
 const userStatus = document.getElementById('userStatus');
+
 onAuthStateChanged(auth, (user) => {
     if (user) {
         userStatus.classList.toggle('activeStatus');
@@ -137,6 +138,15 @@ if (logInForm) {
     })
 }
 
+window.onunload= function() {
+    if(auth.user){
+        signOut(auth)
+        .then(()=>{
+            userStatus.classList.toggle('activeStatus')
+        })
+    }
+}
+
 const profileForm = document.getElementById('profile-form');
 if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
@@ -154,5 +164,34 @@ if (profileForm) {
             },
         })
 
+    })
+}
+
+const creatColBtn = document.getElementById('newCol');
+const creatCol = document.getElementById('creatCol');
+const cancelCol = document.getElementById('cancelCol');
+const closeColBtn = document.getElementById('closeColBtn');
+
+function hideColForm(){
+    creatCol.classList.remove('showColForm')
+    creatCol.classList.add('hideColForm')
+}
+if (creatColBtn) {
+    creatColBtn.addEventListener('click', ()=>{
+        creatCol.classList.remove('hideColForm')
+        creatCol.classList.add('showColForm')
+    })
+    closeColBtn.addEventListener('click', ()=>{
+        hideColForm()
+    })
+    cancelCol.addEventListener('click', ()=>{
+        hideColForm()
+    })
+}
+
+if(creatCol){
+    creatCol.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        // creat a new collection using user id
     })
 }
