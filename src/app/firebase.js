@@ -71,17 +71,22 @@ if (signupForm) {
                         lName: lname,
                         phoneNum: ""
                     },
-                    wantToRead: [
-                        "fahrenhite 451",
+                    wantToRead:{
+                        discription: "",
+                        books:["fahrenhite 451",
                         "The Lord Of the Flies",
-                        "The Metamorphesis"
-                    ],
-                    read: [
-                        "Animal Farm",
+                        "The Metamorphesis"]
+                    },
+                    Read:{
+                        discription: "",
+                        books:["Animal Farm",
                         "Poor Folks",
-                        "The Gambler"
-                    ],
-                    favorits: []
+                        "The Gambler"]
+                    },
+                    favorits: {
+                        discription: "",
+                        books:[]
+                    }
                 }).then(async() => {
                     const user = auth.currentUser
                     const docRef = doc(dataBase, 'users', `${user.uid}`)
@@ -162,7 +167,7 @@ if (profileForm) {
                 lName: lastName,
                 phoneNum: phonenum
             },
-        })
+        }, { merge: true })
 
     })
 }
@@ -171,6 +176,7 @@ const creatColBtn = document.getElementById('newCol');
 const creatCol = document.getElementById('creatCol');
 const cancelCol = document.getElementById('cancelCol');
 const closeColBtn = document.getElementById('closeColBtn');
+const newColForm = document.getElementById('newColForm');
 
 function hideColForm(){
     creatCol.classList.remove('showColForm')
@@ -189,9 +195,30 @@ if (creatColBtn) {
     })
 }
 
-if(creatCol){
-    creatCol.addEventListener('submit', (e)=>{
+if(newColForm){
+    newColForm.addEventListener('submit', async (e)=>{
         e.preventDefault();
-        // creat a new collection using user id
+        const colName = newColForm.newColName.value;
+        const coldiscreption = newColForm.newColDisc.value;
+        await setDoc(doc(dataBase, "users", (auth.currentUser.uid)), {
+            colName: {
+                discription: coldiscreption,
+                books:[]
+            },
+        }, { merge: true })
+        .then(async(cred)=>{
+            const user = auth.currentUser
+            const docRef = doc(dataBase, 'users', `${user.uid}`)
+            const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData = docSnap.data();
+                    active = [user, userData]
+                    let users = axios.post('/users', active)
+                } else {
+                    console.log("No such document!");
+                }
+            window.location.href = "/collections"
+        })
+        signupForm.reset();
     })
 }
