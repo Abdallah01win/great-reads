@@ -25,7 +25,7 @@
                                 </div>
                                 <div class="form__group--input">
                                     <label for="phonenum">Phone Number</label>
-                                    <input type="text" name="phonenum" placeholder="Phone Number">
+                                    <input type="text" maxlength="10" name="phonenum" placeholder="Phone Number" value="<% if (collectionInfo.userInfo.phoneNum !== ""){ %><%= collectionInfo.userInfo.phoneNum %><%}%>">
                                 </div>
                             </div>
                             <div class="form__group--two">
@@ -34,8 +34,8 @@
                                     <input type="email" name="email" placeholder="Email" value="<%= userInfo.email %>">
                                 </div>
                                 <div class="form__group--input">
-                                    <label for="Adress">Change Password</label>
-                                    <input type="text" name="Adress" placeholder="Home Adress">
+                                    <label for="adress">Adress</label>
+                                    <input type="text" name="adress" placeholder="Home Adress" value="<% if (collectionInfo.userInfo.adress !== ""){ %><%= collectionInfo.userInfo.adress%><%}%>">
                                 </div>
                             </div>
                             <button type="submit" class="sqr-btn">Save</button>

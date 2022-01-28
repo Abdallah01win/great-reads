@@ -44,3 +44,18 @@
             </ul>
             <% } %>
     </div>
+
+
+    <% for( let i=1; i < colKeys.length; i++ ) { %>
+        <% if (colKeys[i] !== "userInfo") { %>
+            <div class="cols__col">
+                <h4 class="cols__col--title">
+                    <%=collectionInfo.colKeys[i].title%>
+                </h4>
+                <p class="col__discription"><%=collectionInfo.colKeys[i].title%></p>
+                <p class="col__books"><%=collectionInfo.colKeys[i].books.length%> Books</p>
+            </div>
+            <% } else { %>
+            <% continue %>
+            <% } %>
+        <% } %>

@@ -69,22 +69,26 @@ if (signupForm) {
                     userInfo: {
                         fName: fname,
                         lName: lname,
-                        phoneNum: ""
+                        phoneNum: "",
+                        adress: ""
                     },
                     wantToRead:{
                         discription: "",
+                        title: "Want To Read",
                         books:["fahrenhite 451",
                         "The Lord Of the Flies",
                         "The Metamorphesis"]
                     },
                     Read:{
                         discription: "",
+                        title: "Read",
                         books:["Animal Farm",
                         "Poor Folks",
                         "The Gambler"]
                     },
                     favorits: {
                         discription: "",
+                        title: "Favorits",
                         books:[]
                     }
                 }).then(async() => {
@@ -160,12 +164,14 @@ if (profileForm) {
         const firstName = profileForm.firstname.value
         const lastName = profileForm.lastname.value
         const phonenum = profileForm.phonenum.value
+        const adress = profileForm.adress.value
 
         await setDoc(doc(dataBase, "users", (user.uid)), {
             userInfo: {
                 fName: firstName,
                 lName: lastName,
-                phoneNum: phonenum
+                phoneNum: phonenum,
+                adress: adress
             },
         }, { merge: true })
 
@@ -201,8 +207,9 @@ if(newColForm){
         const colName = newColForm.newColName.value;
         const coldiscreption = newColForm.newColDisc.value;
         await setDoc(doc(dataBase, "users", (auth.currentUser.uid)), {
-            colName: {
+            colName : {
                 discription: coldiscreption,
+                title: colName,
                 books:[]
             },
         }, { merge: true })

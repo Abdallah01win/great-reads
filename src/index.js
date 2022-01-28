@@ -1,37 +1,34 @@
-//import { cons, user } from "./app/firebase.js";
-const {cons} = require('./app/firebase.js')
-//import { cons } from './app/firebase';
-//import { button } from "./app/getbooks" 
+const {cons} = require('./app/firebase.js');
 console.log('from bindel.js');
 console.log('from compiled with live reloding devserver');
 console.log(cons)
 const themeSwitch = document.getElementById('darkThemeToggle');
 const root = document.querySelector(':root');
-let darkTheme = localStorage.getItem("darkTheme")
-const enableDarkTheme = () => {
-    document.body.classList.add("darkTheme");
-    localStorage.setItem('darkTheme', 'enabled');
+let LightTheme = localStorage.getItem("LightTheme")
+const enableLightTheme = () => {
+    document.body.classList.add("LightTheme");
+    localStorage.setItem('LightTheme', 'enabled');
 }
-const disableDarkTheme = () => {
-    document.body.classList.remove("darkTheme");
-    localStorage.setItem('darkTheme', null);
+const disableLightTheme = () => {
+    document.body.classList.remove("LightTheme");
+    localStorage.setItem('LightTheme', null);
 }
 
-if (darkTheme === "enabled") {
-    enableDarkTheme();
-    themeSwitch.innerHTML = "<ion-icon name='sunny-outline'></ion-icon>"
-} else {
+if (LightTheme === "enabled") {
+    enableLightTheme();
     themeSwitch.innerHTML = "<ion-icon name='moon-outline'></ion-icon>"
+} else {
+    themeSwitch.innerHTML = "<ion-icon name='sunny-outline'></ion-icon>"
 }
 
 themeSwitch.addEventListener('click', () => {
-    darkTheme = localStorage.getItem("darkTheme");
-    if (darkTheme !== 'enabled') {
-        enableDarkTheme();
-        themeSwitch.innerHTML = "<ion-icon name='sunny-outline'></ion-icon>"
-    } else if (darkTheme !== null) {
-        disableDarkTheme();
+    LightTheme = localStorage.getItem("LightTheme");
+    if (LightTheme !== 'enabled') {
+        enableLightTheme();
         themeSwitch.innerHTML = "<ion-icon name='moon-outline'></ion-icon>"
+    } else if (LightTheme !== null) {
+        disableLightTheme();
+        themeSwitch.innerHTML = "<ion-icon name='sunny-outline'></ion-icon>"
     }
 })
 
