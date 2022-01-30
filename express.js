@@ -19,12 +19,8 @@ app.use(express.static(path.join(__dirname, ('dist'))));
 //Body Parser
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
+collectionInfo = "";
 
-
-//Routs
-app.get('/', async (req, res) => {
-    res.render('index')
-})
 // Search Rout
 app.post('/search', urlencodedParser, async (req, res) => {
     const dataa = await wait(req.body.search);
@@ -65,6 +61,10 @@ app.get('/collections', (req, res) => {
     const colKeys = Object.keys(collectionInfo)
     console.log(colKeys)
     res.render('collections', {userInfo, collectionInfo, colKeys});
+})
+
+app.get('/', async (req, res) => {
+    res.render('index', {collectionInfo})
 })
 
 app.listen(process.env.PORT || 6700, () => {

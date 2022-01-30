@@ -121,6 +121,8 @@ if (logOutBtn) {
         signOut(auth)
             .then(() => {
                 console.log('user sined out')
+                active = ["", ""]
+                let users = axios.post('/users', active)
                 window.location.href = "/"
             })
     })
@@ -159,34 +161,33 @@ window.onunload = function () {
 }
 const imgupload = document.getElementById('imgUpload');
 if (imgupload) {
-    imgupload.addEventListener('change', (e) => {
+    imgupload.addEventListener('change', async (e) => {
         const user = auth.currentUser
         const file = e.target.files[0];
         const storage = getStorage();
         const storageRef = ref(storage, "users/" + auth.currentUser.uid + "/" + file.name);
-        uploadBytes(storageRef, file).then(() => {
+        await uploadBytes(storageRef, file).then(() => {
             console.log("file uploaded to storage")
-        })
-
-        getDownloadURL(storageRef).then(async (url) => {
-            console.log(url);
-            await setDoc(doc(dataBase, "users", (user.uid)), {
-                userInfo: {
-                    imgUrl: url,
-                },
-            }, { merge: true }).then(async() => {
-                const docRef = doc(dataBase, 'users', `${user.uid}`)
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    userData = docSnap.data();
-                    active = [user, userData]
-                    let users = axios.post('/users', active)
-                } else {
-                    console.log("No such document!");
-                }
-                window.location.href = "/profile"
+        }).then(() => {
+            getDownloadURL(storageRef).then(async (url) => {
+                console.log(url);
+                await setDoc(doc(dataBase, "users", (user.uid)), {
+                    userInfo: {
+                        imgUrl: url,
+                    },
+                }, { merge: true }).then(async () => {
+                    const docRef = doc(dataBase, 'users', `${user.uid}`)
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        userData = docSnap.data();
+                        active = [user, userData]
+                        let users = axios.post('/users', active)
+                    } else {
+                        console.log("No such document!");
+                    }
+                    window.location.href = "/profile"
+                })
             })
-
         })
     })
 }

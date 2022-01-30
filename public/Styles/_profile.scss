@@ -5,6 +5,10 @@
         margin: 0 auto;
         padding: 3.2rem;
         padding-top: 0.8rem;
+        img{
+            width: 30rem;
+            border-radius: 5000px;
+        }
         &--img {
             position: relative;
             background: var(--text);
@@ -23,7 +27,6 @@
                 overflow: hidden;
                 display: grid;
                 place-content: center;
-                cursor: pointer;
                 color: var(--background);
                 background: var(--hover1);
                 padding: 0.8rem;
@@ -38,6 +41,7 @@
                 }
             }
             .upload input[type="file"]{
+                cursor: pointer;
                 position: absolute;
                 top: 0;
                 left: 0;
@@ -45,6 +49,7 @@
                 transform: scale(1.5);
             }
         }
+        
         &--form {
             display: flex;
             flex-direction: column;
