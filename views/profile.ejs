@@ -6,13 +6,14 @@
         <%- include('navigation') %>
             <main class="profile">
                 <%- include('sideNav') %>
-
                     <div class="profile__info">
                         <div class="profile__info--img ">
                             <ion-icon name="person-outline"></ion-icon>
-                            <ion-icon name="arrow-up-circle-outline" class="upload"></ion-icon>
+                            <button class="upload">
+                                <ion-icon name="arrow-up-circle-outline"></ion-icon>
+                                <input name="imgupload" id="imgUpload" type="file" class="btn" accept="image/png, image/jpeg">
+                            </button>
                         </div>
-
                         <form class="profile__info--form" id="profile-form">
                             <div class="form__group">
                                 <div class="form__group--input">

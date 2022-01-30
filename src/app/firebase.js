@@ -19,7 +19,7 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc } = require('firebase/firestore')
+    doc, } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
@@ -27,6 +27,7 @@ const {
     signOut,
     onAuthStateChanged
 } = require("firebase/auth");
+const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/storage')
 
 const firebaseConfig = {
     apiKey: "AIzaSyDNrU14PpFboO3kGq8CadALxnVqLm9liz8",
@@ -49,12 +50,12 @@ const userStatus = document.getElementById('userStatus');
 onAuthStateChanged(auth, (user) => {
     if (user) {
         userStatus.classList.toggle('activeStatus');
-      // ...
+        // ...
     } else {
-      // User is signed out
-      // ...
+        // User is signed out
+        // ...
     }
-  });
+});
 
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
@@ -70,28 +71,29 @@ if (signupForm) {
                         fName: fname,
                         lName: lname,
                         phoneNum: "",
-                        adress: ""
+                        adress: "",
+                        imgUrl: "",
                     },
-                    wantToRead:{
+                    wantToRead: {
                         discription: "",
                         title: "Want To Read",
-                        books:["fahrenhite 451",
-                        "The Lord Of the Flies",
-                        "The Metamorphesis"]
+                        books: ["fahrenhite 451",
+                            "The Lord Of the Flies",
+                            "The Metamorphesis"]
                     },
-                    Read:{
+                    Read: {
                         discription: "",
                         title: "Read",
-                        books:["Animal Farm",
-                        "Poor Folks",
-                        "The Gambler"]
+                        books: ["Animal Farm",
+                            "Poor Folks",
+                            "The Gambler"]
                     },
                     favorits: {
                         discription: "",
                         title: "Favorits",
-                        books:[]
+                        books: []
                     }
-                }).then(async() => {
+                }).then(async () => {
                     const user = auth.currentUser
                     const docRef = doc(dataBase, 'users', `${user.uid}`)
                     const docSnap = await getDoc(docRef);
@@ -103,7 +105,7 @@ if (signupForm) {
                     } else {
                         console.log("No such document!");
                     }
-                    
+
                 })
                 window.location.href = "/profile"
             })
@@ -147,13 +149,46 @@ if (logInForm) {
     })
 }
 
-window.onunload= function() {
-    if(auth.user){
+window.onunload = function () {
+    if (auth.user) {
         signOut(auth)
-        .then(()=>{
-            userStatus.classList.toggle('activeStatus')
-        })
+            .then(() => {
+                userStatus.classList.toggle('activeStatus')
+            })
     }
+}
+const imgupload = document.getElementById('imgUpload');
+if (imgupload) {
+    imgupload.addEventListener('change', (e) => {
+        const user = auth.currentUser
+        const file = e.target.files[0];
+        const storage = getStorage();
+        const storageRef = ref(storage, "users/" + auth.currentUser.uid + "/" + file.name);
+        uploadBytes(storageRef, file).then(() => {
+            console.log("file uploaded to storage")
+        })
+
+        getDownloadURL(storageRef).then(async (url) => {
+            console.log(url);
+            await setDoc(doc(dataBase, "users", (user.uid)), {
+                userInfo: {
+                    imgUrl: url,
+                },
+            }, { merge: true }).then(async() => {
+                const docRef = doc(dataBase, 'users', `${user.uid}`)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData = docSnap.data();
+                    active = [user, userData]
+                    let users = axios.post('/users', active)
+                } else {
+                    console.log("No such document!");
+                }
+                window.location.href = "/profile"
+            })
+
+        })
+    })
 }
 
 const profileForm = document.getElementById('profile-form');
@@ -184,39 +219,39 @@ const cancelCol = document.getElementById('cancelCol');
 const closeColBtn = document.getElementById('closeColBtn');
 const newColForm = document.getElementById('newColForm');
 
-function hideColForm(){
+function hideColForm() {
     creatCol.classList.remove('showColForm')
     creatCol.classList.add('hideColForm')
 }
 if (creatColBtn) {
-    creatColBtn.addEventListener('click', ()=>{
+    creatColBtn.addEventListener('click', () => {
         creatCol.classList.remove('hideColForm')
         creatCol.classList.add('showColForm')
     })
-    closeColBtn.addEventListener('click', ()=>{
+    closeColBtn.addEventListener('click', () => {
         hideColForm()
     })
-    cancelCol.addEventListener('click', ()=>{
+    cancelCol.addEventListener('click', () => {
         hideColForm()
     })
 }
 
-if(newColForm){
-    newColForm.addEventListener('submit', async (e)=>{
+if (newColForm) {
+    newColForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const colName = newColForm.newColName.value;
         const coldiscreption = newColForm.newColDisc.value;
         await setDoc(doc(dataBase, "users", (auth.currentUser.uid)), {
-            colName : {
+            colName: {
                 discription: coldiscreption,
                 title: colName,
-                books:[]
+                books: []
             },
         }, { merge: true })
-        .then(async(cred)=>{
-            const user = auth.currentUser
-            const docRef = doc(dataBase, 'users', `${user.uid}`)
-            const docSnap = await getDoc(docRef);
+            .then(async (cred) => {
+                const user = auth.currentUser
+                const docRef = doc(dataBase, 'users', `${user.uid}`)
+                const docSnap = await getDoc(docRef);
                 if (docSnap.exists()) {
                     userData = docSnap.data();
                     active = [user, userData]
@@ -224,8 +259,8 @@ if(newColForm){
                 } else {
                     console.log("No such document!");
                 }
-            window.location.href = "/collections"
-        })
+                window.location.href = "/collections"
+            })
         signupForm.reset();
     })
 }
