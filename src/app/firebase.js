@@ -169,11 +169,11 @@ if (imgupload) {
         listAll(listRef)
             .then((res) => {
                 res.items.forEach((itemRef) => {
-                    if(itemRef){
+                    if (itemRef) {
                         deleteObject(itemRef)
-                        .then(()=>{
-                            console.log('deleted')
-                        })
+                            .then(() => {
+                                console.log('deleted')
+                            })
                     }
                 });
             })
@@ -221,8 +221,17 @@ if (profileForm) {
                 phoneNum: phonenum,
                 adress: adress
             },
-        }, { merge: true })
-
+        }, { merge: true }).then(async() => {
+            const user = auth.currentUser
+            const docRef = doc(dataBase, 'users', `${user.uid}`)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                userData = docSnap.data();
+                active = [user, userData]
+                let users = axios.post('/users', active)
+            }
+        })
+        window.location.href = "/profile"
     })
 }
 
