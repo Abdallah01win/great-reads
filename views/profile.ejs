@@ -10,7 +10,7 @@
                         <% if (collectionInfo.userInfo.imgUrl ==="") { %>
                             <div class="profile__info--img ">
                                 <ion-icon name="person-outline"></ion-icon>
-                                <button class="upload">
+                                <button id="uploadBtn"class="upload">
                                     <ion-icon name="arrow-up-circle-outline"></ion-icon>
                                     <input name="imgupload" id="imgUpload" type="file" class="btn" accept="image/png, image/jpeg">
                                 </button>
@@ -18,7 +18,7 @@
                         <% } else{%>
                             <div class="profile__info--img" style="background-image: url(<%=collectionInfo.userInfo.imgUrl%>);background-size: cover; width: 15rem;
                                 height: 15rem;">  
-                                <button class="upload" style="top: 70%; left: 65%;">
+                                <button id="loadingImgBtn" class="upload" style="top: 70%; left: 65%;">
                                     <ion-icon name="arrow-up-circle-outline"></ion-icon>
                                     <input name="imgupload" id="imgUpload" type="file" class="btn" accept="image/png, image/jpeg">
                                 </button>
@@ -29,7 +29,7 @@
                             <div class="form__group">
                                 <div class="form__group--input">
                                     <label for="firstname">First Name</label>
-                                    <input type="text" name="firstname" placeholder="First Name" value="<%= collectionInfo.userInfo.fName %> ">
+                                    <input type="text" name="firstname" placeholder="First Name" value="<%=collectionInfo.userInfo.fName%>">
                                 </div>
                                 <div class="form__group--input">
                                     <label for="lastname">Last Name</label>
@@ -50,7 +50,7 @@
                                     <input type="text" name="adress" placeholder="Home Adress" value="<% if (collectionInfo.userInfo.adress !== ""){ %><%= collectionInfo.userInfo.adress%><%}%>">
                                 </div>
                             </div>
-                            <button type="submit" class="sqr-btn">Save</button>
+                            <button id="profileFormBtn" type="submit" class="sqr-btn">Save</button>
                         </form>
                     </div>
 

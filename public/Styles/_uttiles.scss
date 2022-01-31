@@ -59,23 +59,22 @@
     grid-template-columns: 20rem 1fr;
 }
 
+.loader{
+    pointer-events: none;
+    width: 3rem;
+    height: 3rem;
+    border: 3px solid transparent;
+    border-radius: 5000px;
+    border-top-color: var(--background);
+    animation: spin 1s ease-out infinite;
+    //margin: 0rem 0.8rem;
+}
 
-
-@keyframes slowLoading{
+@keyframes spin{
     0%{
-        //border-bottom: solid 1.5px var(--text);
-        border-width: 0%;
-    }
-    40%{
-        border-width: 40%;
-    }
-    60%{
-        border-width: 80%;
+        transform: rotate(0turn);
     }
     100%{
-        border-width: 90%;
+        transform: rotate(1turn);
     }
-}
-.prograssBar{
-    animation: slowLoading 10s ;
 }

@@ -44,7 +44,7 @@ const collectionRef = collection(dataBase, 'users');
 const auth = getAuth();
 
 const signupForm = document.getElementById('signup');
-const signUpBtn = document.getElementById('signUp');
+const signUpBtn = document.getElementById('signUpBtn');
 const userStatus = document.getElementById('userStatus');
 
 onAuthStateChanged(auth, (user) => {
@@ -60,6 +60,7 @@ onAuthStateChanged(auth, (user) => {
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        signUpBtn.innerHTML= "<div class='loader'></div>";
         const email = signupForm.email.value;
         const password = signupForm.password.value;
         const fname = signupForm.fname.value;
@@ -129,9 +130,11 @@ if (logOutBtn) {
 }
 
 const logInForm = document.getElementById('login');
+const logingInBtn = document.getElementById('logingInBtn');
 if (logInForm) {
     logInForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        logingInBtn.innerHTML = "<div class='loader'></div>";
         const email = logInForm.email.value
         const password = logInForm.password.value
         signInWithEmailAndPassword(auth, email, password)
@@ -160,8 +163,10 @@ window.onunload = function () {
     }
 }
 const imgupload = document.getElementById('imgUpload');
+const loadingImgBtn = document.getElementById('loadingImgBtn')
 if (imgupload) {
     imgupload.addEventListener('change', async (e) => {
+        loadingImgBtn.innerHTML = "<div class='loader' style='width:3.2rem; height: 3.2rem'></div>";
         const user = auth.currentUser
         const file = e.target.files[0];
         const storage = getStorage();
@@ -205,9 +210,11 @@ if (imgupload) {
 }
 
 const profileForm = document.getElementById('profile-form');
+const profileFormBtn = document.getElementById('profileFormBtn');
 if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        profileFormBtn.innerHTML= "<div class='loader'></div>";
         const user = auth.currentUser
         const firstName = profileForm.firstname.value
         const lastName = profileForm.lastname.value
