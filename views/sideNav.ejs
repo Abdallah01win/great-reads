@@ -16,7 +16,12 @@
         <span>settings</span>
     </a>
     <a href="" class="nav__item--logout" id="logOutBtn">
-        <ion-icon  class="nav__item--icon" name="log-out-outline"></ion-icon>
-        <span>Log Out</span>
+        <% if (collectionInfo !=="" ) { %>
+            <ion-icon class="nav__item--icon" name="log-out-outline"></ion-icon>
+            <span>Log Out</span>
+            <% } else {%>
+            <ion-icon class="nav__item--icon" name="log-in-outline" style="transform: scale(1.2) ; padding-right: 1.2rem;"></ion-icon><span>Log In</span>
+        <% } %>
+
     </a>
 </nav>

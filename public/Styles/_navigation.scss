@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 2.4rem 6.4rem;
+    padding: 1.8rem 6.4rem;
     font-size: 2rem;
     .navBar__item {
         &--logo {
@@ -57,10 +57,10 @@
         }
         .activeStatus{
             position: absolute;
-            top: 65%;
-            left: 65%;
-            width: 1.7rem;
-            height: 1.7rem;
+            top: 68%;
+            left: 68%;
+            width: 1.4rem;
+            height: 1.4rem;
             border-radius: 5000%;
             background: rgb(4, 255, 4);
         }

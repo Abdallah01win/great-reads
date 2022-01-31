@@ -41,7 +41,7 @@ app.post('/search', urlencodedParser, async (req, res) => {
             })
         });
     }
-    res.render('search', { newArray, getId })
+    res.render('search', { newArray, getId, collectionInfo})
 })
 
 

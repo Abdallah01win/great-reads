@@ -27,7 +27,7 @@ const {
     signOut,
     onAuthStateChanged
 } = require("firebase/auth");
-const { getStorage, ref, uploadBytes, getDownloadURL } = require('firebase/storage')
+const { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, listAll } = require('firebase/storage')
 
 const firebaseConfig = {
     apiKey: "AIzaSyDNrU14PpFboO3kGq8CadALxnVqLm9liz8",
@@ -165,6 +165,18 @@ if (imgupload) {
         const user = auth.currentUser
         const file = e.target.files[0];
         const storage = getStorage();
+        const listRef = ref(storage, 'users/' + auth.currentUser.uid)
+        listAll(listRef)
+            .then((res) => {
+                res.items.forEach((itemRef) => {
+                    if(itemRef){
+                        deleteObject(itemRef)
+                        .then(()=>{
+                            console.log('deleted')
+                        })
+                    }
+                });
+            })
         const storageRef = ref(storage, "users/" + auth.currentUser.uid + "/" + file.name);
         await uploadBytes(storageRef, file).then(() => {
             console.log("file uploaded to storage")
