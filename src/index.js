@@ -89,9 +89,11 @@ const bookShelvs = document.getElementsByClassName('shelv__book');
 }*/
 
 for (let i = 0; i < bookShelvs.length; i++) {
-    bookShelvs[i].addEventListener('click', (e)=>{
+    bookShelvs[i].addEventListener('click', async(e)=>{
         e.preventDefault();
-        let index = axios.post('/book', [i]);
+        let index = axios.post('/book', [i]).then(()=>{
+            window.location.href = "/book"
+        })
     })
      
 }

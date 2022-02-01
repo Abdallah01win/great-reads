@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-//const cons = require('./src/app/firebase')
 const { wait } = require('./src/app/getbooks')
 const bodyParser = require('body-parser');
 const app = express();
@@ -25,24 +24,22 @@ collectionInfo = "";
 app.post('/search', urlencodedParser, async (req, res) => {
     const dataa = await wait(req.body.search);
     const books = dataa.data.items
-    const newArray = books.filter(book => {
+    newArray = books.filter(book => {
         if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
             return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
         }
     })
-    idsArray = newArray.map(book => book.id );
     res.render('search', { newArray, collectionInfo})
 })
 
 
 app.post('/users', jsonParser, async (req, res) => {
     activeUser = await req.body;
-    res.status(200).end()
-    console.log(activeUser)
-    userInfo = activeUser[0]
-    collectionInfo = activeUser[1]
-    console.log(userInfo)
-    console.log(collectionInfo)
+    res.status(200).end();
+    userInfo = activeUser[0];
+    collectionInfo = activeUser[1];
+    console.log(userInfo);
+    console.log(collectionInfo);
 })
 app.get('/profile', (req, res) => {
     res.render('profile', {userInfo, collectionInfo});
@@ -55,7 +52,15 @@ app.get('/collections', (req, res) => {
 app.post('/book',jsonParser, async (req, res)=>{
     const bookIndex = await req.body[0];
     res.status(200).end();
-    console.log(idsArray[bookIndex]);
+    console.log(newArray[bookIndex].id);
+    book = newArray[bookIndex];
+})
+app.get('/book', (req, res)=>{
+    if (userInfo !== undefined) {
+        res.render('book', {book, userInfo, collectionInfo})
+    } else{
+        res.render('book', {book})
+    }
 })
 
 app.get('/', async (req, res) => {
