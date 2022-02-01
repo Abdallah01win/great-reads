@@ -1,3 +1,4 @@
+const { default: axios } = require('axios');
 const {cons} = require('./app/firebase.js');
 console.log('from bindel.js');
 console.log('from compiled with live reloding devserver');
@@ -79,8 +80,21 @@ if (signUpBtn) {
     })
 }
 
-//make dark theme the default on page load so it doesn't flash 
+const bookShelvs = document.getElementsByClassName('shelv__book');
+/*for (const book in bookShelvs) {
+    book.addEventListener('click', (e)=>{
+        e.preventDefault();
+        console.log(bookShelvs.indexOf(book))
+    })
+}*/
 
+for (let i = 0; i < bookShelvs.length; i++) {
+    bookShelvs[i].addEventListener('click', (e)=>{
+        e.preventDefault();
+        let index = axios.post('/book', [i]);
+    })
+     
+}
 /// which book was clicked
 // 1. loop over the books and atach click event listeners
 // 2. get Id of book 

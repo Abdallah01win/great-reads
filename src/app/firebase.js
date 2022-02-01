@@ -163,10 +163,11 @@ window.onunload = function () {
     }
 }
 const imgupload = document.getElementById('imgUpload');
-const loadingImgBtn = document.getElementById('loadingImgBtn')
+const loadingImg = document.getElementById('loadingImg');
 if (imgupload) {
     imgupload.addEventListener('change', async (e) => {
-        loadingImgBtn.innerHTML = "<div class='loader' style='width:3.2rem; height: 3.2rem'></div>";
+        //console.log(loadingImg)
+        loadingImg.innerHTML = "<div class='loader' style='width:3.2rem; height: 3.2rem'></div>";
         const user = auth.currentUser
         const file = e.target.files[0];
         const storage = getStorage();
@@ -176,9 +177,9 @@ if (imgupload) {
                 res.items.forEach((itemRef) => {
                     if (itemRef) {
                         deleteObject(itemRef)
-                            .then(() => {
-                                console.log('deleted')
-                            })
+                        .then(() => {
+                            console.log('deleted')
+                        })
                     }
                 });
             })

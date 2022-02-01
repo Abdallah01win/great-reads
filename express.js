@@ -30,18 +30,8 @@ app.post('/search', urlencodedParser, async (req, res) => {
             return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
         }
     })
-    // we can map the results from the api by their IDs and return an array of just IDs 
-    // then we can get the index of the the element that was clicked and match it with the index in the IDs array
-
-    // or add an eventlistener to each book and send a post request with the book ID when it's fired.
-    const getId = (bookArray) => {
-        bookArray.forEach(book => {
-            book.addEventListener('click', () => {
-                //console.log(book.id);
-            })
-        });
-    }
-    res.render('search', { newArray, getId, collectionInfo})
+    idsArray = newArray.map(book => book.id );
+    res.render('search', { newArray, collectionInfo})
 })
 
 
@@ -61,6 +51,11 @@ app.get('/collections', (req, res) => {
     const colKeys = Object.keys(collectionInfo)
     console.log(colKeys)
     res.render('collections', {userInfo, collectionInfo, colKeys});
+})
+app.post('/book',jsonParser, async (req, res)=>{
+    const bookIndex = await req.body[0];
+    res.status(200).end();
+    console.log(idsArray[bookIndex]);
 })
 
 app.get('/', async (req, res) => {
