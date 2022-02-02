@@ -5,8 +5,24 @@
     <%- include('navigation')%>
     <main class="main">
     <%- include('sideNav')%>
-
-    <h1><%= book.volumeInfo.title %></h1> 
+    <div class="book">
+        <div class="book__cover">
+            <img src="<%=book.volumeInfo.imageLinks.thumbnail%>" alt="book cover">
+        </div>
+        <div class="book__info">
+            <h2><%= book.volumeInfo.title %></h2>
+            <div>
+                <p>Author: <%=book.volumeInfo.authors[0]%></p>
+                <p>Edition: <%=book.volumeInfo.publishedDate%></p>
+                <p>Category: <%=book.volumeInfo.categories%></p>
+                <p>Page Count: <%=book.volumeInfo.pageCount%></p>
+            </div>
+            <div class="book__info--buttons">
+                <a href="" class="addToCol sqr-btn">Add to collection</a>
+                <a href="" class="addToCol sqr-btn">Currently Reading?</a>
+            </div>
+        </div>
+    </div>
     
     </main>
     

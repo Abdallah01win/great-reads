@@ -26,7 +26,8 @@ app.post('/search', urlencodedParser, async (req, res) => {
     const books = dataa.data.items
     newArray = books.filter(book => {
         if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1950;
+            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
+            /*("City planning" && "Industries" && "Consumer credit" && )*/
         }
     })
     res.render('search', { newArray, collectionInfo})

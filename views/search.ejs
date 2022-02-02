@@ -14,14 +14,14 @@
             <% } %>
                 <h3 class="shelv__book--title">
                 <% if (newArray[i].volumeInfo.title.length >= 28) { %>
-                    <%= newArray[i].volumeInfo.title.substring(0,28) + "..." %> 
+                <%= newArray[i].volumeInfo.title.substring(0,34) + "..." %> 
                 <% } else { %>
                         <%= newArray[i].volumeInfo.title %>
                 <% } %>     
                 </h3>
                 <h5 class="shelv__book--author">
                 <% if (newArray[i].volumeInfo.authors) { %>
-                    <%= newArray[i].volumeInfo.authors %>
+                    <%= newArray[i].volumeInfo.authors[0] %>
                 <% } %>  
                 </h5>
         </a>
