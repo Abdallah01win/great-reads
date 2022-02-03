@@ -8,6 +8,7 @@ const app = express();
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackConfig = require('./webpack.config');
+const { default: axios } = require('axios');
 webpackDevMiddleware(webpack(webpackConfig));
 
 // EJS and Static Files
@@ -21,18 +22,15 @@ const jsonParser = bodyParser.json()
 collectionInfo = "";
 
 // Search Rout
-app.post('/search', urlencodedParser, async (req, res) => {
-    const dataa = await wait(req.body.search);
-    const books = dataa.data.items
-    newArray = books.filter(book => {
-        if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
-            /*("City planning" && "Industries" && "Consumer credit" && )*/
-        }
-    })
+app.post('/search', jsonParser, async (req, res) => {
+    newArray = await req.body;
+    res.status(200).end();
+})
+app.get('/search', (req, res)=>{
     res.render('search', { newArray, collectionInfo})
 })
-
+//make a get rout to render the search page
+//make a request to serch page from window...
 
 app.post('/users', jsonParser, async (req, res) => {
     activeUser = await req.body;
@@ -46,14 +44,15 @@ app.get('/profile', (req, res) => {
     res.render('profile', {userInfo, collectionInfo});
 })
 app.get('/collections', (req, res) => {
-    const colKeys = Object.keys(collectionInfo)
-    console.log(colKeys)
-    res.render('collections', {userInfo, collectionInfo, colKeys});
+    /*const colKeys = Object.keys(collectionInfo)
+    console.log(colKeys)*/
+    res.render('collections', {userInfo, collectionInfo, /*colKeys*/});
 })
 app.post('/book',jsonParser, async (req, res)=>{
     const bookIndex = await req.body[0];
     res.status(200).end();
     console.log(newArray[bookIndex].id);
+    const bookId = newArray[bookIndex].id;
     book = newArray[bookIndex];
 })
 app.get('/book', (req, res)=>{

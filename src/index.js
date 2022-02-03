@@ -80,35 +80,4 @@ if (signUpBtn) {
     })
 }
 
-const bookShelvs = document.getElementsByClassName('shelv__book');
-/*for (const book in bookShelvs) {
-    book.addEventListener('click', (e)=>{
-        e.preventDefault();
-        console.log(bookShelvs.indexOf(book))
-    })
-}*/
 
-for (let i = 0; i < bookShelvs.length; i++) {
-    bookShelvs[i].addEventListener('click', async(e)=>{
-        e.preventDefault();
-        let index = axios.post('/book', [i]).then(()=>{
-            window.location.href = "/book"
-        })
-    })
-     
-}
-/// which book was clicked
-// 1. loop over the books and atach click event listeners
-// 2. get Id of book 
-// 3. send a post request to the rout
-
-//const books = document.querySelectorAll('.shelv');
-
-/*if (books) {
-    for (let i = 0; i < books.length; i++) {
-        books[i].addEventListener('click', function(){
-             
-        })
-        
-    }
-}*/

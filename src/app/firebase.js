@@ -10,8 +10,8 @@ import {getFirestore,
     getDocs,
     getDoc,
     doc} from "firebase/firestore"*/
-
 const { default: axios } = require('axios');
+const { wait } = require('./getbooks')
 const { initializeApp } = require('firebase/app');
 const { getFirestore,
     collection,
@@ -56,11 +56,32 @@ onAuthStateChanged(auth, (user) => {
         // ...
     }
 });
+newArray = "";
+const searchForm = document.getElementById('navSearchForm');
+if (searchForm) {
+    searchForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const searchTerm = searchForm.searchFormInput.value;
+        const dataa = await wait(searchTerm);
+        const books = dataa.data.items;
+        newArray = books.filter(book => {
+            if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
+                return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
+                /*("City planning" && "Industries" && "Consumer credit" && )*/
+            }
+        })
+        console.log(newArray)
+        axios.post('/search', newArray).then(()=>{
+            //window.location.href = "/search"
+        })
+    })
+    console.log(newArray)
+}
 
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        signUpBtn.innerHTML= "<div class='loader'></div>";
+        signUpBtn.innerHTML = "<div class='loader'></div>";
         const email = signupForm.email.value;
         const password = signupForm.password.value;
         const fname = signupForm.fname.value;
@@ -88,6 +109,11 @@ if (signupForm) {
                         books: ["Animal Farm",
                             "Poor Folks",
                             "The Gambler"]
+                    },
+                    currentlyReading: {
+                        discription: "",
+                        title: "Currently Reading",
+                        books: []
                     },
                     favorits: {
                         discription: "",
@@ -177,9 +203,9 @@ if (imgupload) {
                 res.items.forEach((itemRef) => {
                     if (itemRef) {
                         deleteObject(itemRef)
-                        .then(() => {
-                            console.log('deleted')
-                        })
+                            .then(() => {
+                                console.log('deleted')
+                            })
                     }
                 });
             })
@@ -215,7 +241,7 @@ const profileFormBtn = document.getElementById('profileFormBtn');
 if (profileForm) {
     profileForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        profileFormBtn.innerHTML= "<div class='loader'></div>";
+        profileFormBtn.innerHTML = "<div class='loader'></div>";
         const user = auth.currentUser
         const firstName = profileForm.firstname.value
         const lastName = profileForm.lastname.value
@@ -229,7 +255,7 @@ if (profileForm) {
                 phoneNum: phonenum,
                 adress: adress
             },
-        }, { merge: true }).then(async() => {
+        }, { merge: true }).then(async () => {
             const user = auth.currentUser
             const docRef = doc(dataBase, 'users', `${user.uid}`)
             const docSnap = await getDoc(docRef);
@@ -294,3 +320,28 @@ if (newColForm) {
         signupForm.reset();
     })
 }
+const bookShelvs = document.getElementsByClassName('shelv__book');
+for (let i = 0; i < bookShelvs.length; i++) {
+    bookShelvs[i].addEventListener('click', async(e)=>{
+        e.preventDefault();
+        bookIndex = i
+        console.log(bookIndex)
+        let index = axios.post('/book', [i]).then(()=>{
+            //window.location.href = "/book";
+        })
+    })
+}
+const addToCol = document.getElementById("addToCol");
+const addToCurentReads = document.getElementById("addToCurentReads");
+if (addToCol) {
+    addToCol.addEventListener("click", (e) => {
+        e.preventDefault();
+        // display collection list
+    });
+    addToCurentReads.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(`clicked book id is ${newArray}`)
+        // add to currenly reading and alert when doen
+    })
+}
+
