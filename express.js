@@ -21,6 +21,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
 collectionInfo = "";
 
+
 // Search Rout
 app.post('/search', jsonParser, async (req, res) => {
     newArray = await req.body;
@@ -29,9 +30,18 @@ app.post('/search', jsonParser, async (req, res) => {
 app.get('/search', (req, res)=>{
     res.render('search', { newArray, collectionInfo})
 })
-//make a get rout to render the search page
-//make a request to serch page from window...
+app.post('/book',jsonParser, async (req, res)=>{
+    const bookIndex = await req.body[0];
+    res.status(200).end();
+    console.log(newArray[bookIndex].id);
+    const bookId = newArray[bookIndex].id;
+    book = newArray[bookIndex];
+})
+app.get('/book', (req, res)=>{
+    res.render('book', {book, collectionInfo})
+})
 
+//User Data rout
 app.post('/users', jsonParser, async (req, res) => {
     activeUser = await req.body;
     res.status(200).end();
@@ -44,23 +54,7 @@ app.get('/profile', (req, res) => {
     res.render('profile', {userInfo, collectionInfo});
 })
 app.get('/collections', (req, res) => {
-    /*const colKeys = Object.keys(collectionInfo)
-    console.log(colKeys)*/
-    res.render('collections', {userInfo, collectionInfo, /*colKeys*/});
-})
-app.post('/book',jsonParser, async (req, res)=>{
-    const bookIndex = await req.body[0];
-    res.status(200).end();
-    console.log(newArray[bookIndex].id);
-    const bookId = newArray[bookIndex].id;
-    book = newArray[bookIndex];
-})
-app.get('/book', (req, res)=>{
-    if (userInfo !== undefined) {
-        res.render('book', {book, userInfo, collectionInfo})
-    } else{
-        res.render('book', {book})
-    }
+    res.render('collections', {userInfo, collectionInfo});
 })
 
 app.get('/', async (req, res) => {

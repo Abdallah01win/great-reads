@@ -9,7 +9,7 @@
         display: inline-block;
         display: flex;
         align-items: center;
-        
+        cursor: pointer;
         &--settings {
             @extend .nav__item;
             margin-top: auto;

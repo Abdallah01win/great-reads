@@ -69,14 +69,7 @@ body{
         justify-content: space-between;
     }
     button {
-        @extend .sqr-btn;
-        &:last-of-type {
-            background: var(--background);
-            color: var(--text);
-            &:hover {
-                background: var(--hover2);
-            }
-        }
+        @extend .sqr-buttons;
     }
 }
 

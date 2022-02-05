@@ -16,19 +16,54 @@
         flex-direction: column;
         justify-content: space-between;
         gap: 3.2rem;
-        h2 {
+        &--title {
             font-family: $pri-font;
             font-size: 4.4rem;
         }
-        p {
-            margin-bottom: 1.6rem;
-        }
-        --buttons {
-            display: flex;
-            a {
-                width: 40%;
-                text-align: center;
+        &--details {
+            p{
+                margin-bottom: 1.6rem;
             }
+        }
+    }
+}
+.addToCols{
+    position: absolute;
+    top: 0%;
+    left: 00%;
+    width: 100%;
+    height: 100vh;
+    background: var(--background);
+    padding: 4.6rem;
+    display: grid;
+    place-content: center;
+    form{
+        width: 60rem;
+        height: fit-content;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        row-gap: 2.4rem;
+        .cols{
+            display: grid;
+            grid-template-columns: repeat(2 1fr);
+            .col{
+                cursor: pointer;
+            }
+        }
+        .col-title{
+            font-size: 2.4rem;
+        }
+        
+    }
+    h3{
+        @extend .form__title;
+    }
+    .buttons{
+        display: flex;
+        justify-content: space-between;
+        button{
+            @extend .sqr-buttons;
         }
     }
 }

@@ -80,4 +80,11 @@ if (signUpBtn) {
     })
 }
 
+const notLogedInProf = document.querySelectorAll('.notLogedInProf');
+for (let i = 0; i < notLogedInProf.length; i++) {
+    notLogedInProf[i].addEventListener('click', (e)=>{
+        e.preventDefault();
+        alert('You Are Not lOGGED iN');
+    })
+}
 

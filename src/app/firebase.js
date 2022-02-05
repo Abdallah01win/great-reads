@@ -56,26 +56,37 @@ onAuthStateChanged(auth, (user) => {
         // ...
     }
 });
-newArray = "";
+
 const searchForm = document.getElementById('navSearchForm');
-if (searchForm) {
-    searchForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const searchTerm = searchForm.searchFormInput.value;
-        const dataa = await wait(searchTerm);
-        const books = dataa.data.items;
-        newArray = books.filter(book => {
-            if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-                return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
-                /*("City planning" && "Industries" && "Consumer credit" && )*/
-            }
-        })
-        console.log(newArray)
-        axios.post('/search', newArray).then(()=>{
-            //window.location.href = "/search"
-        })
+searchForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const searchTerm = searchForm.searchFormInput.value;
+    const dataa = await wait(searchTerm);
+    const books = dataa.data.items;
+    newArray = books.filter(book => {
+        if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
+            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
+            /*("City planning" && "Industries" && "Consumer credit" && )*/
+        }
     })
     console.log(newArray)
+    axios.post('/search', newArray).then(() => {
+        window.location.href = "/search"
+    })
+})
+
+const addToCol = document.getElementById("addToCol");
+const addToCurentReads = document.getElementById("addToCurentReads");
+if (addToCol) {
+    addToCol.addEventListener("click", (e) => {
+        e.preventDefault();
+        // display collection list
+    });
+    addToCurentReads.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(newArray[bookIndex].id)
+        // add to currenly reading and alert when doen
+    })
 }
 
 if (signupForm) {
@@ -322,26 +333,13 @@ if (newColForm) {
 }
 const bookShelvs = document.getElementsByClassName('shelv__book');
 for (let i = 0; i < bookShelvs.length; i++) {
-    bookShelvs[i].addEventListener('click', async(e)=>{
+    bookShelvs[i].addEventListener('click', async (e) => {
         e.preventDefault();
         bookIndex = i
-        console.log(bookIndex)
-        let index = axios.post('/book', [i]).then(()=>{
-            //window.location.href = "/book";
+        let index = axios.post('/book', [i]).then(() => {
+            window.location.href = "/book";
         })
     })
 }
-const addToCol = document.getElementById("addToCol");
-const addToCurentReads = document.getElementById("addToCurentReads");
-if (addToCol) {
-    addToCol.addEventListener("click", (e) => {
-        e.preventDefault();
-        // display collection list
-    });
-    addToCurentReads.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log(`clicked book id is ${newArray}`)
-        // add to currenly reading and alert when doen
-    })
-}
+
 

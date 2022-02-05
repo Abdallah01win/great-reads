@@ -10,8 +10,8 @@
             <img src="<%=book.volumeInfo.imageLinks.thumbnail%>" alt="book cover">
         </div>
         <div class="book__info">
-            <h2><%= book.volumeInfo.title %></h2>
-            <div>
+            <h2 class="book__info--title"><%= book.volumeInfo.title %></h2>
+            <div class="book__info--details">
                 <p>Author: <%=book.volumeInfo.authors[0]%></p>
                 <p>Edition: <%=book.volumeInfo.publishedDate%></p>
                 <p>Category: <%=book.volumeInfo.categories%></p>
@@ -23,9 +23,7 @@
             </div>
         </div>
     </div>
-    
     </main>
-    
 
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>

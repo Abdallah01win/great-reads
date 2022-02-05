@@ -3,14 +3,25 @@
         <ion-icon name="home-outline" class="nav__item--icon"></ion-icon>
         <span>Home</span>
     </a>
-    <a href="/profile" class="nav__item">
-        <ion-icon class="nav__item--icon" name="person-outline"></ion-icon>
-        <span>Profile</span>
-    </a>
-    <a href="/collections" class="nav__item">
-        <ion-icon name="bookmarks-outline" class="nav__item--icon"></ion-icon>
-        <span>collections</span>
-    </a>
+    <% if (collectionInfo !== "") { %>
+        <a href="/profile" class="nav__item">
+            <ion-icon class="nav__item--icon" name="person-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+        <a href="/collections" class="nav__item">
+            <ion-icon name="bookmarks-outline" class="nav__item--icon"></ion-icon>
+            <span>collections</span>
+        </a>
+    <% } else{ %>
+        <a class="nav__item notLogedInProf">
+            <ion-icon class="nav__item--icon" name="person-outline"></ion-icon>
+            <span>Profile</span>
+        </a>
+        <a class="nav__item notLogedInProf">
+            <ion-icon name="bookmarks-outline" class="nav__item--icon"></ion-icon>
+            <span>collections</span>
+        </a>
+    <%}%>
     <a href="/" class="nav__item--settings">
         <ion-icon name="settings-outline" class="nav__item--icon"></ion-icon>
         <span>settings</span>

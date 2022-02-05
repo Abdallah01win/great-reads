@@ -40,6 +40,16 @@
         }
     }
 }
+.sqr-buttons{
+    @extend .sqr-btn;
+        &:last-of-type {
+            background: var(--background);
+            color: var(--text);
+            &:hover {
+                background: var(--hover2);
+            }
+        }
+}
 .text-input {
     padding: 0.8rem 1.6rem;
     font-size: 1.8rem;
