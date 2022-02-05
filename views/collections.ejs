@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <%- include('head') %>
-
     <body>
         <%- include('navigation') %>
         <main class="main">
@@ -10,9 +9,11 @@
                 <% for(let col in collectionInfo){ %>
                     <%if(col !== "userInfo" ){%>
                     <div class="cols__col">
+                        <div class="cols__col--actions">
+                            <ion-icon name="ellipsis-horizontal"></ion-icon>
+                        </div>
                         <h4 class="cols__col--title"><%=collectionInfo[col].title%></h4>
-                        <p class="col__discription"><%=collectionInfo[col].discription%></p>
-                        <p class="col__books"><%=collectionInfo[col].books.length%> Books</p>
+                        <p class="cols__col--books"><span class="num"><%=collectionInfo[col].books.length%></span> Books</p>
                     </div>
                     <%}%>
                 <%}%>

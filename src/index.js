@@ -81,10 +81,24 @@ if (signUpBtn) {
 }
 
 const notLogedInProf = document.querySelectorAll('.notLogedInProf');
+const alert = document.getElementById('alert')
 for (let i = 0; i < notLogedInProf.length; i++) {
     notLogedInProf[i].addEventListener('click', (e)=>{
         e.preventDefault();
-        alert('You Are Not lOGGED iN');
+        alert.classList.add('show-alert');
+        setTimeout(()=>{
+            alert.classList.remove('show-alert');
+        }, 1600)
     })
+}
+
+const colActions = document.getElementsByClassName('cols__col--actions');
+if (colActions) {
+    for (let i = 0; i < colActions.length; i++) {
+        colActions.addEventListener('click', ()=>{
+            alert('details clicked')
+        })
+        
+    }
 }
 

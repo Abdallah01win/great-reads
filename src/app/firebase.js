@@ -47,16 +47,6 @@ const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUpBtn');
 const userStatus = document.getElementById('userStatus');
 
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        userStatus.classList.toggle('activeStatus');
-        // ...
-    } else {
-        // User is signed out
-        // ...
-    }
-});
-
 const searchForm = document.getElementById('navSearchForm');
 searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();

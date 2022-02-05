@@ -4,15 +4,45 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         margin: 3.2rem;
+        margin-top: 5.2rem;
         column-gap: 2.4rem;
         row-gap: 2.4rem;
         height: fit-content;
         &__col {
             border: solid 1px var(--text);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             padding: 3.2rem;
+            cursor: pointer;
+            position: relative;
+            height: 20rem;
+            &--actions {
+                position: absolute;
+                top: 0%;
+                right: 0%;
+                margin: 1.6rem 1.6rem 0rem 0rem;
+                font-size: 2.4rem;
+                opacity: 0;
+            }
+            &:hover .cols__col--actions {
+                opacity: 1;
+            }
             &--title {
+                font-size: 2.4rem;
+                font-family: $pri-font;
+                font-weight: 600;
                 text-align: center;
                 margin-bottom: 2.4rem;
+            }
+            &--books{
+                justify-self: flex-end;
+                .num{
+                    font-size: 5.2rem;
+                    font-weight: 600;
+                    font-family: $pri-font;
+                    margin-right: 0.8rem;
+                }
             }
         }
     }
@@ -27,31 +57,31 @@
         }
         &__Icon {
             @extend .profile__info--img;
-            padding: 1.6rem;
-            font-size: 2.4rem;
+            padding: 1.2rem;
             .icon {
                 font-size: 4rem;
             }
         }
         &__title {
             text-align: center;
+            font-family: $pri-font;
         }
     }
 }
-body{
+body {
     position: relative;
 }
-.section{
+.section {
     position: absolute;
     background: inherit;
     color: inherit;
     display: flex;
     align-items: center;
 }
-.form__input--feild{
-    input{
+.form__input--feild {
+    input {
         margin-top: 2rem;
-        width :100%;
+        width: 100%;
     }
 }
 .col__form {
@@ -61,10 +91,10 @@ body{
     width: 60rem;
     height: fit-content;
     margin: auto;
-    &--title{
+    &--title {
         @extend .form__title;
     }
-    .buttons{
+    .buttons {
         display: flex;
         justify-content: space-between;
     }
@@ -73,19 +103,18 @@ body{
     }
 }
 
-.hideColForm{
+.hideColForm {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
     top: -150%;
 }
-.showColForm{
-opacity: 1;
-visibility: visible;
-pointer-events: visible;
-//transform: translate(50%, 50%);
-height: 100vh;
-width: 100%;
-top: 0;
-left: 0;
+.showColForm {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: visible;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
 }

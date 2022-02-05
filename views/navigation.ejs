@@ -1,4 +1,4 @@
-<nav class="navBar prograssBar">
+<nav class="navBar">
     <div class="navBar__item--logo">
         <a href="/">
             <span>Great</span>
@@ -17,11 +17,11 @@
             <% if (collectionInfo.userInfo.imgUrl === "") { %>
                 <a href="/profile" class="profile__image">
                     <ion-icon class="icon" name="person-outline"></ion-icon>
-                    <div id="userStatus"></div>
+                    <div id="userStatus" class="activeStatus"></div>
                 </a>
             <% } else { %>
                 <a href="/profile" class="profile__image" style="background-image: url(<%=collectionInfo.userInfo.imgUrl%>);background-size: cover; width: 4.6rem; height: 4.6rem;">
-                    <div id="userStatus"></div>
+                    <div id="userStatus" class="activeStatus"></div>
                 </a>
             <% } %>
         <% } else{ %>
@@ -32,3 +32,11 @@
         <% } %>
     </div>
 </nav>
+<% if (collectionInfo === "") { %>
+    <div class="alert" id="alert">
+        <div class="alert__icon">
+            <ion-icon name="close-circle-outline"></ion-icon>
+        </div>
+        <div class="alert__text">You Are Not Logged In</div>
+    </div>
+<% } %>    

@@ -18,8 +18,13 @@
                 <p>Page Count: <%=book.volumeInfo.pageCount%></p>
             </div>
             <div class="book__info--buttons">
-                <a href="" id="addToCol" class="addToCol sqr-btn">Add to collection</a>
-                <a href="" id="addToCurentReads" class="addToCol sqr-btn">Currently Reading?</a>
+                <% if (collectionInfo !== "") { %>
+                    <a id="addToCol" class="addToCol sqr-btn">Add to collection</a>
+                    <a id="addToCurentReads" class="addToCol sqr-btn">Currently Reading?</a>
+                <%} else{ %>
+                    <a class="addToCol sqr-btn notLogedInProf">Add to collection</a>
+                    <a class="addToCol sqr-btn notLogedInProf">Currently Reading?</a>
+                <% } %>
             </div>
         </div>
     </div>
