@@ -19,7 +19,7 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc, } = require('firebase/firestore')
+    doc, updateDoc, arrayUnion, arrayRemove } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
@@ -64,21 +64,6 @@ searchForm.addEventListener('submit', async (e) => {
         window.location.href = "/search"
     })
 })
-
-const addToCol = document.getElementById("addToCol");
-const addToCurentReads = document.getElementById("addToCurentReads");
-if (addToCol) {
-    addToCol.addEventListener("click", (e) => {
-        e.preventDefault();
-        // display collection list
-    });
-    addToCurentReads.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log(newArray[bookIndex].id)
-        // add to currenly reading and alert when doen
-    })
-}
-
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -332,4 +317,29 @@ for (let i = 0; i < bookShelvs.length; i++) {
     })
 }
 
+const addToCurentReads = document.getElementById('addToCurentReads');
+const addToCol = document.getElementById('addToCol');
+if (addToCol) {
+    addToCurentReads.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const bookId = addToCurentReads.parentElement.parentElement.firstElementChild.textContent
+        console.log(bookId);
+        const user = auth.currentUser;
+        // adding books ids to firestore
+        await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
+            "currentlyReading.books": arrayUnion(bookId) 
 
+        }, {merge: true}).then(async () => {
+            console.log('book added');
+            const docRef = doc(dataBase, 'users', `${user.uid}`)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                userData = docSnap.data();
+                active = [user, userData]
+                let users = axios.post('/users', active)
+            } else {
+                console.log("No such document!");
+            }
+        })
+    })
+}

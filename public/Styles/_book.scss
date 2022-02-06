@@ -12,6 +12,9 @@
         }
     }
     &__info {
+        #bookId{
+            display: none;
+        }
         display: flex;
         flex-direction: column;
         justify-content: space-between;

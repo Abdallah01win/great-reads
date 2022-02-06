@@ -10,6 +10,7 @@
             <img src="<%=book.volumeInfo.imageLinks.thumbnail%>" alt="book cover">
         </div>
         <div class="book__info">
+            <h2 id="bookId"><%= book.id %></h2>
             <h2 class="book__info--title"><%= book.volumeInfo.title %></h2>
             <div class="book__info--details">
                 <p>Author: <%=book.volumeInfo.authors[0]%></p>
@@ -23,7 +24,7 @@
                     <a id="addToCurentReads" class="addToCol sqr-btn">Currently Reading?</a>
                 <%} else{ %>
                     <a class="addToCol sqr-btn notLogedInProf">Add to collection</a>
-                    <a class="addToCol sqr-btn notLogedInProf">Currently Reading?</a>
+                    <a class="addToCol sqr-btn notLogedInProf" >Currently Reading?</a>
                 <% } %>
             </div>
         </div>
