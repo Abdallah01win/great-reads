@@ -64,26 +64,4 @@
 
 
 
-        <div class="addToCols">
         
-            <button class="form__close btn" id="closeColBtn">
-                <ion-icon name="close-outline"></ion-icon>
-            </button>
-            <form>
-                <h3>Add Book To Collections</h3>
-                <% for(let col in collectionInfo){ %>
-                    <%if(col !== "userInfo" && col !== "currentlyReading"){%>
-                    <div class="cols">
-                        <div class="col">                        
-                            <input type="checkbox" name="colchackbox" id="colchackbox">
-                            <label for="" class="col-title"><%=collectionInfo[col].title%></label>
-                        </div>                    
-                    </div>
-                    <%}%>
-                <%}%>
-                <div class="buttons">
-                    <button id="creatColBtn" type="submit">add to Collection</button>
-                    <button id="cancelCol">Cancel</button>
-                </div>
-            </form>
-        </div>

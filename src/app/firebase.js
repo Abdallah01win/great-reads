@@ -85,16 +85,12 @@ if (signupForm) {
                     wantToRead: {
                         discription: "",
                         title: "Want To Read",
-                        books: ["fahrenhite 451",
-                            "The Lord Of the Flies",
-                            "The Metamorphesis"]
+                        books: []
                     },
                     Read: {
                         discription: "",
                         title: "Read",
-                        books: ["Animal Farm",
-                            "Poor Folks",
-                            "The Gambler"]
+                        books: []
                     },
                     currentlyReading: {
                         discription: "",
@@ -319,10 +315,11 @@ for (let i = 0; i < bookShelvs.length; i++) {
 
 const addToCurentReads = document.getElementById('addToCurentReads');
 const addToCol = document.getElementById('addToCol');
+
 if (addToCol) {
+    bookId = addToCurentReads.parentElement.parentElement.firstElementChild.textContent;
     addToCurentReads.addEventListener('click', async (e) => {
         e.preventDefault();
-        const bookId = addToCurentReads.parentElement.parentElement.firstElementChild.textContent
         console.log(bookId);
         const user = auth.currentUser;
         // adding books ids to firestore
@@ -341,5 +338,22 @@ if (addToCol) {
                 console.log("No such document!");
             }
         })
+    })
+}
+
+
+const addToColForm = document.getElementById('addToColForm');
+const chackBoxs = document.querySelectorAll('.colCheckbox');
+if(addToColForm){
+    addToColForm.addEventListener('submit', (e)=>{
+        e.preventDefault();
+        for (const checkBox of chackBoxs) {
+            if (checkBox.checked === true) {
+                console.log(`the book ${bookId} is added to the collection: ${checkBox.value}`);
+                // get collections from firebase
+                // check for a title match
+                // add bookID to the collection
+            }
+        }
     })
 }

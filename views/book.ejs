@@ -25,12 +25,34 @@
                 <%} else{ %>
                     <a class="addToCol sqr-btn notLogedInProf">Add to collection</a>
                     <a class="addToCol sqr-btn notLogedInProf" >Currently Reading?</a>
+                    input:
                 <% } %>
             </div>
         </div>
     </div>
     </main>
-
+    <div id="colForm" class="addToCols hide-form">
+        <button class="form__close btn" id="closeColBtn">
+            <ion-icon name="close-outline"></ion-icon>
+        </button>
+        <form class="addToCols__form" id="addToColForm">
+            <h3>Add Book To Collections</h3>
+            <% let x = 0 %> 
+            <% for(let col in collectionInfo){ %> 
+                <%if(col !== "userInfo" && col !== "currentlyReading"){%>
+                    <div class="addToCols__form--col">  
+                        <input type="checkbox" id="colchackbox<%=x%>" class="colCheckbox" value="<%=collectionInfo[col].title%>">
+                        <label for="colchackbox<%=x%>" class="col-title"><%=collectionInfo[col].title%></label>
+                    </div>                    
+                <%}%>
+                <% x += 1 %> 
+            <%}%>
+            <div class="buttons">
+                <button id="addToColBtn" type="submit">add to Collection</button>
+                <button id="cancelCol">Cancel</button>
+            </div>
+        </form>
+    </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="bundle.js"></script>

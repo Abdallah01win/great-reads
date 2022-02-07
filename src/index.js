@@ -1,5 +1,5 @@
 const { default: axios } = require('axios');
-const {cons} = require('./app/firebase.js');
+const { cons } = require('./app/firebase.js');
 console.log('from bindel.js');
 console.log('from compiled with live reloding devserver');
 console.log(cons)
@@ -41,7 +41,22 @@ const logInSwitchBtn = document.getElementById('form-swich-login');
 const signUpForm = document.getElementById('si-form-section');
 const logInForm = document.getElementById('lo-form-section');
 const closeBtn = document.getElementsByClassName('form__close');
+const colForm = document.getElementById('colForm');
+const addToCol = document.getElementById('addToCol');
+const cancelCol = document.getElementById('cancelCol');
 
+if(colForm){
+    addToCol.addEventListener('click', (e)=>{
+        e.preventDefault();
+        colForm.classList.toggle('hide-form');
+        colForm.classList.toggle('show-form');
+    })
+    cancelCol.addEventListener('click', (e)=>{
+        e.preventDefault();
+        colForm.classList.toggle('hide-form');
+        colForm.classList.toggle('show-form');
+    })
+}
 
 if (signUpBtn) {
     signUpBtn.addEventListener('click', (e) => {
@@ -56,14 +71,6 @@ if (signUpBtn) {
         logInForm.classList.add('show-form');
     })
 
-    for (let i = 0; i < closeBtn.length; i++) {
-        closeBtn[i].addEventListener('click', () => {
-            logInForm.classList.remove('show-form');
-            logInForm.classList.add('hide-form');
-            signUpForm.classList.remove('show-form');
-            signUpForm.classList.add('hide-form');
-        })
-    }
     signUpSwitchBtn.addEventListener('click', (e) => {
         e.preventDefault();
         signUpForm.classList.remove('show-form');
@@ -80,13 +87,29 @@ if (signUpBtn) {
     })
 }
 
+if (closeBtn) {
+    for (let i = 0; i < closeBtn.length; i++) {
+        closeBtn[i].addEventListener('click', () => {
+            if (logInForm) {
+                logInForm.classList.remove('show-form');
+                logInForm.classList.add('hide-form');
+                signUpForm.classList.remove('show-form');
+                signUpForm.classList.add('hide-form');
+            } else {
+                colForm.classList.toggle('show-form');
+                colForm.classList.toggle('hide-form');
+            }
+        })
+    }
+}
+
 const notLogedInProf = document.querySelectorAll('.notLogedInProf');
 const alert = document.getElementById('alert')
 for (let i = 0; i < notLogedInProf.length; i++) {
-    notLogedInProf[i].addEventListener('click', (e)=>{
+    notLogedInProf[i].addEventListener('click', (e) => {
         e.preventDefault();
         alert.classList.add('show-alert');
-        setTimeout(()=>{
+        setTimeout(() => {
             alert.classList.remove('show-alert');
         }, 1600)
     })
@@ -95,10 +118,10 @@ for (let i = 0; i < notLogedInProf.length; i++) {
 const colActions = document.getElementsByClassName('cols__col--actions');
 if (colActions) {
     for (let i = 0; i < colActions.length; i++) {
-        colActions.addEventListener('click', ()=>{
+        colActions.addEventListener('click', () => {
             alert('details clicked')
         })
-        
+
     }
 }
 
