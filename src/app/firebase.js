@@ -324,9 +324,9 @@ if (addToCol) {
         const user = auth.currentUser;
         // adding books ids to firestore
         await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
-            "currentlyReading.books": arrayUnion(bookId) 
+            "currentlyReading.books": arrayUnion(bookId)
 
-        }, {merge: true}).then(async () => {
+        }, { merge: true }).then(async () => {
             console.log('book added');
             const docRef = doc(dataBase, 'users', `${user.uid}`)
             const docSnap = await getDoc(docRef);
@@ -344,15 +344,37 @@ if (addToCol) {
 
 const addToColForm = document.getElementById('addToColForm');
 const chackBoxs = document.querySelectorAll('.colCheckbox');
-if(addToColForm){
-    addToColForm.addEventListener('submit', (e)=>{
+if (addToColForm) {
+    addToColForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        const user = auth.currentUser;
+        // get collections from firebase
+        const docSnap = await getDoc(doc(dataBase, 'users', (user.uid)));
+        const collections = docSnap.data();
+        console.log(collections);
         for (const checkBox of chackBoxs) {
             if (checkBox.checked === true) {
-                console.log(`the book ${bookId} is added to the collection: ${checkBox.value}`);
-                // get collections from firebase
-                // check for a title match
-                // add bookID to the collection
+                for (const col in collections) {
+                    if (col !== "userInfo" && col !== "currentlyReading") {
+                        if (collections[col].title === checkBox.value) {
+                            // add bookID to the collection
+                            await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`),{
+                                [`${col}.books`]: arrayUnion(bookId)
+                            }).then(async() => {
+                                const docRef = doc(dataBase, 'users', `${user.uid}`)
+                                const docSnap = await getDoc(docRef);
+                                if (docSnap.exists()) {
+                                    userData = docSnap.data();
+                                    active = [user, userData]
+                                    let users = axios.post('/users', active)
+                                    console.log('sent')
+                                } else {
+                                    console.log("No such document!");
+                                }
+                            })
+                        }
+                    }
+                }
             }
         }
     })
