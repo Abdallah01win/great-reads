@@ -56,6 +56,9 @@ app.get('/profile', (req, res) => {
 app.get('/collections', (req, res) => {
     res.render('collections', {userInfo, collectionInfo});
 })
+app.get('/collection', (req, res)=>{
+    res.render('collection', {userInfo, collectionInfo})
+})
 
 app.get('/', async (req, res) => {
     res.render('index', {collectionInfo})
