@@ -1,0 +1,36 @@
+.collection {
+    display: flex;
+    flex-direction: column;
+    row-gap: 3.2rem;
+    padding: 0rem 3.2rem 3.2rem 3.2rem;
+    &__title {
+        font-family: $pri-font;
+        font-size: 4.4rem;
+        margin: 2.4rem 0rem;
+        text-align: center;
+    }
+    &__book {
+        display: flex;
+        position: relative;
+        border: solid 1px var(--text);
+        .form__close{
+            opacity: 0;
+        }
+        &:hover .form__close {
+            opacity: 1;
+        }
+        &--info{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            font-size: 1.8rem;
+        }
+        &--title {
+            font-family: $pri-font;
+            font-size: 2.4rem;
+        }
+        &--cover{
+            margin-right:2rem;
+        }
+    }
+}

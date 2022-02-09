@@ -67,10 +67,9 @@ app.get('/collection', async(req, res)=>{
         const colObjects = await getBookById(requestedCol.books[i]);
         const colBooks = colObjects.data;
         booksArray.push(colBooks);
-        //^proccess the data in the get rout of collection 
     }
     console.log(booksArray)
-    res.render('collection', {userInfo, booksArray})
+    res.render('collection', {userInfo, booksArray, requestedCol})
 })
 
 app.get('/', async (req, res) => {

@@ -14,7 +14,7 @@
             <h2 class="book__info--title"><%= book.volumeInfo.title %></h2>
             <div class="book__info--details">
                 <p>Author: <%=book.volumeInfo.authors[0]%></p>
-                <p>Edition: <%=book.volumeInfo.publishedDate%></p>
+                <p>Edition: <%=book.volumeInfo.publishedDate.substring(0, 4)%></p>
                 <p>Category: <%=book.volumeInfo.categories%></p>
                 <p>Page Count: <%=book.volumeInfo.pageCount%></p>
             </div>

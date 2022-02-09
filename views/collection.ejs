@@ -6,7 +6,32 @@
         <main class="main">
             <%- include('sideNav') %>
             <div>
-                <%= booksArray[0].id %> 
+                <h3 class="collection__title"><%=requestedCol.title%></h3>
+                <!-- you can chack the collection title to detrmin which templet to render (progress bar for curently reading, date picker for read)-->
+            <div class="collection">
+                <% for( let i = 0; i < booksArray.length; i++ ) { %>
+                <div class="collection__book">
+                    <button class="form__close btn">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                    <img class="collection__book--cover" src="<%=booksArray[i].volumeInfo.imageLinks.thumbnail%>" alt="">
+                    <div class="collection__book--info">
+                        <div class="collection__book--title">
+                            <%= booksArray[i].volumeInfo.title %>
+                        </div>
+                        <div class="collection__book--author">
+                            Author: <%=booksArray[i].volumeInfo.authors[0]%>
+                        </div>
+                        <div class="collection__book--edition">
+                            Edition: <%=booksArray[i].volumeInfo.publishedDate.substring(0, 4)%>
+                        </div>
+                        <div class="collection__book--pages">
+                            Pages: <%=booksArray[i].volumeInfo.pageCount%>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+                </div>
             </div>
         </main>
     </body>
