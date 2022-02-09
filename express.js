@@ -56,8 +56,12 @@ app.get('/profile', (req, res) => {
 app.get('/collections', (req, res) => {
     res.render('collections', {userInfo, collectionInfo});
 })
+app.post('/collection', jsonParser, async(req, res)=>{
+    requestedCol = await req.body
+    res.status(200).end();
+})
 app.get('/collection', (req, res)=>{
-    res.render('collection', {userInfo, collectionInfo})
+    res.render('collection', {userInfo, requestedCol})
 })
 
 app.get('/', async (req, res) => {

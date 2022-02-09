@@ -9,9 +9,6 @@
                 <% for(let col in collectionInfo){ %>
                     <%if(col !== "userInfo" ){%>
                     <div class="cols__col">
-                        <div class="cols__col--actions">
-                            <ion-icon name="ellipsis-horizontal"></ion-icon>
-                        </div>
                         <h4 class="cols__col--title"><%=collectionInfo[col].title%></h4>
                         <p class="cols__col--books"><span class="num"><%=collectionInfo[col].books.length%></span> Books</p>
                     </div>

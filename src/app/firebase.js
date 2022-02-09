@@ -358,9 +358,9 @@ if (addToColForm) {
                     if (col !== "userInfo" && col !== "currentlyReading") {
                         if (collections[col].title === checkBox.value) {
                             // add bookID to the collection
-                            await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`),{
+                            await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
                                 [`${col}.books`]: arrayUnion(bookId)
-                            }).then(async() => {
+                            }).then(async () => {
                                 const docRef = doc(dataBase, 'users', `${user.uid}`)
                                 const docSnap = await getDoc(docRef);
                                 if (docSnap.exists()) {
@@ -378,4 +378,28 @@ if (addToColForm) {
             }
         }
     })
+}
+
+const cols = document.querySelectorAll('.cols__col');
+if (cols) {
+    for (const col of cols) {
+        col.addEventListener('click', async (e) => {
+            e.preventDefault();
+            let colTitle = col.firstElementChild.textContent;
+            const docSnap = await getDoc(doc(dataBase, "users", `${auth.currentUser.uid}`))
+            if (docSnap.exists()) {
+                userData = docSnap.data();
+                for (const FBcol in userData) {
+                    if (colTitle === userData[FBcol].title) {
+                        console.log(userData[FBcol].books)
+                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => {
+                            window.location.href = "/collection";
+                        })
+                    }
+                }
+            } else {
+                console.log("No such document!");
+            }
+        })
+    }
 }

@@ -5,6 +5,14 @@
         <%- include('navigation') %>
         <main class="main">
             <%- include('sideNav') %>
+            <div>
+                <h1><%= requestedCol.title %> </h1>
+                <ul>
+                    <% for( let i = 0; i < requestedCol.books.length; i++ ) { %>
+                        <li><%= requestedCol.books[i] %></li>
+                    <% } %>
+                </ul>
+            </div>
         </main>
     </body>
     <%- include('scripts')%>

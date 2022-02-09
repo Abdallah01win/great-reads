@@ -17,7 +17,7 @@
             cursor: pointer;
             position: relative;
             height: 20rem;
-            &--actions {
+            /*&--actions {
                 position: absolute;
                 top: 0%;
                 right: 0%;
@@ -27,7 +27,7 @@
             }
             &:hover .cols__col--actions {
                 opacity: 1;
-            }
+            }*/
             &--title {
                 font-size: 2.4rem;
                 font-family: $pri-font;
