@@ -5,5 +5,9 @@ function wait(searchTerm = "One Hundred Years of Solitude", lang = "en") {
     let data  = axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${apiToken}&langRestrict=${lang}&maxResults=40&printType=books`) 
 return data
 }
+function getBookById(bookId) {
+    let data  = axios.get(`https://www.googleapis.com/books/v1/volumes/${bookId}`) 
+return data
+}
 
-module.exports = {wait};
+module.exports = {wait, getBookById};

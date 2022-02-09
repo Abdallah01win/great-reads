@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { wait } = require('./src/app/getbooks')
+const { wait, getBookById } = require('./src/app/getbooks')
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -60,8 +60,17 @@ app.post('/collection', jsonParser, async(req, res)=>{
     requestedCol = await req.body
     res.status(200).end();
 })
-app.get('/collection', (req, res)=>{
-    res.render('collection', {userInfo, requestedCol})
+app.get('/collection', async(req, res)=>{
+    booksArray = [];
+    for (let i = 0; i < requestedCol.books.length; i++) {
+        console.log(requestedCol.books[i]);
+        const colObjects = await getBookById(requestedCol.books[i]);
+        const colBooks = colObjects.data;
+        booksArray.push(colBooks);
+        //^proccess the data in the get rout of collection 
+    }
+    console.log(booksArray)
+    res.render('collection', {userInfo, booksArray})
 })
 
 app.get('/', async (req, res) => {

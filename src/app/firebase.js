@@ -393,7 +393,7 @@ if (cols) {
                     if (colTitle === userData[FBcol].title) {
                         console.log(userData[FBcol].books)
                         const requestedCol = axios.post('/collection', userData[FBcol]).then(() => {
-                            window.location.href = "/collection";
+                            window.location.href = "/collection"
                         })
                     }
                 }

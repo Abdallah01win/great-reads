@@ -6,12 +6,7 @@
         <main class="main">
             <%- include('sideNav') %>
             <div>
-                <h1><%= requestedCol.title %> </h1>
-                <ul>
-                    <% for( let i = 0; i < requestedCol.books.length; i++ ) { %>
-                        <li><%= requestedCol.books[i] %></li>
-                    <% } %>
-                </ul>
+                <%= booksArray[0].id %> 
             </div>
         </main>
     </body>
