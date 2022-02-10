@@ -174,7 +174,6 @@ const imgupload = document.getElementById('imgUpload');
 const loadingImg = document.getElementById('loadingImg');
 if (imgupload) {
     imgupload.addEventListener('change', async (e) => {
-        //console.log(loadingImg)
         loadingImg.innerHTML = "<div class='loader' style='width:3.2rem; height: 3.2rem'></div>";
         const user = auth.currentUser
         const file = e.target.files[0];
@@ -280,7 +279,7 @@ if (newColForm) {
         const colName = newColForm.newColName.value;
         const coldiscreption = newColForm.newColDisc.value;
         await setDoc(doc(dataBase, "users", (auth.currentUser.uid)), {
-            colName: {
+            [`${colName.replace(/\s/gm, '')}`]: {
                 discription: coldiscreption,
                 title: colName,
                 books: []
@@ -378,8 +377,7 @@ if (addToColForm) {
                 }
             }
         }
-        colForm.classList.add('hide-form')
-        colForm.classList.remove('show-form')
+        hideColForm();
     })
 }
 
