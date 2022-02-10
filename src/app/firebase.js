@@ -342,6 +342,7 @@ if (addToCol) {
 }
 
 
+const colForm = document.getElementById('colForm');
 const addToColForm = document.getElementById('addToColForm');
 const chackBoxs = document.querySelectorAll('.colCheckbox');
 if (addToColForm) {
@@ -377,6 +378,8 @@ if (addToColForm) {
                 }
             }
         }
+        colForm.classList.add('hide-form')
+        colForm.classList.remove('show-form')
     })
 }
 

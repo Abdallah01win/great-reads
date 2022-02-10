@@ -7,12 +7,18 @@
             <%- include('sideNav') %>
             <div>
                 <h3 class="collection__title"><%=requestedCol.title%></h3>
-                <!-- you can chack the collection title to detrmin which templet to render (progress bar for curently reading, date picker for read)-->
-            <div class="collection">
+                <% if (booksArray.length === 0) { %>
+                    <div class="collection__alert" >
+                        <h1>This collection has no books</h1>
+                        <p>Try to search for books and save them Here</p>
+                    </div>
+                <% } else{%>
+                <div class="collection">
                 <% for( let i = 0; i < booksArray.length; i++ ) { %>
+                    
                 <div class="collection__book">
                     <button class="form__close btn">
-                        <ion-icon name="close-outline"></ion-icon>
+                        <ion-icon name="trash-outline"></ion-icon>
                     </button>
                     <img class="collection__book--cover" src="<%=booksArray[i].volumeInfo.imageLinks.thumbnail%>" alt="">
                     <div class="collection__book--info">
@@ -22,14 +28,26 @@
                         <div class="collection__book--author">
                             Author: <%=booksArray[i].volumeInfo.authors[0]%>
                         </div>
-                        <div class="collection__book--edition">
-                            Edition: <%=booksArray[i].volumeInfo.publishedDate.substring(0, 4)%>
-                        </div>
+                        
                         <div class="collection__book--pages">
                             Pages: <%=booksArray[i].volumeInfo.pageCount%>
                         </div>
+                        <!-- if col is curently reading display pgogress bar and persentage -->
+                        <!-- If it is read or favorits and not ratted display rating selectore as empty five stars -->
+                        <!-- if there is a ratting display the nuber of stars as filled and the rest outline -->
+                        <!-- if it's want to read display the date it was saved to the col as saved since -->
+                        <% if (requestedCol.title === "Want To Read") { %>
+                            <div class="collection__book--rating">
+                                Ratting: <%= "<ion-icon name='star-outline'></ion-icon>" *5 %> 
+                            </div>
+                        <% } else{%>
+                            <div class="collection__book--rating">
+                                Ratting: <%= "<ion-icon name='star-outline'></ion-icon>" *5 %> 
+                            </div>
+                        <%}%>
                     </div>
                 </div>
+                    <% } %>
                 <% } %>
                 </div>
             </div>
