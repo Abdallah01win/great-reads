@@ -264,6 +264,7 @@ if (creatColBtn) {
     creatColBtn.addEventListener('click', () => {
         creatCol.classList.remove('hideColForm')
         creatCol.classList.add('showColForm')
+        window.scroll({top: 0, left: 0});
     })
     closeColBtn.addEventListener('click', () => {
         hideColForm()
@@ -385,7 +386,6 @@ const cols = document.querySelectorAll('.cols__col');
 if (cols) {
     for (const col of cols) {
         col.addEventListener('click', async (e) => {
-            e.preventDefault();
             let colTitle = col.firstElementChild.textContent;
             const docSnap = await getDoc(doc(dataBase, "users", `${auth.currentUser.uid}`))
             if (docSnap.exists()) {
@@ -393,7 +393,7 @@ if (cols) {
                 for (const FBcol in userData) {
                     if (colTitle === userData[FBcol].title) {
                         console.log(userData[FBcol].books)
-                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => {
+                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => { 
                             window.location.href = "/collection"
                         })
                     }

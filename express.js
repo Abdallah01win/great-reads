@@ -59,6 +59,7 @@ app.get('/collections', (req, res) => {
 app.post('/collection', jsonParser, async(req, res)=>{
     requestedCol = await req.body
     res.status(200).end();
+    console.log(requestedCol);
 })
 app.get('/collection', async(req, res)=>{
     booksArray = [];
