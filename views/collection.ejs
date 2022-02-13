@@ -16,7 +16,8 @@
                 <div class="collection">
                 <% for( let i = 0; i < booksArray.length; i++ ) { %>   
                     <div class="collection__book">
-                        <button class="form__close btn">
+                        <div style="display: none;"><%= booksArray[i].id %> </div>
+                        <button class="form__close btn deleteBook" >
                             <ion-icon name="trash-outline"></ion-icon>
                         </button>
                         <img class="collection__book--cover" src="<%=booksArray[i].volumeInfo.imageLinks.thumbnail%>" alt="">

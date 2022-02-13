@@ -19,7 +19,7 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc, updateDoc, arrayUnion, arrayRemove } = require('firebase/firestore')
+    doc, updateDoc, arrayUnion, arrayRemove, FieldValue } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
@@ -256,21 +256,21 @@ const cancelCol = document.getElementById('cancelCol');
 const closeColBtn = document.getElementById('closeColBtn');
 const newColForm = document.getElementById('newColForm');
 
-function hideColForm() {
-    creatCol.classList.remove('showColForm')
-    creatCol.classList.add('hideColForm')
+function hideColForm(formContainer) {
+    formContainer.classList.remove('showColForm')
+    formContainer.classList.add('hideColForm')
 }
 if (creatColBtn) {
     creatColBtn.addEventListener('click', () => {
         creatCol.classList.remove('hideColForm')
         creatCol.classList.add('showColForm')
-        window.scroll({top: 0, left: 0});
+        window.scroll({ top: 0, left: 0 });
     })
     closeColBtn.addEventListener('click', () => {
-        hideColForm()
+        hideColForm(creatCol)
     })
     cancelCol.addEventListener('click', () => {
-        hideColForm()
+        hideColForm(creatCol)
     })
 }
 
@@ -368,7 +368,6 @@ if (addToColForm) {
                                     userData = docSnap.data();
                                     active = [user, userData]
                                     let users = axios.post('/users', active)
-                                    console.log('sent')
                                 } else {
                                     console.log("No such document!");
                                 }
@@ -378,7 +377,6 @@ if (addToColForm) {
                 }
             }
         }
-        hideColForm();
     })
 }
 
@@ -393,7 +391,7 @@ if (cols) {
                 for (const FBcol in userData) {
                     if (colTitle === userData[FBcol].title) {
                         console.log(userData[FBcol].books)
-                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => { 
+                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => {
                             window.location.href = "/collection"
                         })
                     }
@@ -401,6 +399,39 @@ if (cols) {
             } else {
                 console.log("No such document!");
             }
+        })
+    }
+}
+
+//deleteing books from collections
+const colbook = document.getElementsByClassName('collection__book');
+const deleteBook = document.getElementsByClassName('deleteBook');
+if (deleteBook) {
+    for (let i = 0; i < deleteBook.length; i++) {
+        deleteBook[i].addEventListener('click', async () => {
+            //book to delete
+            const bookToDelete = deleteBook[i].parentElement.firstElementChild.textContent
+            // collection title to delete the book from 
+            const bookCol = deleteBook[i].parentElement.parentElement.parentElement.firstElementChild.textContent
+            // get a snap of the database
+            const docRef = doc(dataBase, 'users', `${auth.currentUser.uid}`)
+            const docSnap = (await getDoc(docRef)).data();
+            // loop over the collections and get a match with the bookCol
+            for (const col in docSnap) {
+                if (docSnap[col].title === bookCol) {
+                    console.log('col to delete from found')
+                    console.log(`book to delete ${bookToDelete}`)
+                    await updateDoc(doc(dataBase, 'users', `${auth.currentUser.uid}`), {
+                        [`${col}.books`]: arrayRemove(`${bookToDelete}`)
+                    }).then(()=>{
+                        // fullfiled
+                        console.log('book deleted')
+                    }, ()=>{
+                        // rejected
+                        console.log('promis rejected')
+                    })    
+                }
+            } 
         })
     }
 }

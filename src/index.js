@@ -124,14 +124,3 @@ if (colActions) {
 
     }
 }
-
-/*const expandBtn = document.getElementsByClassName('form__expand');
-if(expandBtn){
-    for (let i = 0; i < expandBtn.length; i++) {
-       expandBtn[i].addEventListener('click', (e)=>{
-           const book = expandBtn[i].parentElement;
-           book.classList.toggle('expanded');
-           expandBtn[i].innerHTML("<ion-icon name='chevron-back-outline'></ion-icon>");
-       })   
-    }
-}*/
