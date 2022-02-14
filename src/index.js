@@ -103,7 +103,7 @@ if (closeBtn) {
     }
 }
 
-const notLogedInProf = document.querySelectorAll('.notLogedInProf');
+const notLogedInProf = document.getElementsByClassName('notLogedInProf');
 const alert = document.getElementById('alert')
 for (let i = 0; i < notLogedInProf.length; i++) {
     notLogedInProf[i].addEventListener('click', (e) => {
