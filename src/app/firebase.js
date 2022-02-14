@@ -43,6 +43,21 @@ const dataBase = getFirestore();
 const collectionRef = collection(dataBase, 'users');
 const auth = getAuth();
 
+// Utility Functions
+const savedIcon = "<ion-icon name='cloud-done-outline'></ion-icon>";
+const errorIcon = "<ion-icon name='close-circle-outline'></ion-icon>"
+const alert = document.getElementById('alert');
+function alertUser(text, icon) {
+    alert.firstElementChild.innerHTML = icon;
+    alert.lastElementChild.innerHTML = text;
+    alert.classList.add('show-alert');
+    setTimeout(() => {
+        alert.classList.remove('show-alert');
+    }, 1600)
+}
+// scusses Example alertUser('Book Added Succesfuly', savedIcon);
+// Error Example alertUser('an Arror accured', errorIcon);
+
 const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUpBtn');
 const userStatus = document.getElementById('userStatus');
@@ -327,7 +342,7 @@ if (addToCol) {
             "currentlyReading.books": arrayUnion(bookId)
 
         }, { merge: true }).then(async () => {
-            console.log('book added');
+            alertUser('Book Added Succesfuly', savedIcon);
             const docRef = doc(dataBase, 'users', `${user.uid}`)
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
@@ -362,6 +377,7 @@ if (addToColForm) {
                             await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
                                 [`${col}.books`]: arrayUnion(bookId)
                             }).then(async () => {
+                                alertUser('Book Added Succesfuly', savedIcon);
                                 const docRef = doc(dataBase, 'users', `${user.uid}`)
                                 const docSnap = await getDoc(docRef);
                                 if (docSnap.exists()) {
@@ -423,15 +439,15 @@ if (deleteBook) {
                     console.log(`book to delete ${bookToDelete}`)
                     await updateDoc(doc(dataBase, 'users', `${auth.currentUser.uid}`), {
                         [`${col}.books`]: arrayRemove(`${bookToDelete}`)
-                    }).then(()=>{
+                    }).then(() => {
                         // fullfiled
                         console.log('book deleted')
-                    }, ()=>{
+                    }, () => {
                         // rejected
                         console.log('promis rejected')
-                    })    
+                    })
                 }
-            } 
+            }
         })
     }
 }
