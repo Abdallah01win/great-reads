@@ -19,13 +19,13 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc, updateDoc, arrayUnion, arrayRemove, FieldValue } = require('firebase/firestore')
+    doc, updateDoc, arrayUnion, arrayRemove } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged, GoogleAuthProvider, signInWithPopup,
 } = require("firebase/auth");
 const { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, listAll } = require('firebase/storage')
 
@@ -79,6 +79,63 @@ searchForm.addEventListener('submit', async (e) => {
         window.location.href = "/search"
     })
 })
+const googleSignIn = document.getElementById('googleSignIn');
+if (googleSignIn) {
+    googleSignIn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const googleProvider = new GoogleAuthProvider();
+        signInWithPopup(auth, googleProvider).then(async (result)=>{
+            const user = result.user;
+            const name = user.displayName.split(/\s+/)
+            console.log(user)
+            await setDoc(doc(dataBase, "users", (user.uid)), {
+                userInfo: {
+                    fName: name[0],
+                    lName: name[1],
+                    phoneNum: "",
+                    adress: "",
+                    imgUrl: "",
+                },
+                wantToRead: {
+                    discription: "",
+                    title: "Want To Read",
+                    books: []
+                },
+                Read: {
+                    discription: "",
+                    title: "Read",
+                    books: []
+                },
+                currentlyReading: {
+                    discription: "",
+                    title: "Currently Reading",
+                    books: []
+                },
+                favorits: {
+                    discription: "",
+                    title: "Favorits",
+                    books: []
+                }
+            }).then(async () => {
+                const user = auth.currentUser
+                const docRef = doc(dataBase, 'users', `${user.uid}`)
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData = docSnap.data();
+                    active = [user, userData]
+                    let users = axios.post('/users', active)
+                    console.log(userData)
+                } else {
+                    console.log("No such document!");
+                }
+
+            })
+            window.location.href = "/profile"
+        }).catch((err)=>{
+            console.error(err)
+        })
+    })
+}
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
