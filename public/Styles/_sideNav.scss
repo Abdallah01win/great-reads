@@ -2,9 +2,12 @@
     display: inline-flex;
     flex-direction: column;
     row-gap: 1.6rem;
-    height: calc(100vh - 9.4rem);
+    height: calc(100vh - 8.2rem);
     width: 200px;
     padding: 1.8rem 2rem 2.4rem;
+    position: fixed;
+    background: var(--background);
+    bottom: 0;
     &__item {
         display: inline-block;
         display: flex;

@@ -1,10 +1,9 @@
 .profile {
-    @extend .layout;
     &__info {
         max-width: 80rem;
         margin: 0 auto;
         padding: 3.2rem;
-        padding-top: 0rem;
+        padding-top: 8.2rem;
         img{
             width: 30rem;
             border-radius: 5000px;

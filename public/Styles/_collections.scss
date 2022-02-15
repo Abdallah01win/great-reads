@@ -1,23 +1,21 @@
-.main {
-    @extend .layout;
-    .cols {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        margin: 3.2rem;
-        margin-top: 5.2rem;
-        column-gap: 2.4rem;
-        row-gap: 2.4rem;
-        height: fit-content;
-        &__col {
-            border: solid 1px var(--text);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 3.2rem;
-            cursor: pointer;
-            position: relative;
-            height: 20rem;
-            /*&--options {
+.cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 2.4rem;
+    row-gap: 2.4rem;
+    height: fit-content;
+    margin-left: 20rem;
+    padding: 12.8rem 8rem;
+    &__col {
+        border: solid 1px var(--text);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 3.2rem;
+        cursor: pointer;
+        position: relative;
+        height: 20rem;
+        /*&--options {
                 position: absolute;
                 right: 0%;
                 top: 0%;
@@ -39,24 +37,24 @@
                 margin: 1.6rem 1.6rem 0rem 0rem;
                 font-size: 2.4rem;
             }*/
-            &--title {
-                font-size: 2.4rem;
-                font-family: $pri-font;
+        &--title {
+            font-size: 2.4rem;
+            font-family: $pri-font;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 2.4rem;
+        }
+        &--books {
+            justify-self: flex-end;
+            .num {
+                font-size: 5.2rem;
                 font-weight: 600;
-                text-align: center;
-                margin-bottom: 2.4rem;
-            }
-            &--books{
-                justify-self: flex-end;
-                .num{
-                    font-size: 5.2rem;
-                    font-weight: 600;
-                    font-family: $pri-font;
-                    margin-right: 0.8rem;
-                }
+                font-family: $pri-font;
+                margin-right: 0.8rem;
             }
         }
     }
+
     .addNew {
         @extend .cols__col;
         transition: all 200ms ease-out;

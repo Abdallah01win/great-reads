@@ -19,7 +19,7 @@ const { getFirestore,
     setDoc,
     getDocs,
     getDoc,
-    doc, updateDoc, arrayUnion, arrayRemove } = require('firebase/firestore')
+    doc, updateDoc, arrayUnion, arrayRemove, query, where } = require('firebase/firestore')
 const {
     getAuth,
     createUserWithEmailAndPassword,
@@ -70,7 +70,7 @@ searchForm.addEventListener('submit', async (e) => {
     const books = dataa.data.items;
     newArray = books.filter(book => {
         if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 && book.volumeInfo.categories == ("Fiction");
+            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 /*&& book.volumeInfo.categories == ("Fiction");
             /*("City planning" && "Industries" && "Consumer credit" && )*/
         }
     })
@@ -80,11 +80,12 @@ searchForm.addEventListener('submit', async (e) => {
     })
 })
 const googleSignIn = document.getElementById('googleSignIn');
+const googleLogIn = document.getElementById('googleLogIn');
 if (googleSignIn) {
     googleSignIn.addEventListener('click', (e) => {
         e.preventDefault();
         const googleProvider = new GoogleAuthProvider();
-        signInWithPopup(auth, googleProvider).then(async (result)=>{
+        signInWithPopup(auth, googleProvider).then(async (result) => {
             const user = result.user;
             const name = user.displayName.split(/\s+/)
             console.log(user)
@@ -131,8 +132,27 @@ if (googleSignIn) {
 
             })
             window.location.href = "/profile"
-        }).catch((err)=>{
+        }).catch((err) => {
             console.error(err)
+        })
+    })
+}
+if (googleLogIn) {
+    googleLogIn.addEventListener('click', () => {
+        const googleProvider = new GoogleAuthProvider();
+        signInWithPopup(auth, googleProvider).then(async () => {
+            const user = auth.currentUser
+            const docRef = doc(dataBase, 'users', `${user.uid}`)
+            const docSnap = await getDoc(docRef);
+            if (docSnap.exists()) {
+                userData = docSnap.data();
+                active = [user, userData]
+                let users = axios.post('/users', active)
+                console.log(userData)
+            } else {
+                console.log("No such document!");
+            }
+            window.location.href = "/profile"
         })
     })
 }
@@ -154,7 +174,7 @@ if (signupForm) {
                         adress: "",
                         imgUrl: "",
                     },
-                    wantToRead: {
+                    WantToRead: {
                         discription: "",
                         title: "Want To Read",
                         books: []
@@ -169,7 +189,7 @@ if (signupForm) {
                         title: "Currently Reading",
                         books: []
                     },
-                    favorits: {
+                    Favorits: {
                         discription: "",
                         title: "Favorits",
                         books: []
@@ -229,6 +249,9 @@ if (logInForm) {
                     console.log("No such document!");
                 }
                 window.location.href = "/profile"
+            }).catch(()=>{
+                alertUser('Incorrect Email or Password', errorIcon);
+                logingInBtn.innerHTML = "Login"
             })
         signupForm.reset();
     })
@@ -482,29 +505,48 @@ const deleteBook = document.getElementsByClassName('deleteBook');
 if (deleteBook) {
     for (let i = 0; i < deleteBook.length; i++) {
         deleteBook[i].addEventListener('click', async () => {
-            //book to delete
             const bookToDelete = deleteBook[i].parentElement.firstElementChild.textContent
-            // collection title to delete the book from 
             const bookCol = deleteBook[i].parentElement.parentElement.parentElement.firstElementChild.textContent
-            // get a snap of the database
-            const docRef = doc(dataBase, 'users', `${auth.currentUser.uid}`)
-            const docSnap = (await getDoc(docRef)).data();
-            // loop over the collections and get a match with the bookCol
-            for (const col in docSnap) {
-                if (docSnap[col].title === bookCol) {
-                    console.log('col to delete from found')
-                    console.log(`book to delete ${bookToDelete}`)
-                    await updateDoc(doc(dataBase, 'users', `${auth.currentUser.uid}`), {
-                        [`${col}.books`]: arrayRemove(`${bookToDelete}`)
-                    }).then(() => {
-                        // fullfiled
-                        console.log('book deleted')
-                    }, () => {
-                        // rejected
-                        console.log('promis rejected')
-                    })
-                }
-            }
+            const colName = "users";
+            const arrayName = "books";
+            const usersCol = collection(dataBase, colName);
+            const userRef = doc(dataBase, colName, `${auth.currentUser.uid}`);
+        const arrayRef = `${bookCol.replace(/\s/gm, '')}.${arrayName}`;
+            const q = query(usersCol, where(arrayRef, "array-contains", `${bookToDelete}`));
+
+            const querySnapshot = await getDocs(q)
+            console.log(bookToDelete)
+            console.log(bookCol)
+            console.log(typeof(bookToDelete) )
+            console.log(typeof(bookCol) )
+            console.log(querySnapshot.empty)
+            
+                /*.then((querySnapshot) => {
+                    // Removal of object will not proceed if the querySnapshot is empty.
+                    if ((querySnapshot.empty)) {
+                        console.log("No object found!");
+                    }
+                    else {
+                        // Proceeds to removal of object.
+                        updateDoc(userRef, {
+                            [arrayRef]: arrayRemove(`${toString(bookToDelete)}`)
+                        })
+                            .then(() => {
+                                // Check again if the object was deleted successfully.
+                                const querySnapshot = getDocs(q)
+                                    .then((querySnapshot) => {
+                                        if ((querySnapshot.empty)) {
+                                            console.log("Book Deleted!");
+                                        }
+                                        else {
+                                            console.log("Failed!");
+                                        }
+                                    })
+                            });
+                    }
+                })
+                // Catch if there are any Firebase errors.
+                .catch(error => console.log('Failed!', error));*/
         })
     }
 }

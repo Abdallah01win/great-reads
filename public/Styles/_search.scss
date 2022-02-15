@@ -3,7 +3,9 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: 3.2rem;
     row-gap: 4rem;
-    margin: 8rem;
+    margin-left: 20rem;
+    padding: 12.8rem 9.6rem 12.8rem 0rem;
+    width: fit-content;
     &__book{
         text-align: center;
         //border: solid 1px var(--text);
