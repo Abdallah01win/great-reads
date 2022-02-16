@@ -1,0 +1,75 @@
+// Media at 1150PX
+@media screen and (max-width: 71.8em) {
+    //home page forms
+    .form {
+        width: 75%;
+    }
+    // book page btns
+    .addToCol {
+        &:first-of-type{
+            margin-bottom: 2.4rem;
+        }
+        width: 55%;
+        text-align: center;
+    }
+    // profile form
+    .profile__info{
+        max-width: 85rem;
+        margin: 0px 22.5rem;
+    }
+}
+
+//Media at 1000px
+@media screen and (max-width: 62.5em){
+    // Home Page 
+    .hero{
+        grid-template-columns: 1.2fr 1fr;
+    }
+    .hero__text h1{
+        font-size: 4.4rem;
+    }
+    .form {
+        padding: 0rem 6.4rem;
+        &__title{
+            font-size: 3.6rem;
+        }
+        &__discription{
+            margin-bottom: 2.4rem;
+        }
+        .break{
+            margin-top: 0px;
+        }
+    }
+    //collections
+    .cols{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding-right: 4rem;
+    }
+    .cols__col{
+        width: 30rem;
+    }
+    // collection page
+    .container .collection{
+        padding-left: 0px;
+    }
+    // search page
+    .shelv{
+        padding-right: 6.4rem;
+    }
+    // profile Form
+    .profile__info{
+        max-width: 90rem;
+        margin: 0px 20rem;
+        padding: 8.2rem 0rem 3.2rem 0rem;
+    }
+    // book page info
+    .book__info{
+        gap: 2.4rem;
+    }
+    // book page btns
+    .addToCol {
+        width: 65%;
+    }
+}

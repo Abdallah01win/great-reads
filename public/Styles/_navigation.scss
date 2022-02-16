@@ -5,6 +5,7 @@
     padding: 1.8rem 6.4rem;
     font-size: 2rem;
     position: fixed;
+    z-index: 1;
     width: 100%;
     background: var(--background);
     .navBar__item {
@@ -25,9 +26,6 @@
             .text-input {
                 border-right: none;
             }
-            /*input {
-            
-            }*/
         }
         &--profile {
             display: flex;
@@ -85,17 +83,14 @@
     border: solid 1px var(--text);
     
     &__icon {
-        //color: red;
         margin-right: 1.6rem;
         font-size: 3.2rem;
         display: grid;
         place-content: center;
     }
-    &__text {
-    }
 }
 .show-alert {
-    animation: peek 1600ms ease-out;
+    animation: peek 2000ms ease-out;
     @keyframes peek {
         0% {
             opacity: 0;

@@ -6,6 +6,7 @@
     height: fit-content;
     margin-left: 20rem;
     padding: 12.8rem 8rem;
+    padding-left: 0px;
     &__col {
         border: solid 1px var(--text);
         display: flex;
@@ -126,4 +127,5 @@ body {
     width: 100%;
     top: 0;
     left: 0;
+    z-index: 2;
 }

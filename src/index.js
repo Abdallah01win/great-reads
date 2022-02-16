@@ -111,7 +111,7 @@ for (let i = 0; i < notLogedInProf.length; i++) {
         alert.classList.add('show-alert');
         setTimeout(() => {
             alert.classList.remove('show-alert');
-        }, 1600)
+        }, 2000)
     })
 }
 
@@ -121,6 +121,5 @@ if (colActions) {
         colActions.addEventListener('click', () => {
             alert('details clicked')
         })
-
     }
 }

@@ -25,6 +25,7 @@ html {
 @import "book";
 @import "collections";
 @import "collection";
+@import "mediaQueries";
 
 .LightTheme {
     --text: #1b1c1e;
@@ -59,5 +60,6 @@ body {
     //transform: translateX(50%);
     opacity: 1;
     visibility: visible;
+    z-index: 2;
 }
 

@@ -249,7 +249,7 @@ if (logInForm) {
                     console.log("No such document!");
                 }
                 window.location.href = "/profile"
-            }).catch(()=>{
+            }).catch(() => {
                 alertUser('Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
             })
@@ -257,14 +257,6 @@ if (logInForm) {
     })
 }
 
-window.onunload = function () {
-    if (auth.user) {
-        signOut(auth)
-            .then(() => {
-                userStatus.classList.toggle('activeStatus')
-            })
-    }
-}
 const imgupload = document.getElementById('imgUpload');
 const loadingImg = document.getElementById('loadingImg');
 if (imgupload) {
@@ -433,6 +425,7 @@ if (addToCol) {
                 console.log("No such document!");
             }
         })
+        //Hide form here
     })
 }
 
@@ -467,12 +460,16 @@ if (addToColForm) {
                                 } else {
                                     console.log("No such document!");
                                 }
+
                             })
                         }
                     }
                 }
             }
         }
+        addToColForm.reset();
+        colForm.classList.toggle('hide-form');
+        colForm.classList.toggle('show-form');
     })
 }
 
@@ -511,42 +508,42 @@ if (deleteBook) {
             const arrayName = "books";
             const usersCol = collection(dataBase, colName);
             const userRef = doc(dataBase, colName, `${auth.currentUser.uid}`);
-        const arrayRef = `${bookCol.replace(/\s/gm, '')}.${arrayName}`;
+            const arrayRef = `${bookCol.replace(/\s/gm, '')}.${arrayName}`;
             const q = query(usersCol, where(arrayRef, "array-contains", `${bookToDelete}`));
 
             const querySnapshot = await getDocs(q)
             console.log(bookToDelete)
             console.log(bookCol)
-            console.log(typeof(bookToDelete) )
-            console.log(typeof(bookCol) )
+            console.log(typeof (bookToDelete))
+            console.log(typeof (bookCol))
             console.log(querySnapshot.empty)
-            
-                /*.then((querySnapshot) => {
-                    // Removal of object will not proceed if the querySnapshot is empty.
-                    if ((querySnapshot.empty)) {
-                        console.log("No object found!");
-                    }
-                    else {
-                        // Proceeds to removal of object.
-                        updateDoc(userRef, {
-                            [arrayRef]: arrayRemove(`${toString(bookToDelete)}`)
-                        })
-                            .then(() => {
-                                // Check again if the object was deleted successfully.
-                                const querySnapshot = getDocs(q)
-                                    .then((querySnapshot) => {
-                                        if ((querySnapshot.empty)) {
-                                            console.log("Book Deleted!");
-                                        }
-                                        else {
-                                            console.log("Failed!");
-                                        }
-                                    })
-                            });
-                    }
-                })
-                // Catch if there are any Firebase errors.
-                .catch(error => console.log('Failed!', error));*/
+
+            /*.then((querySnapshot) => {
+                // Removal of object will not proceed if the querySnapshot is empty.
+                if ((querySnapshot.empty)) {
+                    console.log("No object found!");
+                }
+                else {
+                    // Proceeds to removal of object.
+                    updateDoc(userRef, {
+                        [arrayRef]: arrayRemove(`${toString(bookToDelete)}`)
+                    })
+                        .then(() => {
+                            // Check again if the object was deleted successfully.
+                            const querySnapshot = getDocs(q)
+                                .then((querySnapshot) => {
+                                    if ((querySnapshot.empty)) {
+                                        console.log("Book Deleted!");
+                                    }
+                                    else {
+                                        console.log("Failed!");
+                                    }
+                                })
+                        });
+                }
+            })
+            // Catch if there are any Firebase errors.
+            .catch(error => console.log('Failed!', error));*/
         })
     }
 }
