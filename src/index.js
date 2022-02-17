@@ -123,3 +123,16 @@ if (colActions) {
         })
     }
 }
+
+const sideNavProfile = document.getElementById('sideNavProfile');
+const navProfile = document.getElementById('navProfile');
+const sideNav = document.getElementById('sideNav')
+
+if (sideNavProfile) {
+    if (window.screen.width <= 600) {
+        sideNavProfile.remove();
+        navProfile.remove();
+        themeSwitch.remove();
+        sideNav.append(themeSwitch, navProfile)
+    }
+}

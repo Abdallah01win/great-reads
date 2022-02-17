@@ -11,21 +11,21 @@
             <ion-icon name="search-outline"></ion-icon>
         </button>
     </form>
-    <div class="navBar__item--profile">
+    <div class="navBar__item--profile" id="navProfile">
         <button class="profile__theme btn" id="darkThemeToggle"></button>
         <% if (collectionInfo !== "") { %>
             <% if (collectionInfo.userInfo.imgUrl === "") { %>
-                <a href="/profile" class="profile__image">
+                <a href="/profile" class="profile__image" >
                     <ion-icon class="icon" name="person-outline"></ion-icon>
                     <div id="userStatus" class="activeStatus"></div>
                 </a>
             <% } else { %>
-                <a href="/profile" class="profile__image" style="background-image: url(<%=collectionInfo.userInfo.imgUrl%>);background-size: cover; width: 4.6rem; height: 4.6rem;">
+                <a href="/profile" class="profile__image" style="background-image: url(<%=collectionInfo.userInfo.imgUrl%>);background-size: cover; width: 4.6rem; height: 4.6rem;" >
                     <div id="userStatus" class="activeStatus"></div>
                 </a>
             <% } %>
         <% } else{ %>
-            <a class="profile__image notLogedInProf">
+            <a class="profile__image notLogedInProf" >
                 <ion-icon class="icon" name="person-outline"></ion-icon>
                 <div id="userStatus"></div>
             </a>

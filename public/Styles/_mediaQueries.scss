@@ -135,3 +135,84 @@
 }
 
 // Media at 600px Layout change
+@media screen and (max-width: 37.5em){
+    .navBar{
+        padding: 1.8rem 4.8rem;
+        &__item{
+            padding: 0px;
+            &--logo{
+                a{
+                    font-size: 2.4rem;
+                }
+            }
+            &--search{
+                width: 50%;
+            }
+        }
+    }
+    #navProfile{
+        transform: translateY(-30%);
+        height: fit-content;
+    }
+    .userStatus{
+        bottom: -100;
+        right: 0;
+    }
+    .profile__theme{
+        border: none;
+        padding: 0px;
+    }
+    .profile__image{
+        display: grid;
+        place-content: center;
+        border-radius: 5000px;
+    }
+    .nav{
+        height: 6.4rem;
+        width: 100%;
+        font-size: 3.6rem;
+        bottom: 0;
+        left: 0;
+        flex-direction: row;
+        justify-content: space-evenly;
+        z-index: 1;
+        &__item{
+            span{
+                display: none;
+            }
+            &--settings{
+                margin: 0rem;
+            }
+            &--logout{
+                display: grid;
+                place-content: center;
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+    .container, .book, .cols, .shelv, .profile__info{
+        margin: 0 auto;
+    }
+    .profile__info{
+        max-width: 80%;
+        padding-bottom: 8rem;
+    }
+    .cols{
+        padding-left:4rem ;
+    }
+    .shelv{
+        padding-left: 3.2rem;
+        padding-right: 3.2rem;
+    }
+    .collection{
+        padding-right: 0rem;
+        padding-bottom: 8rem;
+        &__book{
+            width: 80%;
+            margin: 0 auto;
+        }
+    }
+
+}

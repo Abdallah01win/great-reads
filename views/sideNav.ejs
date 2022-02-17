@@ -1,10 +1,10 @@
-<nav class="nav">
+<nav class="nav" id="sideNav">
     <a href="/" class="nav__item">
         <ion-icon name="home-outline" class="nav__item--icon"></ion-icon>
         <span>Home</span>
     </a>
     <% if (collectionInfo !== "") { %>
-        <a href="/profile" class="nav__item">
+        <a href="/profile" class="nav__item" id="sideNavProfile">
             <ion-icon class="nav__item--icon" name="person-outline"></ion-icon>
             <span>Profile</span>
         </a>
@@ -13,7 +13,7 @@
             <span>collections</span>
         </a>
     <% } else{ %>
-        <a class="nav__item notLogedInProf">
+        <a class="nav__item notLogedInProf" id="sideNavProfile">
             <ion-icon class="nav__item--icon" name="person-outline"></ion-icon>
             <span>Profile</span>
         </a>
@@ -22,10 +22,6 @@
             <span>collections</span>
         </a>
     <%}%>
-    <a href="/" class="nav__item--settings">
-        <ion-icon name="settings-outline" class="nav__item--icon"></ion-icon>
-        <span>settings</span>
-    </a>
     <a href="" class="nav__item--logout" id="logOutBtn">
         <% if (collectionInfo !=="" ) { %>
             <ion-icon class="nav__item--icon" name="log-out-outline"></ion-icon>
