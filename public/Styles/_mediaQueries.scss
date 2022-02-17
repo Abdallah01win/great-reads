@@ -65,11 +65,73 @@
         padding: 8.2rem 0rem 3.2rem 0rem;
     }
     // book page info
-    .book__info{
-        gap: 2.4rem;
+    .book{
+        column-gap: 3.2rem;
+        &__info{
+            gap: 2.4rem;
+            margin-right: 2.4rem;
+        }
     }
     // book page btns
     .addToCol {
-        width: 65%;
+        width: 90%;
     }
 }
+
+// Media at 900px
+@media screen and (max-width: 56.25em){
+    html{
+        font-size:50% ;
+    }
+    .nav{
+        width: 18rem;
+    }
+    .container, .book, .cols, .shelv{
+        margin-left: 18rem;
+    }
+    // collections page
+    .cols__col{
+        width: 22rem;
+    }
+}
+
+//Media at 750px
+@media screen and (max-width: 48.8em) {
+    // Hero page
+    .hero{
+        column-gap: 2.4rem;
+        padding: 16rem 4.8rem 8rem 4.8rem;
+        grid-template-columns: 1.3fr 1fr;
+        &__text{
+            h1{
+                font-size: 3.6rem;
+                margin-bottom: 1.6rem;
+            }
+        }
+    }
+    .form{
+        padding: 0rem 4.8rem;
+        width: 85%;
+    }
+    //profile page
+    .profile__info{
+        margin-left: 18rem;
+        margin-right: 10rem;
+        max-width: 102rem;
+    }
+    .cols__col{
+        width: 25rem;
+    }
+    // collection page
+    .collection__book{
+        width: 100%;
+        margin-left: 2.8rem;
+        margin-right: 4.4rem;
+    }
+    // Search Page
+    .shelv{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+// Media at 600px Layout change
