@@ -13,9 +13,11 @@
         display: flex;
         align-items: center;
         cursor: pointer;
-        //margin-top: auto;
         &--icon{
             padding-right: 0.8rem;
+        }
+        &--logout{
+            margin-top: auto;
         }
     }
 }

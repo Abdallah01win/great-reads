@@ -136,3 +136,18 @@ if (sideNavProfile) {
         sideNav.append(themeSwitch, navProfile)
     }
 }
+    
+const search = document.getElementById('search') 
+const searchInput = document.getElementById('searchInput');
+const logo = document.getElementById('logo');
+if (window.screen.width <= 450) {
+    search.addEventListener('click', ()=>{
+        searchInput.style.display = 'block';
+        searchInput.parentElement.style.width = '100%';
+        logo.style.display = 'none';
+        //console.log('clicked222')
+    })
+}
+if (!sideNav) {
+    navProfile.style.transform = 'none'
+}
