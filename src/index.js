@@ -139,6 +139,7 @@ if (sideNavProfile) {
     
 const search = document.getElementById('search') 
 const searchInput = document.getElementById('searchInput');
+const navBar = document.getElementById('navBar');
 const logo = document.getElementById('logo');
 if (window.screen.width <= 450) {
     search.addEventListener('click', ()=>{
@@ -148,6 +149,10 @@ if (window.screen.width <= 450) {
         //console.log('clicked222')
     })
 }
-if (!sideNav) {
+if (!sideNav ) {
     navProfile.style.transform = 'none'
+}
+if (!sideNav && window.screen.width <= 450) {
+    navProfile.style.transform = 'none'
+    navBar.classList.add('mobileNav')
 }

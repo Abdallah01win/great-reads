@@ -47,6 +47,7 @@ body {
 }
 .hide-form{
     opacity: 0;
+    width: 0px;
     visibility: hidden;
     position: absolute;
     top: -150%;
@@ -57,7 +58,6 @@ body {
     position: absolute;
     top: 0%;
     left: 0%;
-    //transform: translateX(50%);
     opacity: 1;
     visibility: visible;
     z-index: 2;

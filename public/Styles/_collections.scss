@@ -115,6 +115,7 @@ body {
 
 .hideColForm {
     opacity: 0;
+    width: 0px;
     visibility: hidden;
     pointer-events: none;
     top: -150%;
