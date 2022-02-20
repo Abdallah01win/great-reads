@@ -48,6 +48,7 @@ const cancelCol = document.getElementById('cancelCol');
 if(colForm){
     addToCol.addEventListener('click', (e)=>{
         e.preventDefault();
+        window.scrollTo(0, 0);
         colForm.classList.toggle('hide-form');
         colForm.classList.toggle('show-form');
     })
@@ -61,12 +62,14 @@ if(colForm){
 if (signUpBtn) {
     signUpBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        window.scrollTo(0, 0);
         signUpForm.classList.remove('hide-form');
         signUpForm.classList.add('show-form');
     })
 
     logInBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        window.scrollTo(0, 0);
         logInForm.classList.remove('hide-form');
         logInForm.classList.add('show-form');
     })
@@ -115,14 +118,14 @@ for (let i = 0; i < notLogedInProf.length; i++) {
     })
 }
 
-const colActions = document.getElementsByClassName('cols__col--actions');
+/*const colActions = document.getElementsByClassName('cols__col--actions');
 if (colActions) {
     for (let i = 0; i < colActions.length; i++) {
         colActions.addEventListener('click', () => {
             alert('details clicked')
         })
     }
-}
+}*/
 
 const sideNavProfile = document.getElementById('sideNavProfile');
 const navProfile = document.getElementById('navProfile');

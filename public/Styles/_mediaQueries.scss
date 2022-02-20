@@ -153,29 +153,17 @@
             }
         }
     }
-    .hero{
+    .hero {
         grid-template-columns: 1fr;
         row-gap: 3.2rem;
         padding-top: 12rem;
-        &__text{
-            h1{
+        &__text {
+            h1 {
                 text-align: center;
             }
         }
-        &__links{
-            width: 100%;
-            column-gap: 3.2rem;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            row-gap: 3.2rem;
-            a{
-                width: 100%;
-                margin: 0px;
-                text-align: center;
-            }
-            a:first-of-type{
-                margin: inherit;
-            }
+        &__links {
+            @include paralelBtns();
         }
     }
     #navProfile {
@@ -274,44 +262,35 @@
             }
         }
     }
+    .addToCols__form, .col__form {
+        width: 50rem;
+    }
     // Home Page
-    .form__buttons{
-        width: 100%;
-            column-gap: 3.2rem;
-            display: grid;
-            grid-template-columns:  1fr;
-            row-gap: 3.2rem;
-            a, button{
-                width: 100%;
-                margin: 0px;
-                text-align: center;
-            }
-            &:first-child{
-                margin: inherit;
-            }
+    .form__buttons {
+        @include paralelBtns();
     }
 }
 
 //Media at 450px
 @media screen and (max-width: 28.12em) {
-    .hero__links{
+    .hero__links {
         grid-template-columns: 1fr;
     }
-    .navBar{
+    .navBar {
         padding: 1.2rem 3.2rem;
     }
-    .form{
+    .form {
         padding: 0rem 3.2rem;
         width: 90%;
-        &__title{
+        &__title {
             font-size: 3rem;
         }
-        &__discription{
+        &__discription {
             font-size: 2rem;
         }
-        &__input{
+        &__input {
             row-gap: 1.8rem;
-            input{
+            input {
                 margin-top: 1.2rem;
             }
         }
@@ -323,50 +302,77 @@
             grid-template-columns: 1fr 1fr;
             row-gap: 2.4rem;
         }
-        &:first-of-type :nth-child(3){
-            grid-column: 1/3 ;
+        &:first-of-type :nth-child(3) {
+            grid-column: 1/3;
         }
     }
-    .shelv{
+    .shelv {
         grid-template-columns: repeat(2, 1fr);
     }
-    .cols{
+    .cols {
         padding: 12.8rem 0rem 8rem 0rem;
-        col{
+        col {
             width: 20rem;
         }
     }
-    #navSearchForm{
+    #navSearchForm {
         width: fit-content;
     }
-    #searchInput{
+    #searchInput {
         display: none;
     }
-    .book__cover{
+    .book__cover {
         width: 60%;
-        height: 40rem;
+        height: 30rem;
+    }
+    .addToCols__form, .col__form {
+        .buttons {
+            @include paralelBtns();
+        }
+    }
+    .col__form{
+        padding: 0rem 2.4rem;
+    }
+    .addToCols{
+        width: 100%;
+        &__form{
+            width: 100%;
+        }
     }
 }
 
-// Media At 280px
-@media screen and (max-width:17.5em){
-    .nav{
+// Media At 300px
+@media screen and (max-width: 18.75em) {
+    .nav {
         font-size: 3rem;
     }
-    .form__group{
-        &:first-of-type :first-child{
-            grid-column: 1/3 ;
+    .hero{
+        padding: 12rem 3.2rem 6.2rem 3.2rem;
+        &__text{
+            h1{
+                font-size: 3rem;
+            }
         }
-        &:first-of-type :nth-child(2){
-            grid-column: 1/3 ;
+        &__links{
+            row-gap: 2.4rem;
         }
     }
-    .form__group, .form__group--tow, .profile__info--form{
+    .form__group {
+        &:first-of-type :first-child {
+            grid-column: 1/3;
+        }
+        &:first-of-type :nth-child(2) {
+            grid-column: 1/3;
+        }
+    }
+    .form__group,
+    .form__group--tow,
+    .profile__info--form {
         row-gap: 1.6rem !important;
     }
-    .shelv{
+    .shelv {
         grid-template-columns: 1fr;
-        img{
+        img {
             width: 90%;
             height: 35rem;
         }
