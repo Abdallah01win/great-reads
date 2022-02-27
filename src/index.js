@@ -144,16 +144,25 @@ const search = document.getElementById('search')
 const searchInput = document.getElementById('searchInput');
 const navBar = document.getElementById('navBar');
 const logo = document.getElementById('logo');
+const closeSearch = document.getElementById('closeSearch')
 if (window.screen.width <= 450) {
     search.addEventListener('click', ()=>{
         searchInput.style.display = 'block';
         searchInput.parentElement.style.width = '100%';
         logo.style.display = 'none';
-        //console.log('clicked222')
+        closeSearch.style.display = "grid";
+        
+        closeSearch.addEventListener('click', ()=>{
+            searchInput.style.display = 'none';
+            searchInput.parentElement.style.width = '';
+            logo.style.display = 'block';
+            closeSearch.style.display = "none";
+        })
     })
 }
 if (!sideNav ) {
-    navProfile.style.transform = 'none'
+    navProfile.style.transform = 'none';
+    closeSearch.style.right = "65px";
 }
 if (!sideNav && window.screen.width <= 450) {
     navProfile.style.transform = 'none'

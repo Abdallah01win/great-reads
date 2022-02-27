@@ -20,11 +20,18 @@
             }
         }
         &--search {
+            position: relative;
             width: 35%;
             display: flex;
             justify-content: center;
             .text-input {
                 border-right: none;
+               
+            }
+            .text-input:hover:after{
+                opacity: 1;
+                visibility: visible;
+                pointer-events: all;
             }
         }
         &--profile {
@@ -113,4 +120,12 @@
             bottom: 0%;
         }
     }
+}
+.closeSearch{
+    position: absolute;
+    font-size: 3.2rem;
+    height: 100%;
+    right: 50px;
+    display: none;
+    place-content: center;  
 }
