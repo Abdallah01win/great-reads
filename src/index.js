@@ -118,15 +118,6 @@ for (let i = 0; i < notLogedInProf.length; i++) {
     })
 }
 
-/*const colActions = document.getElementsByClassName('cols__col--actions');
-if (colActions) {
-    for (let i = 0; i < colActions.length; i++) {
-        colActions.addEventListener('click', () => {
-            alert('details clicked')
-        })
-    }
-}*/
-
 const sideNavProfile = document.getElementById('sideNavProfile');
 const navProfile = document.getElementById('navProfile');
 const sideNav = document.getElementById('sideNav')

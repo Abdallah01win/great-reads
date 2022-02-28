@@ -66,18 +66,20 @@ const searchForm = document.getElementById('navSearchForm');
 searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const searchTerm = searchForm.searchFormInput.value;
-    const dataa = await wait(searchTerm);
-    const books = dataa.data.items;
-    newArray = books.filter(book => {
-        if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-            return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 /*&& book.volumeInfo.categories == ("Fiction");
+    if (searchTerm != "") {
+        const dataa = await wait(searchTerm);
+        const books = dataa.data.items;
+        newArray = books.filter(book => {
+            if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
+                return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 /*&& book.volumeInfo.categories == ("Fiction");
             /*("City planning" && "Industries" && "Consumer credit" && )*/
-        }
-    })
-    console.log(newArray)
-    axios.post('/search', newArray).then(() => {
-        window.location.href = "/search"
-    })
+            }
+        })
+        axios.post('/search', newArray).then(() => {
+            window.location.href = "/search"
+        })
+    }
+
 })
 const googleSignIn = document.getElementById('googleSignIn');
 const googleLogIn = document.getElementById('googleLogIn');
