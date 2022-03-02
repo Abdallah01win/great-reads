@@ -251,12 +251,13 @@ if (logInForm) {
                 } else {
                     console.log("No such document!");
                 }
+            }).then(()=>{
                 window.location.href = "/profile"
+                signupForm.reset();
             }).catch(() => {
                 alertUser('Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
             })
-        signupForm.reset();
     })
 }
 
