@@ -251,11 +251,11 @@ if (logInForm) {
                 } else {
                     console.log("No such document!");
                 }
-                window.location.href = "/profile"
             }).catch(() => {
                 alertUser('Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
             })
+            window.location.href = "/profile"
         signupForm.reset();
     })
 }
@@ -285,7 +285,6 @@ if (imgupload) {
             console.log("file uploaded to storage")
         }).then(() => {
             getDownloadURL(storageRef).then(async (url) => {
-                console.log(url);
                 await setDoc(doc(dataBase, "users", (user.uid)), {
                     userInfo: {
                         imgUrl: url,
