@@ -89,12 +89,14 @@ if (googleSignIn) {
         const googleProvider = new GoogleAuthProvider();
         signInWithPopup(auth, googleProvider).then(async (result) => {
             const user = result.user;
-            const name = user.displayName.split(/\s+/)
+            const name = user.displayName.split(/\s+/);
+            const fName = name[0];
+            const lName = name[1];
             console.log(user)
             await setDoc(doc(dataBase, "users", (user.uid)), {
                 userInfo: {
-                    fName: name[0],
-                    lName: name[1],
+                    fName: fName,
+                    lName: lName,
                     phoneNum: "",
                     adress: "",
                     imgUrl: "",
@@ -208,7 +210,6 @@ if (signupForm) {
                     } else {
                         console.log("No such document!");
                     }
-
                 })
                 window.location.href = "/profile"
             })
