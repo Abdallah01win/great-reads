@@ -243,16 +243,15 @@ if (logInForm) {
         signInWithEmailAndPassword(auth, email, password)
             .then(async (cred) => {
                 const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
-                const docSnap = await getDoc(docRef).then(()=>{
-                    if (docSnap.exists()) {
-                        userData = docSnap.data();
-                        active = [cred.user, userData]
-                        let user = axios.post('/users', active)
-                    } else {
-                        console.log("No such document!");
-                    }
-                    window.location.href = "/profile"
-                })                
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    userData = docSnap.data();
+                    active = [cred.user, userData]
+                    let user = axios.post('/users', active)
+                } else {
+                    console.log("No such document!");
+                }
+                window.location.href = "/profile"
             }).catch(() => {
                 alertUser('Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
