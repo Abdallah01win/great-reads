@@ -128,14 +128,14 @@ if (googleSignIn) {
                 if (docSnap.exists()) {
                     userData = docSnap.data();
                     active = [user, userData]
-                    let users = axios.post('/users', active)
+                    let users = await axios.post('/users', active).then(()=>{
+                        window.location.href = "/profile"
+                    })
                     console.log(userData)
                 } else {
                     console.log("No such document!");
                 }
 
-            }).then(()=>{
-                window.location.href = "/profile"
             })
         }).catch((err) => {
             console.error(err)
@@ -152,13 +152,12 @@ if (googleLogIn) {
             if (docSnap.exists()) {
                 userData = docSnap.data();
                 active = [user, userData]
-                let users = axios.post('/users', active)
-                console.log(userData)
+                let users = await axios.post('/users', active).then(()=>{
+                    window.location.href = "/profile"
+                })
             } else {
                 console.log("No such document!");
             }
-        }).then(()=>{
-            window.location.href = "/profile"
         })
     })
 }
@@ -207,14 +206,13 @@ if (signupForm) {
                     if (docSnap.exists()) {
                         userData = docSnap.data();
                         active = [user, userData]
-                        let users = axios.post('/users', active)
-                        console.log(userData)
+                        let users = await axios.post('/users', active).then(() => {
+                            window.location.href = "/profile"
+                            signupForm.reset();
+                        })
                     } else {
                         console.log("No such document!");
                     }
-                }).then(() => {
-                    window.location.href = "/profile"
-                    signupForm.reset();
                 })
             }
         )
@@ -301,11 +299,12 @@ if (imgupload) {
                     if (docSnap.exists()) {
                         userData = docSnap.data();
                         active = [user, userData]
-                        let users = axios.post('/users', active)
+                        let users = await axios.post('/users', active).then(()=>{
+                            window.location.href = "/profile"
+                        })
                     } else {
                         console.log("No such document!");
                     }
-                    window.location.href = "/profile"
                 })
             })
         })
@@ -338,10 +337,10 @@ if (profileForm) {
             if (docSnap.exists()) {
                 userData = docSnap.data();
                 active = [user, userData]
-                let users = axios.post('/users', active)
+                let users = await axios.post('/users', active).then(()=>{
+                    window.location.href = "/profile"
+                })
             }
-        }).then(()=>{
-            window.location.href = "/profile"
         })
     })
 }
@@ -389,13 +388,13 @@ if (newColForm) {
                 if (docSnap.exists()) {
                     userData = docSnap.data();
                     active = [user, userData]
-                    let users = axios.post('/users', active)
+                    let users = await axios.post('/users', active).then(()=>{
+                        window.location.href = "/collections"
+                        signupForm.reset();
+                    })
                 } else {
                     console.log("No such document!");
                 }
-            }).then(()=>{
-                window.location.href = "/collections"
-                signupForm.reset();
             })
     })
 }
@@ -404,7 +403,7 @@ for (let i = 0; i < bookShelvs.length; i++) {
     bookShelvs[i].addEventListener('click', async (e) => {
         e.preventDefault();
         bookIndex = i
-        let index = axios.post('/book', [i]).then(() => {
+        let index = await axios.post('/book', [i]).then(() => {
             window.location.href = "/book";
         })
     })
@@ -465,7 +464,7 @@ if (addToColForm) {
                                 if (docSnap.exists()) {
                                     userData = docSnap.data();
                                     active = [user, userData]
-                                    let users = axios.post('/users', active)
+                                    let users = await axios.post('/users', active)
                                 } else {
                                     console.log("No such document!");
                                 }
@@ -492,7 +491,7 @@ if (cols) {
                 for (const FBcol in userData) {
                     if (colTitle === userData[FBcol].title) {
                         console.log(userData[FBcol].books)
-                        const requestedCol = axios.post('/collection', userData[FBcol]).then(() => {
+                        const requestedCol = await axios.post('/collection', userData[FBcol]).then(() => {
                             window.location.href = "/collection"
                         })
                     }
