@@ -252,13 +252,13 @@ if (logInForm) {
                 if (docSnap.exists()) {
                     userData = docSnap.data();
                     active = [cred.user, userData]
-                    let user = axios.post('/users', active)
+                    let user = await axios.post('/users', active).then(() => {
+                        window.location.href = "/profile"
+                        signupForm.reset();
+                    })
                 } else {
                     console.log("No such document!");
                 }
-            }).then(() => {
-                window.location.href = "/profile"
-                signupForm.reset();
             }).catch(() => {
                 alertUser('Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
