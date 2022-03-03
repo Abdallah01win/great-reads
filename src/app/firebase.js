@@ -134,8 +134,9 @@ if (googleSignIn) {
                     console.log("No such document!");
                 }
 
+            }).then(()=>{
+                window.location.href = "/profile"
             })
-            window.location.href = "/profile"
         }).catch((err) => {
             console.error(err)
         })
@@ -156,6 +157,7 @@ if (googleLogIn) {
             } else {
                 console.log("No such document!");
             }
+        }).then(()=>{
             window.location.href = "/profile"
         })
     })
@@ -210,10 +212,12 @@ if (signupForm) {
                     } else {
                         console.log("No such document!");
                     }
+                }).then(() => {
+                    window.location.href = "/profile"
+                    signupForm.reset();
                 })
-                window.location.href = "/profile"
-            })
-        signupForm.reset();
+            }
+        )
     })
 }
 
@@ -223,10 +227,11 @@ if (logOutBtn) {
         e.preventDefault()
         console.log('clicked')
         signOut(auth)
-            .then(() => {
+            .then(async() => {
                 console.log('user sined out')
                 active = ["", ""]
-                let users = axios.post('/users', active)
+                let users = await axios.post('/users', active)
+            }).then(()=>{
                 window.location.href = "/"
             })
     })
@@ -251,7 +256,7 @@ if (logInForm) {
                 } else {
                     console.log("No such document!");
                 }
-            }).then(()=>{
+            }).then(() => {
                 window.location.href = "/profile"
                 signupForm.reset();
             }).catch(() => {
@@ -335,8 +340,9 @@ if (profileForm) {
                 active = [user, userData]
                 let users = axios.post('/users', active)
             }
+        }).then(()=>{
+            window.location.href = "/profile"
         })
-        window.location.href = "/profile"
     })
 }
 
@@ -376,7 +382,7 @@ if (newColForm) {
                 books: []
             },
         }, { merge: true })
-            .then(async (cred) => {
+            .then(async () => {
                 const user = auth.currentUser
                 const docRef = doc(dataBase, 'users', `${user.uid}`)
                 const docSnap = await getDoc(docRef);
@@ -387,9 +393,10 @@ if (newColForm) {
                 } else {
                     console.log("No such document!");
                 }
+            }).then(()=>{
                 window.location.href = "/collections"
+                signupForm.reset();
             })
-        signupForm.reset();
     })
 }
 const bookShelvs = document.getElementsByClassName('shelv__book');
@@ -428,7 +435,6 @@ if (addToCol) {
                 console.log("No such document!");
             }
         })
-        //Hide form here
     })
 }
 
@@ -463,7 +469,6 @@ if (addToColForm) {
                                 } else {
                                     console.log("No such document!");
                                 }
-
                             })
                         }
                     }
