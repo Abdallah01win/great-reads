@@ -1,33 +1,21 @@
-/*import { initializeApp} from "firebase/app";
-import { getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-signOut} from "firebase/auth";
-import {getFirestore,
-    collection,
-    addDoc,
-    setDoc,
-    getDocs,
-    getDoc,
-    doc} from "firebase/firestore"*/
 const { default: axios } = require('axios');
-const { wait } = require('./getbooks')
+const { wait, alertUser, hideColForm, getDocSnap } = require('./getbooks')
 const { initializeApp } = require('firebase/app');
-const { getFirestore,
-    collection,
-    addDoc,
-    setDoc,
-    getDocs,
-    getDoc,
-    doc, updateDoc, arrayUnion, arrayRemove, query, where } = require('firebase/firestore')
 const {
-    getAuth,
-    createUserWithEmailAndPassword,
+    getFirestore,
+    collection, addDoc, setDoc, getDocs, getDoc, doc,
+    updateDoc, arrayUnion, arrayRemove, query, where
+} = require('firebase/firestore')
+const {
+    getAuth, createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged, GoogleAuthProvider, signInWithPopup,
+    signOut, onAuthStateChanged,
+    GoogleAuthProvider, signInWithPopup,
 } = require("firebase/auth");
-const { getStorage, ref, uploadBytes, getDownloadURL, deleteObject, listAll } = require('firebase/storage')
+const {
+    getStorage, ref, uploadBytes,
+    getDownloadURL, deleteObject, listAll
+} = require('firebase/storage')
 
 const firebaseConfig = {
     apiKey: "AIzaSyDNrU14PpFboO3kGq8CadALxnVqLm9liz8",
@@ -47,52 +35,47 @@ const auth = getAuth();
 const savedIcon = "<ion-icon name='cloud-done-outline'></ion-icon>";
 const errorIcon = "<ion-icon name='close-circle-outline'></ion-icon>"
 const alert = document.getElementById('alert');
-function alertUser(text, icon) {
-    alert.firstElementChild.innerHTML = icon;
-    alert.lastElementChild.innerHTML = text;
-    alert.classList.add('show-alert');
-    setTimeout(() => {
-        alert.classList.remove('show-alert');
-    }, 1600)
-}
-// scusses Example alertUser('Book Added Succesfuly', savedIcon);
-// Error Example alertUser('an Arror accured', errorIcon);
-
 const signupForm = document.getElementById('signup');
 const signUpBtn = document.getElementById('signUpBtn');
-const userStatus = document.getElementById('userStatus');
 
+// Search For book in Google Books API
 const searchForm = document.getElementById('navSearchForm');
 searchForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    //get user's search term
     const searchTerm = searchForm.searchFormInput.value;
     if (searchTerm != "") {
+        //Get API data
         const dataa = await wait(searchTerm);
         const books = dataa.data.items;
+        // Fillter API data
         newArray = books.filter(book => {
             if (book.volumeInfo.publishedDate && book.volumeInfo.imageLinks) {
-                return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60 /*&& book.volumeInfo.categories == ("Fiction");
-            /*("City planning" && "Industries" && "Consumer credit" && )*/
+                return book.volumeInfo.imageLinks.thumbnail && parseInt(book.volumeInfo.publishedDate.substring(0, 4)) >= 1900 && book.volumeInfo.pageCount > 60
             }
         })
+        // Send Filltered Data to Express server
         axios.post('/search', newArray).then(() => {
             window.location.href = "/search"
         })
     }
 
 })
+
+// Sign new users using Google acount
 const googleSignIn = document.getElementById('googleSignIn');
 const googleLogIn = document.getElementById('googleLogIn');
 if (googleSignIn) {
     googleSignIn.addEventListener('click', (e) => {
         e.preventDefault();
+        // Create User in Firebase Auth
         const googleProvider = new GoogleAuthProvider();
+        // Create User in Database
         signInWithPopup(auth, googleProvider).then(async (result) => {
             const user = result.user;
             const name = user.displayName.split(/\s+/);
             const fName = name[0];
             const lName = name[1];
-            console.log(user)
             await setDoc(doc(dataBase, "users", (user.uid)), {
                 userInfo: {
                     fName: fName,
@@ -121,27 +104,20 @@ if (googleSignIn) {
                     title: "Favorits",
                     books: []
                 }
-            }).then(async () => {
-                const user = auth.currentUser
-                const docRef = doc(dataBase, 'users', `${user.uid}`)
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    userData = docSnap.data();
-                    active = [user, userData]
-                    let users = await axios.post('/users', active).then(()=>{
-                        window.location.href = "/profile"
-                    })
-                    console.log(userData)
-                } else {
-                    console.log("No such document!");
-                }
-
+            }).then(() => {
+                // Send Data to Server and 
+                const user = auth.currentUser;
+                getDocSnap(dataBase, user, "/users", "/profile")
+                // post rout /users
+                // redirect rout /profile
             })
         }).catch((err) => {
             console.error(err)
         })
     })
 }
+
+// Log user in with Google
 if (googleLogIn) {
     googleLogIn.addEventListener('click', () => {
         const googleProvider = new GoogleAuthProvider();
@@ -150,14 +126,17 @@ if (googleLogIn) {
             const docRef = doc(dataBase, 'users', `${user.uid}`)
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
+                // send User data To server
                 userData = docSnap.data();
                 active = [user, userData]
-                let users = await axios.post('/users', active).then(()=>{
+                let users = await axios.post('/users', active).then(() => {
+                    // Redirect to Profile page
                     window.location.href = "/profile"
                 })
-            } else {
-                console.log("No such document!");
             }
+        }).catch(() => {
+            alertUser(alert, 'Incorrect Email or Password', errorIcon);
+            logingInBtn.innerHTML = "Login";
         })
     })
 }
@@ -201,18 +180,7 @@ if (signupForm) {
                     }
                 }).then(async () => {
                     const user = auth.currentUser
-                    const docRef = doc(dataBase, 'users', `${user.uid}`)
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        userData = docSnap.data();
-                        active = [user, userData]
-                        let users = await axios.post('/users', active).then(() => {
-                            window.location.href = "/profile"
-                            signupForm.reset();
-                        })
-                    } else {
-                        console.log("No such document!");
-                    }
+                    getDocSnap(dataBase, user, "/users", "/profile")
                 })
             }
         )
@@ -223,13 +191,11 @@ const logOutBtn = document.getElementById('logOutBtn');
 if (logOutBtn) {
     logOutBtn.addEventListener('click', (e) => {
         e.preventDefault()
-        console.log('clicked')
         signOut(auth)
-            .then(async() => {
-                console.log('user sined out')
+            .then(async () => {
                 active = ["", ""]
                 let users = await axios.post('/users', active)
-            }).then(()=>{
+            }).then(() => {
                 window.location.href = "/"
             })
     })
@@ -245,20 +211,10 @@ if (logInForm) {
         const password = logInForm.password.value
         signInWithEmailAndPassword(auth, email, password)
             .then(async (cred) => {
-                const docRef = doc(dataBase, 'users', `${cred.user.uid}`)
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    userData = docSnap.data();
-                    active = [cred.user, userData]
-                    let user = await axios.post('/users', active).then(() => {
-                        window.location.href = "/profile"
-                        signupForm.reset();
-                    })
-                } else {
-                    console.log("No such document!");
-                }
+                const user = auth.currentUser;
+                getDocSnap(dataBase, user, "/users", "/profile")
             }).catch(() => {
-                alertUser('Incorrect Email or Password', errorIcon);
+                alertUser(alert, 'Incorrect Email or Password', errorIcon);
                 logingInBtn.innerHTML = "Login"
             })
     })
@@ -278,33 +234,18 @@ if (imgupload) {
                 res.items.forEach((itemRef) => {
                     if (itemRef) {
                         deleteObject(itemRef)
-                            .then(() => {
-                                console.log('deleted')
-                            })
                     }
                 });
             })
         const storageRef = ref(storage, "users/" + auth.currentUser.uid + "/" + file.name);
         await uploadBytes(storageRef, file).then(() => {
-            console.log("file uploaded to storage")
-        }).then(() => {
             getDownloadURL(storageRef).then(async (url) => {
                 await setDoc(doc(dataBase, "users", (user.uid)), {
                     userInfo: {
                         imgUrl: url,
                     },
                 }, { merge: true }).then(async () => {
-                    const docRef = doc(dataBase, 'users', `${user.uid}`)
-                    const docSnap = await getDoc(docRef);
-                    if (docSnap.exists()) {
-                        userData = docSnap.data();
-                        active = [user, userData]
-                        let users = await axios.post('/users', active).then(()=>{
-                            window.location.href = "/profile"
-                        })
-                    } else {
-                        console.log("No such document!");
-                    }
+                    getDocSnap(dataBase, user, "/users", "/profile")
                 })
             })
         })
@@ -331,16 +272,8 @@ if (profileForm) {
                 adress: adress
             },
         }, { merge: true }).then(async () => {
-            const user = auth.currentUser
-            const docRef = doc(dataBase, 'users', `${user.uid}`)
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                userData = docSnap.data();
-                active = [user, userData]
-                let users = await axios.post('/users', active).then(()=>{
-                    window.location.href = "/profile"
-                })
-            }
+            const user = auth.currentUser;
+            getDocSnap(dataBase, user, "/users", "/profile");
         })
     })
 }
@@ -351,14 +284,9 @@ const cancelCol = document.getElementById('cancelCol');
 const closeColBtn = document.getElementById('closeColBtn');
 const newColForm = document.getElementById('newColForm');
 
-function hideColForm(formContainer) {
-    formContainer.classList.remove('showColForm')
-    formContainer.classList.add('hideColForm')
-}
 if (creatColBtn) {
     creatColBtn.addEventListener('click', () => {
-        creatCol.classList.remove('hideColForm')
-        creatCol.classList.add('showColForm')
+        showColForm(creatCol)
         window.scroll({ top: 0, left: 0 });
     })
     closeColBtn.addEventListener('click', () => {
@@ -383,18 +311,7 @@ if (newColForm) {
         }, { merge: true })
             .then(async () => {
                 const user = auth.currentUser
-                const docRef = doc(dataBase, 'users', `${user.uid}`)
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    userData = docSnap.data();
-                    active = [user, userData]
-                    let users = await axios.post('/users', active).then(()=>{
-                        window.location.href = "/collections"
-                        signupForm.reset();
-                    })
-                } else {
-                    console.log("No such document!");
-                }
+                getDocSnap(dataBase, user, "/users", "/collections")
             })
     })
 }
@@ -416,23 +333,14 @@ if (addToCol) {
     bookId = addToCurentReads.parentElement.parentElement.firstElementChild.textContent;
     addToCurentReads.addEventListener('click', async (e) => {
         e.preventDefault();
-        console.log(bookId);
         const user = auth.currentUser;
         // adding books ids to firestore
         await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
             "currentlyReading.books": arrayUnion(bookId)
 
         }, { merge: true }).then(async () => {
-            alertUser('Book Added Succesfuly', savedIcon);
-            const docRef = doc(dataBase, 'users', `${user.uid}`)
-            const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-                userData = docSnap.data();
-                active = [user, userData]
-                let users = axios.post('/users', active)
-            } else {
-                console.log("No such document!");
-            }
+            alertUser(alert, 'Book Added Succesfuly', savedIcon);
+            getDocSnap(dataBase, user, "/users", null)
         })
     })
 }
@@ -448,7 +356,6 @@ if (addToColForm) {
         // get collections from firebase
         const docSnap = await getDoc(doc(dataBase, 'users', (user.uid)));
         const collections = docSnap.data();
-        console.log(collections);
         for (const checkBox of chackBoxs) {
             if (checkBox.checked === true) {
                 for (const col in collections) {
@@ -458,16 +365,8 @@ if (addToColForm) {
                             await updateDoc(doc(dataBase, "users", `${auth.currentUser.uid}`), {
                                 [`${col}.books`]: arrayUnion(bookId)
                             }).then(async () => {
-                                alertUser('Book Added Succesfuly', savedIcon);
-                                const docRef = doc(dataBase, 'users', `${user.uid}`)
-                                const docSnap = await getDoc(docRef);
-                                if (docSnap.exists()) {
-                                    userData = docSnap.data();
-                                    active = [user, userData]
-                                    let users = await axios.post('/users', active)
-                                } else {
-                                    console.log("No such document!");
-                                }
+                                alertUser(alert, 'Book Added Succesfuly', savedIcon);
+                                getDocSnap(dataBase, user, "/users", null)
                             })
                         }
                     }
@@ -490,14 +389,11 @@ if (cols) {
                 userData = docSnap.data();
                 for (const FBcol in userData) {
                     if (colTitle === userData[FBcol].title) {
-                        console.log(userData[FBcol].books)
                         const requestedCol = await axios.post('/collection', userData[FBcol]).then(() => {
                             window.location.href = "/collection"
                         })
                     }
                 }
-            } else {
-                console.log("No such document!");
             }
         })
     }

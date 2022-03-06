@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const { wait, getBookById } = require('./src/app/getbooks')
+const { getBookById } = require('./src/app/getbooks')
 const bodyParser = require('body-parser');
 const app = express();
 
@@ -20,7 +20,6 @@ app.use(express.static(path.join(__dirname, ('dist'))));
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 const jsonParser = bodyParser.json()
 collectionInfo = "";
-
 
 // Search Rout
 app.post('/search', jsonParser, async (req, res) => {
