@@ -11,6 +11,7 @@
     &__item {
         &--logo {
             font-family: $pri-font;
+            color: var(--text);
             font-size: 3rem;
             span {
                 font-weight: 700;
