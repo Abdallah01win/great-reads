@@ -1,5 +1,5 @@
 const { default: axios } = require('axios');
-const { wait, alertUser, hideColForm, getDocSnap,
+const { wait, alertUser, hideColForm, showColForm, getDocSnap,
      creatUserDatabase } = require('./utilityFunctions')
 const { initializeApp } = require('firebase/app');
 const {
