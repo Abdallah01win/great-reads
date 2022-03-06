@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {getDoc, doc} = require('firebase/firestore')
+const {getDoc, doc, setDoc} = require('firebase/firestore')
 const apiToken = "AIzaSyDxuuNaDqsEUc9wp4Wr4lk5BEVJB6Z5Wc8";
 
 function wait(searchTerm = "One Hundred Years of Solitude", lang = "en") {
@@ -42,4 +42,35 @@ async function getDocSnap(dataBase, user, postRout, redirect) {
         })
     }
 }
-module.exports = { wait, getBookById, alertUser, hideColForm, getDocSnap };
+async function creatUserDatabase(dataBase, user, fName, lName){
+    await setDoc(doc(dataBase, "users", (user.uid)), {
+        userInfo: {
+            fName: fName,
+            lName: lName,
+            phoneNum: "",
+            adress: "",
+            imgUrl: "",
+        },
+        wantToRead: {
+            discription: "",
+            title: "Want To Read",
+            books: []
+        },
+        Read: {
+            discription: "",
+            title: "Read",
+            books: []
+        },
+        currentlyReading: {
+            discription: "",
+            title: "Currently Reading",
+            books: []
+        },
+        favorits: {
+            discription: "",
+            title: "Favorits",
+            books: []
+        }
+    })
+}
+module.exports = { wait, getBookById, alertUser, hideColForm, showColForm, getDocSnap, creatUserDatabase };

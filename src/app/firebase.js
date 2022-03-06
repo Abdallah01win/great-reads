@@ -1,5 +1,6 @@
 const { default: axios } = require('axios');
-const { wait, alertUser, hideColForm, getDocSnap } = require('./getbooks')
+const { wait, alertUser, hideColForm, getDocSnap,
+     creatUserDatabase } = require('./utilityFunctions')
 const { initializeApp } = require('firebase/app');
 const {
     getFirestore,
@@ -76,40 +77,10 @@ if (googleSignIn) {
             const name = user.displayName.split(/\s+/);
             const fName = name[0];
             const lName = name[1];
-            await setDoc(doc(dataBase, "users", (user.uid)), {
-                userInfo: {
-                    fName: fName,
-                    lName: lName,
-                    phoneNum: "",
-                    adress: "",
-                    imgUrl: "",
-                },
-                wantToRead: {
-                    discription: "",
-                    title: "Want To Read",
-                    books: []
-                },
-                Read: {
-                    discription: "",
-                    title: "Read",
-                    books: []
-                },
-                currentlyReading: {
-                    discription: "",
-                    title: "Currently Reading",
-                    books: []
-                },
-                favorits: {
-                    discription: "",
-                    title: "Favorits",
-                    books: []
-                }
-            }).then(() => {
+            creatUserDatabase(dataBase, user, fName, lName).then(() => {
                 // Send Data to Server and 
                 const user = auth.currentUser;
                 getDocSnap(dataBase, user, "/users", "/profile")
-                // post rout /users
-                // redirect rout /profile
             })
         }).catch((err) => {
             console.error(err)
@@ -140,6 +111,7 @@ if (googleLogIn) {
         })
     })
 }
+// creat new user with email and password
 if (signupForm) {
     signupForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -150,35 +122,8 @@ if (signupForm) {
         const lname = signupForm.lname.value;
         createUserWithEmailAndPassword(auth, email, password)
             .then(async (cred) => {
-                await setDoc(doc(dataBase, "users", (cred.user.uid)), {
-                    userInfo: {
-                        fName: fname,
-                        lName: lname,
-                        phoneNum: "",
-                        adress: "",
-                        imgUrl: "",
-                    },
-                    WantToRead: {
-                        discription: "",
-                        title: "Want To Read",
-                        books: []
-                    },
-                    Read: {
-                        discription: "",
-                        title: "Read",
-                        books: []
-                    },
-                    currentlyReading: {
-                        discription: "",
-                        title: "Currently Reading",
-                        books: []
-                    },
-                    Favorits: {
-                        discription: "",
-                        title: "Favorits",
-                        books: []
-                    }
-                }).then(async () => {
+                const user = cred.user
+                creatUserDatabase(dataBase, user, fname, lname).then(async () => {
                     const user = auth.currentUser
                     getDocSnap(dataBase, user, "/users", "/profile")
                 })
@@ -187,6 +132,7 @@ if (signupForm) {
     })
 }
 
+// log user out from side nav btn
 const logOutBtn = document.getElementById('logOutBtn');
 if (logOutBtn) {
     logOutBtn.addEventListener('click', (e) => {
@@ -201,6 +147,7 @@ if (logOutBtn) {
     })
 }
 
+// log users in with email and password
 const logInForm = document.getElementById('login');
 const logingInBtn = document.getElementById('logingInBtn');
 if (logInForm) {
@@ -220,6 +167,7 @@ if (logInForm) {
     })
 }
 
+// profile img uploade functionality
 const imgupload = document.getElementById('imgUpload');
 const loadingImg = document.getElementById('loadingImg');
 if (imgupload) {
@@ -252,6 +200,7 @@ if (imgupload) {
     })
 }
 
+// handle profile form data and actions
 const profileForm = document.getElementById('profile-form');
 const profileFormBtn = document.getElementById('profileFormBtn');
 if (profileForm) {
@@ -263,7 +212,7 @@ if (profileForm) {
         const lastName = profileForm.lastname.value
         const phonenum = profileForm.phonenum.value
         const adress = profileForm.adress.value
-
+        // update user data from profile form
         await setDoc(doc(dataBase, "users", (user.uid)), {
             userInfo: {
                 fName: firstName,
@@ -296,7 +245,7 @@ if (creatColBtn) {
         hideColForm(creatCol)
     })
 }
-
+// create a user collection functionality
 if (newColForm) {
     newColForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -315,6 +264,7 @@ if (newColForm) {
             })
     })
 }
+// get ckliked book fromsearch resaults page 
 const bookShelvs = document.getElementsByClassName('shelv__book');
 for (let i = 0; i < bookShelvs.length; i++) {
     bookShelvs[i].addEventListener('click', async (e) => {
@@ -329,6 +279,7 @@ for (let i = 0; i < bookShelvs.length; i++) {
 const addToCurentReads = document.getElementById('addToCurentReads');
 const addToCol = document.getElementById('addToCol');
 
+// Add book to curently reading collection
 if (addToCol) {
     bookId = addToCurentReads.parentElement.parentElement.firstElementChild.textContent;
     addToCurentReads.addEventListener('click', async (e) => {
@@ -349,6 +300,8 @@ if (addToCol) {
 const colForm = document.getElementById('colForm');
 const addToColForm = document.getElementById('addToColForm');
 const chackBoxs = document.querySelectorAll('.colCheckbox');
+
+// Add book to selected collections
 if (addToColForm) {
     addToColForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -380,6 +333,7 @@ if (addToColForm) {
 }
 
 const cols = document.querySelectorAll('.cols__col');
+// get clicked collection from collections page
 if (cols) {
     for (const col of cols) {
         col.addEventListener('click', async (e) => {
@@ -420,33 +374,6 @@ if (deleteBook) {
             console.log(typeof (bookToDelete))
             console.log(typeof (bookCol))
             console.log(querySnapshot.empty)
-
-            /*.then((querySnapshot) => {
-                // Removal of object will not proceed if the querySnapshot is empty.
-                if ((querySnapshot.empty)) {
-                    console.log("No object found!");
-                }
-                else {
-                    // Proceeds to removal of object.
-                    updateDoc(userRef, {
-                        [arrayRef]: arrayRemove(`${toString(bookToDelete)}`)
-                    })
-                        .then(() => {
-                            // Check again if the object was deleted successfully.
-                            const querySnapshot = getDocs(q)
-                                .then((querySnapshot) => {
-                                    if ((querySnapshot.empty)) {
-                                        console.log("Book Deleted!");
-                                    }
-                                    else {
-                                        console.log("Failed!");
-                                    }
-                                })
-                        });
-                }
-            })
-            // Catch if there are any Firebase errors.
-            .catch(error => console.log('Failed!', error));*/
         })
     }
 }
